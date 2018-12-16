@@ -9,4 +9,4 @@ ext_modules = [
     )
 ]
 
-setup(name='bodiea', ext_modules=cythonize(ext_modules))
+setup(name='bodies', ext_modules=cythonize(ext_modules))
