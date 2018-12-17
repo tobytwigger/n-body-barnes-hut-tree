@@ -1,7 +1,3 @@
-import numpy as np
-from area import Area
-
-
 class Bodies:
 
     positions = None
@@ -50,3 +46,9 @@ class Bodies:
 
     def minb_z(self):
         return min(self.positions[:, 2])
+
+    def set_area(self, area):
+        self.area = area
+
+    def get_area(self):
+        return self.area

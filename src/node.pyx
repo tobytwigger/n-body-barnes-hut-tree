@@ -1,7 +1,6 @@
-from area import Area
 import numpy as np
 
-class Node():
+class Node:
 
     def __init__(self, area, depth=0):
         self.bodies = []

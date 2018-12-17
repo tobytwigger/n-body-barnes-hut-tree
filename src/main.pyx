@@ -1,18 +1,14 @@
+
 import sys
 from bhtree import BHTree
-from area import Area
+from area cimport Area
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import axes3d
 import random
 import time
-import os
+import numpy as np
 
-if int(len(sys.argv)) != 4:
-    print("Usage: {} <ITERATIONS> <FOLDER> <dt>".format(sys.argv[0]))
-    exit(1)
-directory = 'images/{}'.format(sys.argv[2])
-if not os.path.exists(directory):
-    os.makedirs(directory)
+
 
 
 
@@ -49,45 +45,62 @@ def plotNodeArea(ax, area):
     ax.plot([area.min_x, area.max_x], [area.max_y, area.max_y], [area.min_z, area.min_z], color=color)
     return ax
 
+def drawForces(ax, bodies):
+    x = bodies.positions[:, 0]
+    y = bodies.positions[:, 1]
+    z = bodies.positions[:, 2]
+    u = bodies.forces[:, 0]
+    v = bodies.forces[:, 1]
+    w = bodies.forces[:, 2]
+    arrow_len = bodies.area.get_dimensions()[0]/10
+    for i in range(bodies.n):
+        ax.quiver(x[i], y[i], z[i], u[i], v[i], w[i])#, length=arrow_len, normalize=True)
+    return ax
 
-def saveScatterPlot(fig, x, y, z, root_node=None):
+
+def saveScatterPlot(fig, x, y, z, directory, iter_number, root_node=None, bodies=None):
 
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(x, y, z)
     # sc._offsets3d = (bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2])
     if root_node is not None:
-        ax = drawGrid(ax, bhtree.root_node)
+        ax = drawGrid(ax, root_node)
+    if bodies is not None:
+        ax = drawForces(ax, bodies)
     ax.set_xlim([min(x), max(x)])
     ax.set_ylim([min(y), max(y)])
     ax.set_zlim([min(z), max(z)])
-    plt.savefig('{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
+    plt.savefig('images/{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
     plt.cla()
     plt.clf()
 
 
+cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies):
 
-# Create an area to calculate within
-area = Area([0,0,0], [9*10**21, 9*10**21, 9*10**21])
+    cdef Area area
 
-# Create a Barnes Hut Tree
-bhtree = BHTree()
-# Generate all the relevant bodies
-bhtree.generate_data(area, 500)
+    # Create an area to calculate within
+    area = Area(np.array([0,0,0], dtype=np.float64), np.array([area_side, area_side, area_side], dtype=np.float64))
 
-# Populate the tree with the bodies
-bhtree.populate()
+    # Create a Barnes Hut Tree
+    bhtree = BHTree()
+    # Generate all the relevant bodies
+    bhtree.generate_data(area, int(num_bodies))
 
-starttime = time.time()
-iter_number = 0
-# Iterate through time
-fig = plt.figure()
-for i in range(int(sys.argv[1])):
-    print('Iteration {}'.format(i))
-    saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2]) # bhtree.root_node)
-    iter_number += 1
-    print('Complete')
-    bhtree.iterate(0.1)
+    # Populate the tree with the bodies
+    bhtree.populate()
 
-timetaken = time.time()-starttime
-print('{} iterations took {}s, or {}s per iteration'.format(iter_number, timetaken, timetaken/iter_number))
+    starttime = time.time()
+    iter_number = 0
+    # Iterate through time
+    fig = plt.figure()
+    for i in range(int(iterations)):
+        print('Iteration {}'.format(i))
+        saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, iter_number)#, None, bhtree.bodies)#, bhtree.root_node)
+        iter_number += 1
+        print('Complete')
+        bhtree.iterate(float(dt))
+
+    timetaken = time.time()-starttime
+    print('{} iterations took {}s, or {}s per iteration'.format(iter_number, timetaken, timetaken/iter_number))
 
