@@ -11,6 +11,7 @@ class Area:
         self.max_y = max_coordinates[1]
         self.max_z = max_coordinates[2]
 
+
     def get_dimensions(self):
         return np.array([self.max_x-self.min_x, self.max_y-self.min_y, self.max_z-self.min_z])
 
@@ -19,6 +20,9 @@ class Area:
 
     def get_maximum_coordinates(self):
         return [self.max_x, self.max_y, self.max_z]
+
+    def get_central_coordinates(self):
+        return [self.get_center_x(), self.get_center_y(), self.get_center_z()]
 
     def get_center_x(self):
         return (self.max_x + self.min_x)/2
@@ -54,5 +58,8 @@ class Area:
         elif node_index == 7:
             return Area([self.get_center_x(), self.get_center_y(), self.get_center_z()], [self.max_x, self.max_y, self.max_z])
 
+    def change_area_size(self, min_coordinates, max_coordinates):
+        self.__init__(min_coordinates, max_coordinates)
+        # If this doesn't work, copy and paste from above
     def __str__(self):
         return str([[self.min_x, self.max_x], [self.min_y, self.max_y], [self.min_z, self.max_z]])
