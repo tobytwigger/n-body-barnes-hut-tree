@@ -7,99 +7,39 @@ ext_modules = [
     Extension(
         'src.area',
         ['src/area.pyx'],
-        include_dirs=[numpy.get_include()]
-    )
-]
-
-setup(
-    name='area',
-    package_data={
-        '': ['src/area.pxd'],
-    },
-    ext_modules=cythonize(ext_modules)
-
-)
-
-
-
-
-
-
-ext_modules = [
+        include_dirs=[numpy.get_include(), '.', 'src']
+    ),
     Extension(
         'src.node',
         ['src/node.pyx'],
-        include_dirs=[numpy.get_include()]
-    )
-]
-
-setup(
-    name='node',
-    package_data={
-        '': ['src/node.pxd'],
-    },
-    ext_modules=cythonize(ext_modules)
-)
-
-
-
-
-
-
-ext_modules = [
+        include_dirs=[numpy.get_include(), '.', 'src']
+    ),
     Extension(
         'src.bodies',
         ['src/bodies.pyx'],
-        include_dirs=[numpy.get_include()]
-    )
-]
-
-setup(
-    name='bodies',
-    package_data={
-        '': ['src/bodies.pxd'],
-    },
-    ext_modules=cythonize(ext_modules)
-)
-
-
-
-
-
-
-ext_modules = [
+        include_dirs=[numpy.get_include(), '.', 'src']
+    ),
     Extension(
         'src.bhtree',
         ['src/bhtree.pyx'],
-        include_dirs=[numpy.get_include()]
-    )
-]
-
-setup(
-    name='bhtree',
-    package_data={
-        '': ['src/bhtree.pxd'],
-    },
-    ext_modules=cythonize(ext_modules)
-)
-
-
-
-
-
-
-ext_modules = [
+        include_dirs=[numpy.get_include(), '.', 'src']
+    ),
     Extension(
         'src.main',
         ['src/main.pyx'],
-        include_dirs=[numpy.get_include()]
+        include_dirs=[numpy.get_include(), '.', 'src']
     )
 ]
 
 setup(
-    name='main',
-    package_data={
-        '': ['src/main.pxd'],
-    },
-    ext_modules=cythonize(ext_modules)
+    name='universe',
+    ext_modules=cythonize(ext_modules, language_level=3, annotate=True)
 )
+
+# package_data = {
+#   'area': ['src/area.pxd'],
+#   'node': ['src/node.pxd'],
+#   'bodies': ['src/bodies.pxd'],
+#   'bhtree': ['src/bhtree.pxd'],
+#   'main': ['src/main.pxd'],
+# },

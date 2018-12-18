@@ -1,4 +1,8 @@
+# cython: profile=True
+# cython: linetrace=True
+
 import numpy as np
+cimport numpy as np
 
 
 class Bodies(object):
@@ -18,23 +22,35 @@ class Bodies(object):
     def generate_data(self, area, n):
         self.set_area(area)
         self.positions = np.random.triangular(area.get_minimum_coordinates(), area.get_central_coordinates(), area.get_maximum_coordinates(), (n, 3))
-        self.masses = np.random.random_sample(n) * 1 * 10 ** 31 + 1 * 10**30
+        self.masses = np.array([m * 1 * 10 ** 31 + 1 * 10 **30 for m in np.random.random_sample(n)], dtype=np.float)
         self.velocities = np.random.random_sample((n, 3)) * (2 * 10 ** 8)
         self.accelerations = np.zeros((n, 3))#np.random.random_sample((n, 3)) * 7 * 10 ** 4
         self.forces = np.zeros((n, 3))
         self.n = n
 
-    def accelerate(self, int body_id, acceleration, float dt):
-        ''' Add to the acceleration/velocity '''
+    def accelerate(self, body_id, acceleration_dt, dt):
 
-        velocities = [a * dt for a in acceleration]
-        positions = [v * dt for v in velocities]
-        self.accelerations[body_id] =  [current_acc + delta_acc for current_acc, delta_acc in zip(self.accelerations[body_id], acceleration)]
-        self.velocities[body_id] = [current_vel + delta_vel for current_vel, delta_vel in zip(self.velocities[body_id], velocities)]
-        self.positions[body_id] = [current_pos + delta_pos for current_pos, delta_pos in zip(self.positions[body_id], positions)]
+        velocity_dt = np.array([a * dt for a in acceleration_dt], dtype=np.float)
+        position_dt = np.array([v * dt for v in velocity_dt], dtype=np.float)
+
+        self.update_accelerations(acceleration_dt, body_id)
+        self.update_velocities(position_dt, body_id)
+        self.update_positions(velocity_dt, body_id)
+
+    def update_accelerations(self, accelerations, body_id):
+        updated_acceleration = np.array([a + b for a, b in zip(self.accelerations[body_id], accelerations)], dtype=float).view(dtype=float)
+        self.accelerations[body_id] = updated_acceleration
+
+    def update_velocities(self, velocities, body_id):
+        updated_velocities = np.array([a + b for a, b in zip(self.velocities[body_id], velocities)], dtype=np.float).view(dtype=float)
+        self.velocities[body_id] = updated_velocities
+
+    def update_positions(self, positions, body_id):
+        updated_positions = np.array([a + b for a, b in zip(self.positions[body_id], positions)], dtype=np.float).view(dtype=float)
+        self.positions[body_id] = updated_positions
 
 
-    def get_mass(self, int body_id):
+    def get_mass(self, body_id):
         return self.masses[body_id]
 
     def get_total_mass(self):

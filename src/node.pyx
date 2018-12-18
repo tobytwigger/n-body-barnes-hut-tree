@@ -1,22 +1,30 @@
+# cython: profile=True
+# cython: linetrace=True
+
 import numpy as np
+cimport numpy as np
 
 class Node:
 
     def __init__(self, area, depth=0):
-        self.bodies = []
+        self.bodies = np.array([], dtype=np.int64)
         self.parent = False
         self.area = area
-        self.children = [None] * 8
+        self.children = np.full(8, None)
         self.depth = depth
+        self.mass = 0
+        self.com = np.array(3, dtype=float)
 
     def addBody(self, all_bodies, body_id):
+        self.com = ((self.com * self.mass) + (all_bodies.get_position(body_id) * all_bodies.masses[body_id]))/(self.mass + all_bodies.masses[body_id])
+        self.mass += all_bodies.masses[body_id]
         # If we have bodies already present or this is a parent
         if (len(self.bodies) > 0 or self.parent) and self.depth <= all_bodies.max_depth:
             detached_bodies = [body_id]  # bodies to add to children
             if len(self.bodies) > 0:
                 # if node has children, move own body down to child
-                detached_bodies.extend(self.bodies)
-                self.bodies = []
+                detached_bodies = np.append(detached_bodies, self.bodies)
+                self.bodies = np.array([], dtype=np.int64)
 
             for body in detached_bodies:
                 node_id = int(self.area.get_node_index(all_bodies.get_position(body)))
@@ -32,26 +40,11 @@ class Node:
 
 
         else:
-            self.bodies.append(body_id)
+            self.bodies = np.append(np.array(self.bodies, dtype=np.int64), body_id)
+            self.mass += all_bodies.masses[body_id]
 
     def get_center_of_mass(self, bodies):
-        com = np.zeros(3)
-        if self.parent:
-            for child_node in self.children:
-                if child_node is not None:
-                    com += child_node.get_center_of_mass(bodies)
-        else:
-            for body_id in self.bodies:
-                com += (bodies.get_position(body_id) * bodies.masses[body_id])
-        return com
+        return self.com
 
     def get_total_mass(self, bodies):
-        total_mass = 0
-        if self.parent:
-            for child_node in self.children:
-                if child_node is not None:
-                    total_mass += child_node.get_total_mass(bodies)
-        else:
-            for body_id in self.bodies:
-                total_mass += bodies.masses[body_id]
-        return total_mass
+        return self.mass

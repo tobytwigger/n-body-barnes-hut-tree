@@ -1,12 +1,17 @@
+# cython: profile=True
+# cython: linetrace=True
 
 import sys
-from bhtree import BHTree
-from area cimport Area
+from src.bhtree import BHTree
+
+from src.area import Area
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 import random
 import time
 import numpy as np
+cimport numpy as np
 
 
 
@@ -61,7 +66,10 @@ def drawForces(ax, bodies):
 def saveScatterPlot(fig, x, y, z, directory, iter_number, root_node=None, bodies=None):
 
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(x, y, z)
+    ax.scatter(x, y, z, marker=".", c='white')
+    ax.w_xaxis.set_pane_color((0,0,0,1))
+    ax.w_yaxis.set_pane_color((0,0,0,1))
+    ax.w_zaxis.set_pane_color((0,0,0,1))
     # sc._offsets3d = (bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2])
     if root_node is not None:
         ax = drawGrid(ax, root_node)
@@ -70,15 +78,14 @@ def saveScatterPlot(fig, x, y, z, directory, iter_number, root_node=None, bodies
     ax.set_xlim([min(x), max(x)])
     ax.set_ylim([min(y), max(y)])
     ax.set_zlim([min(z), max(z)])
-    plt.savefig('images/{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
+    plt.savefig('{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
     plt.cla()
     plt.clf()
 
 
-cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies):
-
-    cdef Area area
-
+def main(iterations, folder, dt, area_side, num_bodies):
+    cdef:
+        int i
     # Create an area to calculate within
     area = Area(np.array([0,0,0], dtype=np.float64), np.array([area_side, area_side, area_side], dtype=np.float64))
 
@@ -95,10 +102,9 @@ cpdef void main(int iterations, str folder, float dt, float area_side, int num_b
     # Iterate through time
     fig = plt.figure()
     for i in range(int(iterations)):
-        print('Iteration {}'.format(i))
         saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, iter_number)#, None, bhtree.bodies)#, bhtree.root_node)
+        print('Iteration {}'.format(i))
         iter_number += 1
-        print('Complete')
         bhtree.iterate(float(dt))
 
     timetaken = time.time()-starttime
