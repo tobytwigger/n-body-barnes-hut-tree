@@ -1242,7 +1242,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
 /* "src/area.pxd":1
- * cdef class Area:             # <<<<<<<<<<<<<<
+ * cdef class Area(object):             # <<<<<<<<<<<<<<
  * 
  *     cdef double min_x, min_y, min_z, max_x, max_y, max_z
  */
@@ -1261,7 +1261,7 @@ struct __pyx_obj_3src_4area_Area {
 /* "src/bodies.pxd":4
  * from src.area cimport Area
  * 
- * cdef class Bodies:             # <<<<<<<<<<<<<<
+ * cdef class Bodies(object):             # <<<<<<<<<<<<<<
  * 
  *     cdef int max_depth
  */
@@ -1282,7 +1282,7 @@ struct __pyx_obj_3src_6bodies_Bodies {
 /* "src/node.pxd":10
  * from cpython cimport bool
  * 
- * cdef class Node:             # <<<<<<<<<<<<<<
+ * cdef class Node(object):             # <<<<<<<<<<<<<<
  * 
  *     cdef int[:] bodies
  */
@@ -1376,22 +1376,22 @@ struct __pyx_memoryviewslice_obj {
 
 
 /* "src/area.pxd":1
- * cdef class Area:             # <<<<<<<<<<<<<<
+ * cdef class Area(object):             # <<<<<<<<<<<<<<
  * 
  *     cdef double min_x, min_y, min_z, max_x, max_y, max_z
  */
 
 struct __pyx_vtabstruct_3src_4area_Area {
-  __Pyx_memviewslice (*get_dimensions)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  __Pyx_memviewslice (*get_minimum_coordinates)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  __Pyx_memviewslice (*get_maximum_coordinates)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  __Pyx_memviewslice (*get_central_coordinates)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  double (*get_center_x)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  double (*get_center_y)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  double (*get_center_z)(struct __pyx_obj_3src_4area_Area *, int __pyx_skip_dispatch);
-  int (*get_node_index)(struct __pyx_obj_3src_4area_Area *, __Pyx_memviewslice, int __pyx_skip_dispatch);
-  struct __pyx_obj_3src_4area_Area *(*get_node_index_area)(struct __pyx_obj_3src_4area_Area *, int, int __pyx_skip_dispatch);
-  void (*change_area_size)(struct __pyx_obj_3src_4area_Area *, __Pyx_memviewslice, __Pyx_memviewslice, int __pyx_skip_dispatch);
+  __Pyx_memviewslice (*get_dimensions)(struct __pyx_obj_3src_4area_Area *);
+  __Pyx_memviewslice (*get_minimum_coordinates)(struct __pyx_obj_3src_4area_Area *);
+  __Pyx_memviewslice (*get_maximum_coordinates)(struct __pyx_obj_3src_4area_Area *);
+  __Pyx_memviewslice (*get_central_coordinates)(struct __pyx_obj_3src_4area_Area *);
+  double (*get_center_x)(struct __pyx_obj_3src_4area_Area *);
+  double (*get_center_y)(struct __pyx_obj_3src_4area_Area *);
+  double (*get_center_z)(struct __pyx_obj_3src_4area_Area *);
+  int (*get_node_index)(struct __pyx_obj_3src_4area_Area *, __Pyx_memviewslice);
+  struct __pyx_obj_3src_4area_Area *(*get_node_index_area)(struct __pyx_obj_3src_4area_Area *, int);
+  void (*change_area_size)(struct __pyx_obj_3src_4area_Area *, __Pyx_memviewslice, __Pyx_memviewslice);
 };
 static struct __pyx_vtabstruct_3src_4area_Area *__pyx_vtabptr_3src_4area_Area;
 
@@ -1399,26 +1399,26 @@ static struct __pyx_vtabstruct_3src_4area_Area *__pyx_vtabptr_3src_4area_Area;
 /* "src/bodies.pxd":4
  * from src.area cimport Area
  * 
- * cdef class Bodies:             # <<<<<<<<<<<<<<
+ * cdef class Bodies(object):             # <<<<<<<<<<<<<<
  * 
  *     cdef int max_depth
  */
 
 struct __pyx_vtabstruct_3src_6bodies_Bodies {
-  void (*generate_data)(struct __pyx_obj_3src_6bodies_Bodies *, struct __pyx_obj_3src_4area_Area *, int, int __pyx_skip_dispatch);
-  void (*accelerate)(struct __pyx_obj_3src_6bodies_Bodies *, int, __Pyx_memviewslice, float, int __pyx_skip_dispatch);
-  void (*update_accelerations)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int, int __pyx_skip_dispatch);
-  void (*update_velocities)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int, int __pyx_skip_dispatch);
-  void (*update_positions)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int, int __pyx_skip_dispatch);
-  double (*get_mass)(struct __pyx_obj_3src_6bodies_Bodies *, int, int __pyx_skip_dispatch);
-  double (*get_total_mass)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  __Pyx_memviewslice (*get_position)(struct __pyx_obj_3src_6bodies_Bodies *, int, int __pyx_skip_dispatch);
-  double (*maxb_x)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  double (*maxb_y)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  double (*maxb_z)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  double (*minb_x)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  double (*minb_y)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
-  double (*minb_z)(struct __pyx_obj_3src_6bodies_Bodies *, int __pyx_skip_dispatch);
+  void (*generate_data)(struct __pyx_obj_3src_6bodies_Bodies *, struct __pyx_obj_3src_4area_Area *, int);
+  void (*accelerate)(struct __pyx_obj_3src_6bodies_Bodies *, int, __Pyx_memviewslice, float);
+  void (*update_accelerations)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int);
+  void (*update_velocities)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int);
+  void (*update_positions)(struct __pyx_obj_3src_6bodies_Bodies *, __Pyx_memviewslice, int);
+  double (*get_mass)(struct __pyx_obj_3src_6bodies_Bodies *, int);
+  double (*get_total_mass)(struct __pyx_obj_3src_6bodies_Bodies *);
+  __Pyx_memviewslice (*get_position)(struct __pyx_obj_3src_6bodies_Bodies *, int);
+  double (*maxb_x)(struct __pyx_obj_3src_6bodies_Bodies *);
+  double (*maxb_y)(struct __pyx_obj_3src_6bodies_Bodies *);
+  double (*maxb_z)(struct __pyx_obj_3src_6bodies_Bodies *);
+  double (*minb_x)(struct __pyx_obj_3src_6bodies_Bodies *);
+  double (*minb_y)(struct __pyx_obj_3src_6bodies_Bodies *);
+  double (*minb_z)(struct __pyx_obj_3src_6bodies_Bodies *);
 };
 static struct __pyx_vtabstruct_3src_6bodies_Bodies *__pyx_vtabptr_3src_6bodies_Bodies;
 
@@ -1426,7 +1426,7 @@ static struct __pyx_vtabstruct_3src_6bodies_Bodies *__pyx_vtabptr_3src_6bodies_B
 /* "src/node.pyx":4
  * cimport numpy as np
  * 
- * cdef class Node:             # <<<<<<<<<<<<<<
+ * cdef class Node(object):             # <<<<<<<<<<<<<<
  * 
  *     def __cinit__(self, area, depth=0):
  */
@@ -2718,7 +2718,7 @@ static PyObject *__pyx_codeobj__36;
 /* Late includes */
 
 /* "src/node.pyx":6
- * cdef class Node:
+ * cdef class Node(object):
  * 
  *     def __cinit__(self, area, depth=0):             # <<<<<<<<<<<<<<
  *         self.bodies = np.empty(0, dtype=np.int32)
@@ -2900,7 +2900,7 @@ static int __pyx_pf_3src_4node_4Node___cinit__(struct __pyx_obj_3src_4node_Node 
   __pyx_v_self->depth = __pyx_t_7;
 
   /* "src/node.pyx":6
- * cdef class Node:
+ * cdef class Node(object):
  * 
  *     def __cinit__(self, area, depth=0):             # <<<<<<<<<<<<<<
  *         self.bodies = np.empty(0, dtype=np.int32)
@@ -3385,8 +3385,8 @@ static void __pyx_f_3src_4node_4Node_addBody(struct __pyx_obj_3src_4node_Node *_
  *                 if self.children[node_id] is None:
  */
       __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_each_body); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
-      __pyx_t_16 = ((struct __pyx_vtabstruct_3src_6bodies_Bodies *)__pyx_v_all_bodies->__pyx_vtab)->get_position(__pyx_v_all_bodies, __pyx_t_6, 0); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 27, __pyx_L1_error)
-      __pyx_t_6 = ((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_self->area->__pyx_vtab)->get_node_index(__pyx_v_self->area, __pyx_t_16, 0); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
+      __pyx_t_16 = ((struct __pyx_vtabstruct_3src_6bodies_Bodies *)__pyx_v_all_bodies->__pyx_vtab)->get_position(__pyx_v_all_bodies, __pyx_t_6); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 27, __pyx_L1_error)
+      __pyx_t_6 = ((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_self->area->__pyx_vtab)->get_node_index(__pyx_v_self->area, __pyx_t_16); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
       __PYX_XDEC_MEMVIEW(&__pyx_t_16, 1);
       __pyx_t_16.memview = NULL;
       __pyx_t_16.data = NULL;
@@ -3424,7 +3424,7 @@ static void __pyx_f_3src_4node_4Node_addBody(struct __pyx_obj_3src_4node_Node *_
  *                     child_depth = self.depth + 1
  *                     self.children[node_id] = Node(child_area, child_depth)
  */
-        __pyx_t_13 = ((PyObject *)((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_self->area->__pyx_vtab)->get_node_index_area(__pyx_v_self->area, __pyx_v_node_id, 0)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 30, __pyx_L1_error)
+        __pyx_t_13 = ((PyObject *)((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_self->area->__pyx_vtab)->get_node_index_area(__pyx_v_self->area, __pyx_v_node_id)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_XDECREF_SET(__pyx_v_child_area, ((struct __pyx_obj_3src_4area_Area *)__pyx_t_13));
         __pyx_t_13 = 0;
@@ -4122,7 +4122,7 @@ static __Pyx_memviewslice __pyx_f_3src_4node_4Node_get_center_of_mass(struct __p
         __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_v_body_id); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L11_error)
-        __pyx_t_5 = ((struct __pyx_vtabstruct_3src_6bodies_Bodies *)__pyx_v_bodies->__pyx_vtab)->get_position(__pyx_v_bodies, __pyx_t_10, 0); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 53, __pyx_L11_error)
+        __pyx_t_5 = ((struct __pyx_vtabstruct_3src_6bodies_Bodies *)__pyx_v_bodies->__pyx_vtab)->get_position(__pyx_v_bodies, __pyx_t_10); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 53, __pyx_L11_error)
         __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L11_error)
         __Pyx_GOTREF(__pyx_t_1);
         __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);

@@ -3,17 +3,17 @@ import math
 import numpy as np
 cimport numpy as np
 
-cdef class BHTree:
+cdef class BHTree(object):
 
     def __cinit__(self):
         self.bodies = Bodies()
         self.theta = 0
         self.root_node = Node(self.bodies.area)
 
-    cpdef void generate_data(self, Area area, int n) except *:
+    cdef void generate_data(self, Area area, int n) except *:
         self.bodies.generate_data(area, n)
 
-    cpdef void populate(self) except *:
+    cdef void populate(self) except *:
         cdef int i
         # Reset the tree
         self.reset_children()
@@ -21,7 +21,7 @@ cdef class BHTree:
         for i in range(self.bodies.n):
             self.root_node.addBody(self.bodies, i)
 
-    cpdef void reset_children(self) except *:
+    cdef void reset_children(self) except *:
         cdef double[:] min_coordinates
         cdef double[:] max_coordinates
         # Grow the area of the calulation space
@@ -30,7 +30,7 @@ cdef class BHTree:
         self.bodies.area.change_area_size(min_coordinates, max_coordinates)
         self.root_node = Node(self.bodies.area)
 
-    cpdef void iterate(self, float dt) except *:
+    cdef void iterate(self, float dt) except *:
         cdef int i
         cdef double[:] force
         cdef double[:] acceleration
@@ -48,7 +48,7 @@ cdef class BHTree:
 
         self.populate()
 
-    cpdef double[:] get_force_on_body(self, int body_id, Node node) except *:
+    cdef double[:] get_force_on_body(self, int body_id, Node node) except *:
         cdef double[:] force = np.zeros(3)
         cdef double[:] d
         cdef int k
@@ -75,7 +75,7 @@ cdef class BHTree:
 
         return force
 
-    cpdef double[:] get_force_due_to_body(self, int body_id, int gen_body_id) except *:
+    cdef double[:] get_force_due_to_body(self, int body_id, int gen_body_id) except *:
         cdef double[:] distance
         cdef double mass
         cdef double gen_mass
@@ -89,7 +89,7 @@ cdef class BHTree:
         # f = array(d * G * m1 * m2 / r ** 3)
         # return f
 
-    cpdef double[:] get_force_due_to_node(self, int body_id, Node node) except *:
+    cdef double[:] get_force_due_to_node(self, int body_id, Node node) except *:
         cdef double[:] distance
         cdef double mass
         cdef double gen_mass
@@ -99,7 +99,7 @@ cdef class BHTree:
         gen_mass = node.get_total_mass(self.bodies)
         return self.calculate_force(mass, distance, gen_mass)
 
-    cpdef double[:] calculate_force(self, float m, double[:] d, float m2) except *:
+    cdef double[:] calculate_force(self, float m, double[:] d, float m2) except *:
         cdef double G
         cdef double r
         ''' d should be an array of length 3 '''

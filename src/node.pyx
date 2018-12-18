@@ -1,7 +1,7 @@
 import numpy as np
 cimport numpy as np
 
-cdef class Node:
+cdef class Node(object):
 
     def __cinit__(self, area, depth=0):
         self.bodies = np.empty(0, dtype=np.int32)

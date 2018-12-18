@@ -344,9 +344,8 @@ body.cython { font-family: courier; font-size: 12; }
 <pre class="cython line score-0">&#xA0;<span class="">007</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">008</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">009</span>: </pre>
-<pre class="cython line score-38" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">010</span>: cpdef drawGrid(ax, Node node):</pre>
-<pre class='cython code score-38 '>static PyObject *__pyx_pw_3src_4main_1drawGrid(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_3src_4main_drawGrid(PyObject *__pyx_v_ax, struct __pyx_obj_3src_4node_Node *__pyx_v_node, CYTHON_UNUSED int __pyx_skip_dispatch) {
+<pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">010</span>: cdef drawGrid(ax, Node node):</pre>
+<pre class='cython code score-8 '>static PyObject *__pyx_f_3src_4main_drawGrid(PyObject *__pyx_v_ax, struct __pyx_obj_3src_4node_Node *__pyx_v_node) {
   PyObject *__pyx_v_child = NULL;
   PyObject *__pyx_r = NULL;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
@@ -363,94 +362,6 @@ static PyObject *__pyx_f_3src_4main_drawGrid(PyObject *__pyx_v_ax, struct __pyx_
   __pyx_L0:;
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_child);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_ax);
-  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_3src_4main_1drawGrid(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3src_4main_1drawGrid(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_ax = 0;
-  struct __pyx_obj_3src_4node_Node *__pyx_v_node = 0;
-  PyObject *__pyx_r = 0;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("drawGrid (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&amp;__pyx_n_s_ax,&amp;__pyx_n_s_node,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = <span class='py_c_api'>PyDict_Size</span>(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_ax)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_node)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("drawGrid", 1, 2, 2, 1); <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L3_error)</span>
-        }
-      }
-      if (unlikely(kw_args &gt; 0)) {
-        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "drawGrid") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L3_error)</span>
-      }
-    } else if (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-      values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-    }
-    __pyx_v_ax = values[0];
-    __pyx_v_node = ((struct __pyx_obj_3src_4node_Node *)values[1]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("drawGrid", 1, 2, 2, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L3_error)</span>
-  __pyx_L3_error:;
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.drawGrid", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_node), __pyx_ptype_3src_4node_Node, 1, "node", 0))) <span class='error_goto'>__PYX_ERR(0, 10, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_4main_drawGrid(__pyx_self, __pyx_v_ax, __pyx_v_node);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_3src_4main_drawGrid(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ax, struct __pyx_obj_3src_4node_Node *__pyx_v_node) {
-  PyObject *__pyx_r = NULL;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("drawGrid", 0);
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  __pyx_t_1 = __pyx_f_3src_4main_drawGrid(__pyx_v_ax, __pyx_v_node, 0);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.drawGrid", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
@@ -525,7 +436,7 @@ static PyObject *__pyx_pf_3src_4main_drawGrid(CYTHON_UNUSED PyObject *__pyx_self
 <pre class='cython code score-6 '>        __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_GetAttrStr</span>(__pyx_v_child, __pyx_n_s_area);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)</span>
         <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
         if (!(likely(((__pyx_t_1) == Py_None) || likely(<span class='pyx_c_api'>__Pyx_TypeTest</span>(__pyx_t_1, __pyx_ptype_3src_4area_Area))))) <span class='error_goto'>__PYX_ERR(0, 15, __pyx_L1_error)</span>
-        __pyx_t_7 = __pyx_f_3src_4main_plotNodeArea(__pyx_v_ax, ((struct __pyx_obj_3src_4area_Area *)__pyx_t_1), 0);<span class='error_goto'> if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 15, __pyx_L1_error)</span>
+        __pyx_t_7 = __pyx_f_3src_4main_plotNodeArea(__pyx_v_ax, ((struct __pyx_obj_3src_4area_Area *)__pyx_t_1));<span class='error_goto'> if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 15, __pyx_L1_error)</span>
         <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_7);
         <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
         <span class='pyx_macro_api'>__Pyx_DECREF_SET</span>(__pyx_v_ax, __pyx_t_7);
@@ -534,7 +445,7 @@ static PyObject *__pyx_pf_3src_4main_drawGrid(CYTHON_UNUSED PyObject *__pyx_self
 <pre class="cython line score-3" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">017</span>:                 ax = drawGrid(ax, child)</pre>
 <pre class='cython code score-3 '>      /*else*/ {
         if (!(likely(((__pyx_v_child) == Py_None) || likely(<span class='pyx_c_api'>__Pyx_TypeTest</span>(__pyx_v_child, __pyx_ptype_3src_4node_Node))))) <span class='error_goto'>__PYX_ERR(0, 17, __pyx_L1_error)</span>
-        __pyx_t_7 = __pyx_f_3src_4main_drawGrid(__pyx_v_ax, ((struct __pyx_obj_3src_4node_Node *)__pyx_v_child), 0);<span class='error_goto'> if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 17, __pyx_L1_error)</span>
+        __pyx_t_7 = __pyx_f_3src_4main_drawGrid(__pyx_v_ax, ((struct __pyx_obj_3src_4node_Node *)__pyx_v_child));<span class='error_goto'> if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 17, __pyx_L1_error)</span>
         <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_7);
         <span class='pyx_macro_api'>__Pyx_DECREF_SET</span>(__pyx_v_ax, __pyx_t_7);
         __pyx_t_7 = 0;
@@ -546,9 +457,8 @@ static PyObject *__pyx_pf_3src_4main_drawGrid(CYTHON_UNUSED PyObject *__pyx_self
   __pyx_r = __pyx_v_ax;
   goto __pyx_L0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">019</span>: </pre>
-<pre class="cython line score-39" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">020</span>: cpdef plotNodeArea(ax, Area area):</pre>
-<pre class='cython code score-39 '>static PyObject *__pyx_pw_3src_4main_3plotNodeArea(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_3src_4main_plotNodeArea(PyObject *__pyx_v_ax, struct __pyx_obj_3src_4area_Area *__pyx_v_area, CYTHON_UNUSED int __pyx_skip_dispatch) {
+<pre class="cython line score-9" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">020</span>: cdef plotNodeArea(ax, Area area):</pre>
+<pre class='cython code score-9 '>static PyObject *__pyx_f_3src_4main_plotNodeArea(PyObject *__pyx_v_ax, struct __pyx_obj_3src_4area_Area *__pyx_v_area) {
   PyObject *__pyx_v_color = NULL;
   PyObject *__pyx_r = NULL;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
@@ -566,94 +476,6 @@ static PyObject *__pyx_f_3src_4main_plotNodeArea(PyObject *__pyx_v_ax, struct __
   __pyx_r = 0;
   __pyx_L0:;
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_color);
-  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_3src_4main_3plotNodeArea(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3src_4main_3plotNodeArea(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_ax = 0;
-  struct __pyx_obj_3src_4area_Area *__pyx_v_area = 0;
-  PyObject *__pyx_r = 0;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("plotNodeArea (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&amp;__pyx_n_s_ax,&amp;__pyx_n_s_area,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = <span class='py_c_api'>PyDict_Size</span>(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_ax)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_area)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("plotNodeArea", 1, 2, 2, 1); <span class='error_goto'>__PYX_ERR(0, 20, __pyx_L3_error)</span>
-        }
-      }
-      if (unlikely(kw_args &gt; 0)) {
-        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "plotNodeArea") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 20, __pyx_L3_error)</span>
-      }
-    } else if (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-      values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-    }
-    __pyx_v_ax = values[0];
-    __pyx_v_area = ((struct __pyx_obj_3src_4area_Area *)values[1]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("plotNodeArea", 1, 2, 2, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 20, __pyx_L3_error)</span>
-  __pyx_L3_error:;
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.plotNodeArea", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_area), __pyx_ptype_3src_4area_Area, 1, "area", 0))) <span class='error_goto'>__PYX_ERR(0, 20, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_4main_2plotNodeArea(__pyx_self, __pyx_v_ax, __pyx_v_area);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_3src_4main_2plotNodeArea(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ax, struct __pyx_obj_3src_4area_Area *__pyx_v_area) {
-  PyObject *__pyx_r = NULL;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("plotNodeArea", 0);
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  __pyx_t_1 = __pyx_f_3src_4main_plotNodeArea(__pyx_v_ax, __pyx_v_area, 0);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.plotNodeArea", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
@@ -1426,9 +1248,8 @@ static PyObject *__pyx_pf_3src_4main_2plotNodeArea(CYTHON_UNUSED PyObject *__pyx
   __pyx_r = __pyx_v_ax;
   goto __pyx_L0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">042</span>: </pre>
-<pre class="cython line score-49" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">043</span>: cpdef drawForces(ax, Bodies bodies):</pre>
-<pre class='cython code score-49 '>static PyObject *__pyx_pw_3src_4main_5drawForces(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_3src_4main_drawForces(PyObject *__pyx_v_ax, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies, CYTHON_UNUSED int __pyx_skip_dispatch) {
+<pre class="cython line score-19" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">043</span>: cdef drawForces(ax, Bodies bodies):</pre>
+<pre class='cython code score-19 '>static PyObject *__pyx_f_3src_4main_drawForces(PyObject *__pyx_v_ax, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies) {
   PyObject *__pyx_v_x = NULL;
   PyObject *__pyx_v_y = NULL;
   PyObject *__pyx_v_z = NULL;
@@ -1464,94 +1285,6 @@ static PyObject *__pyx_f_3src_4main_drawForces(PyObject *__pyx_v_ax, struct __py
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_v);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_w);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_arrow_len);
-  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_3src_4main_5drawForces(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3src_4main_5drawForces(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_ax = 0;
-  struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies = 0;
-  PyObject *__pyx_r = 0;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("drawForces (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&amp;__pyx_n_s_ax,&amp;__pyx_n_s_bodies,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = <span class='py_c_api'>PyDict_Size</span>(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_ax)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_bodies)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("drawForces", 1, 2, 2, 1); <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L3_error)</span>
-        }
-      }
-      if (unlikely(kw_args &gt; 0)) {
-        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "drawForces") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L3_error)</span>
-      }
-    } else if (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-      values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-    }
-    __pyx_v_ax = values[0];
-    __pyx_v_bodies = ((struct __pyx_obj_3src_6bodies_Bodies *)values[1]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("drawForces", 1, 2, 2, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L3_error)</span>
-  __pyx_L3_error:;
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.drawForces", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_bodies), __pyx_ptype_3src_6bodies_Bodies, 1, "bodies", 0))) <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_4main_4drawForces(__pyx_self, __pyx_v_ax, __pyx_v_bodies);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_3src_4main_4drawForces(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ax, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies) {
-  PyObject *__pyx_r = NULL;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("drawForces", 0);
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  __pyx_t_1 = __pyx_f_3src_4main_drawForces(__pyx_v_ax, __pyx_v_bodies, 0);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.drawForces", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
   <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
@@ -1737,7 +1470,7 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_1, 1, (PyObject *(*)(char *)) __p
   __pyx_v_w = __pyx_t_2;
   __pyx_t_2 = 0;
 </pre><pre class="cython line score-7" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">050</span>:     arrow_len = bodies.area.get_dimensions()[0]/10</pre>
-<pre class='cython code score-7 '>  __pyx_t_1 = ((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_bodies-&gt;area-&gt;__pyx_vtab)-&gt;get_dimensions(__pyx_v_bodies-&gt;area, 0);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 50, __pyx_L1_error)</span>
+<pre class='cython code score-7 '>  __pyx_t_1 = ((struct __pyx_vtabstruct_3src_4area_Area *)__pyx_v_bodies-&gt;area-&gt;__pyx_vtab)-&gt;get_dimensions(__pyx_v_bodies-&gt;area);<span class='error_goto'> if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 50, __pyx_L1_error)</span>
   __pyx_t_3 = 0;
   __pyx_t_4 = -1;
   if (__pyx_t_3 &lt; 0) {
@@ -1853,9 +1586,8 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_1, 1, (PyObject *(*)(char *)) __p
   goto __pyx_L0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">054</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">055</span>: </pre>
-<pre class="cython line score-99" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">056</span>: cpdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies):</pre>
-<pre class='cython code score-99 '>static PyObject *__pyx_pw_3src_4main_7saveScatterPlot(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static void __pyx_f_3src_4main_saveScatterPlot(PyObject *__pyx_v_fig, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_z, PyObject *__pyx_v_directory, int __pyx_v_iter_number, struct __pyx_obj_3src_4node_Node *__pyx_v_root_node, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies, CYTHON_UNUSED int __pyx_skip_dispatch) {
+<pre class="cython line score-10" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">056</span>: cdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies):</pre>
+<pre class='cython code score-10 '>static void __pyx_f_3src_4main_saveScatterPlot(PyObject *__pyx_v_fig, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_z, PyObject *__pyx_v_directory, int __pyx_v_iter_number, struct __pyx_obj_3src_4node_Node *__pyx_v_root_node, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies) {
   PyObject *__pyx_v_ax = NULL;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("saveScatterPlot", 0);
@@ -1874,168 +1606,6 @@ static void __pyx_f_3src_4main_saveScatterPlot(PyObject *__pyx_v_fig, __Pyx_memv
   __pyx_L0:;
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_v_ax);
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_3src_4main_7saveScatterPlot(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3src_4main_7saveScatterPlot(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_fig = 0;
-  __Pyx_memviewslice __pyx_v_x = { 0, 0, { 0 }, { 0 }, { 0 } };
-  __Pyx_memviewslice __pyx_v_y = { 0, 0, { 0 }, { 0 }, { 0 } };
-  __Pyx_memviewslice __pyx_v_z = { 0, 0, { 0 }, { 0 }, { 0 } };
-  PyObject *__pyx_v_directory = 0;
-  int __pyx_v_iter_number;
-  struct __pyx_obj_3src_4node_Node *__pyx_v_root_node = 0;
-  struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies = 0;
-  PyObject *__pyx_r = 0;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("saveScatterPlot (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&amp;__pyx_n_s_fig,&amp;__pyx_n_s_x,&amp;__pyx_n_s_y,&amp;__pyx_n_s_z,&amp;__pyx_n_s_directory,&amp;__pyx_n_s_iter_number,&amp;__pyx_n_s_root_node,&amp;__pyx_n_s_bodies,0};
-    PyObject* values[8] = {0,0,0,0,0,0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args);
-      switch (pos_args) {
-        case  8: values[7] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 7);
-        CYTHON_FALLTHROUGH;
-        case  7: values[6] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 6);
-        CYTHON_FALLTHROUGH;
-        case  6: values[5] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 5);
-        CYTHON_FALLTHROUGH;
-        case  5: values[4] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = <span class='py_c_api'>PyDict_Size</span>(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_fig)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 1); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 2); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_z)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 3); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  4:
-        if (likely((values[4] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_directory)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 4); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  5:
-        if (likely((values[5] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_iter_number)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 5); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  6:
-        if (likely((values[6] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_root_node)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 6); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-        CYTHON_FALLTHROUGH;
-        case  7:
-        if (likely((values[7] = <span class='pyx_c_api'>__Pyx_PyDict_GetItemStr</span>(__pyx_kwds, __pyx_n_s_bodies)) != 0)) kw_args--;
-        else {
-          <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, 7); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-        }
-      }
-      if (unlikely(kw_args &gt; 0)) {
-        if (unlikely(<span class='pyx_c_api'>__Pyx_ParseOptionalKeywords</span>(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "saveScatterPlot") &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-      }
-    } else if (<span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args) != 8) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 0);
-      values[1] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 1);
-      values[2] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 2);
-      values[3] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 3);
-      values[4] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 4);
-      values[5] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 5);
-      values[6] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 6);
-      values[7] = <span class='py_macro_api'>PyTuple_GET_ITEM</span>(__pyx_args, 7);
-    }
-    __pyx_v_fig = values[0];
-    __pyx_v_x = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_ds_double</span>(values[1], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_x.memview)) __PYX_ERR(0, 56, __pyx_L3_error)</span>
-    __pyx_v_y = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_ds_double</span>(values[2], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_y.memview)) __PYX_ERR(0, 56, __pyx_L3_error)</span>
-    __pyx_v_z = <span class='pyx_c_api'>__Pyx_PyObject_to_MemoryviewSlice_ds_double</span>(values[3], PyBUF_WRITABLE);<span class='error_goto'> if (unlikely(!__pyx_v_z.memview)) __PYX_ERR(0, 56, __pyx_L3_error)</span>
-    __pyx_v_directory = ((PyObject*)values[4]);
-    __pyx_v_iter_number = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(values[5]); if (unlikely((__pyx_v_iter_number == (int)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-    __pyx_v_root_node = ((struct __pyx_obj_3src_4node_Node *)values[6]);
-    __pyx_v_bodies = ((struct __pyx_obj_3src_6bodies_Bodies *)values[7]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  <span class='pyx_c_api'>__Pyx_RaiseArgtupleInvalid</span>("saveScatterPlot", 1, 8, 8, <span class='py_macro_api'>PyTuple_GET_SIZE</span>(__pyx_args)); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L3_error)</span>
-  __pyx_L3_error:;
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.saveScatterPlot", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_directory), (&amp;PyUnicode_Type), 1, "directory", 1))) <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span>
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_root_node), __pyx_ptype_3src_4node_Node, 1, "root_node", 0))) <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span>
-  if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_bodies), __pyx_ptype_3src_6bodies_Bodies, 1, "bodies", 0))) <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_4main_6saveScatterPlot(__pyx_self, __pyx_v_fig, __pyx_v_x, __pyx_v_y, __pyx_v_z, __pyx_v_directory, __pyx_v_iter_number, __pyx_v_root_node, __pyx_v_bodies);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_3src_4main_6saveScatterPlot(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_fig, __Pyx_memviewslice __pyx_v_x, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_z, PyObject *__pyx_v_directory, int __pyx_v_iter_number, struct __pyx_obj_3src_4node_Node *__pyx_v_root_node, struct __pyx_obj_3src_6bodies_Bodies *__pyx_v_bodies) {
-  PyObject *__pyx_r = NULL;
-  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
-  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("saveScatterPlot", 0);
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
-  if (unlikely(!__pyx_v_x.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("x"); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span> }
-  if (unlikely(!__pyx_v_y.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("y"); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span> }
-  if (unlikely(!__pyx_v_z.memview)) { <span class='pyx_c_api'>__Pyx_RaiseUnboundLocalError</span>("z"); <span class='error_goto'>__PYX_ERR(0, 56, __pyx_L1_error)</span> }
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_3src_4main_saveScatterPlot(__pyx_v_fig, __pyx_v_x, __pyx_v_y, __pyx_v_z, __pyx_v_directory, __pyx_v_iter_number, __pyx_v_root_node, __pyx_v_bodies, 0));<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
-  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("src.main.saveScatterPlot", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __PYX_XDEC_MEMVIEW(&amp;__pyx_v_x, 1);
-  __PYX_XDEC_MEMVIEW(&amp;__pyx_v_y, 1);
-  __PYX_XDEC_MEMVIEW(&amp;__pyx_v_z, 1);
-  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
-  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
-  return __pyx_r;
 }
 </pre><pre class="cython line score-0">&#xA0;<span class="">057</span>: </pre>
 <pre class="cython line score-18" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">058</span>:     ax = fig.add_subplot(111, projection='3d')</pre>
@@ -2126,7 +1696,7 @@ static PyObject *__pyx_pf_3src_4main_6saveScatterPlot(CYTHON_UNUSED PyObject *__
 /* … */
   }
 </pre><pre class="cython line score-1" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">062</span>:         ax = drawGrid(ax, root_node)</pre>
-<pre class='cython code score-1 '>    __pyx_t_3 = __pyx_f_3src_4main_drawGrid(__pyx_v_ax, __pyx_v_root_node, 0);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)</span>
+<pre class='cython code score-1 '>    __pyx_t_3 = __pyx_f_3src_4main_drawGrid(__pyx_v_ax, __pyx_v_root_node);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)</span>
     <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_3);
     <span class='pyx_macro_api'>__Pyx_DECREF_SET</span>(__pyx_v_ax, __pyx_t_3);
     __pyx_t_3 = 0;
@@ -2137,7 +1707,7 @@ static PyObject *__pyx_pf_3src_4main_6saveScatterPlot(CYTHON_UNUSED PyObject *__
 /* … */
   }
 </pre><pre class="cython line score-1" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">064</span>:         ax = drawForces(ax, bodies)</pre>
-<pre class='cython code score-1 '>    __pyx_t_3 = __pyx_f_3src_4main_drawForces(__pyx_v_ax, __pyx_v_bodies, 0);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)</span>
+<pre class='cython code score-1 '>    __pyx_t_3 = __pyx_f_3src_4main_drawForces(__pyx_v_ax, __pyx_v_bodies);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)</span>
     <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_3);
     <span class='pyx_macro_api'>__Pyx_DECREF_SET</span>(__pyx_v_ax, __pyx_t_3);
     __pyx_t_3 = 0;
@@ -2373,7 +1943,7 @@ static PyObject *__pyx_pf_3src_4main_6saveScatterPlot(CYTHON_UNUSED PyObject *__
 </pre><pre class="cython line score-0">&#xA0;<span class="">071</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">072</span>: </pre>
 <pre class="cython line score-97" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">073</span>: cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies) except *:</pre>
-<pre class='cython code score-97 '>static PyObject *__pyx_pw_3src_4main_9main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+<pre class='cython code score-97 '>static PyObject *__pyx_pw_3src_4main_1main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static void __pyx_f_3src_4main_main(int __pyx_v_iterations, PyObject *__pyx_v_folder, float __pyx_v_dt, float __pyx_v_area_side, int __pyx_v_num_bodies, CYTHON_UNUSED int __pyx_skip_dispatch) {
   struct __pyx_obj_3src_4area_Area *__pyx_v_area = 0;
   struct __pyx_obj_3src_6bhtree_BHTree *__pyx_v_bhtree = NULL;
@@ -2410,8 +1980,8 @@ static void __pyx_f_3src_4main_main(int __pyx_v_iterations, PyObject *__pyx_v_fo
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3src_4main_9main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3src_4main_9main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_3src_4main_1main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3src_4main_1main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_iterations;
   PyObject *__pyx_v_folder = 0;
   float __pyx_v_dt;
@@ -2497,7 +2067,7 @@ static PyObject *__pyx_pw_3src_4main_9main(PyObject *__pyx_self, PyObject *__pyx
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!<span class='pyx_c_api'>__Pyx_ArgTypeTest</span>(((PyObject *)__pyx_v_folder), (&amp;PyUnicode_Type), 1, "folder", 1))) <span class='error_goto'>__PYX_ERR(0, 73, __pyx_L1_error)</span>
-  __pyx_r = __pyx_pf_3src_4main_8main(__pyx_self, __pyx_v_iterations, __pyx_v_folder, __pyx_v_dt, __pyx_v_area_side, __pyx_v_num_bodies);
+  __pyx_r = __pyx_pf_3src_4main_main(__pyx_self, __pyx_v_iterations, __pyx_v_folder, __pyx_v_dt, __pyx_v_area_side, __pyx_v_num_bodies);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2508,7 +2078,7 @@ static PyObject *__pyx_pw_3src_4main_9main(PyObject *__pyx_self, PyObject *__pyx
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_4main_8main(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_iterations, PyObject *__pyx_v_folder, float __pyx_v_dt, float __pyx_v_area_side, int __pyx_v_num_bodies) {
+static PyObject *__pyx_pf_3src_4main_main(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_iterations, PyObject *__pyx_v_folder, float __pyx_v_dt, float __pyx_v_area_side, int __pyx_v_num_bodies) {
   PyObject *__pyx_r = NULL;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("main", 0);
@@ -2633,11 +2203,11 @@ static PyObject *__pyx_pf_3src_4main_8main(CYTHON_UNUSED PyObject *__pyx_self, i
   __pyx_t_1 = 0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">082</span>:     # Generate all the relevant bodies</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">083</span>:     bhtree.generate_data(area, int(num_bodies))</pre>
-<pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;generate_data(__pyx_v_bhtree, __pyx_v_area, __pyx_v_num_bodies, 0);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)</span>
+<pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;generate_data(__pyx_v_bhtree, __pyx_v_area, __pyx_v_num_bodies);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">084</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">085</span>:     # Populate the tree with the bodies</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">086</span>:     bhtree.populate()</pre>
-<pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;populate(__pyx_v_bhtree, 0);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)</span>
+<pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;populate(__pyx_v_bhtree);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">087</span>: </pre>
 <pre class="cython line score-21" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">088</span>:     starttime = time.time()</pre>
 <pre class='cython code score-21 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_6, __pyx_n_s_time);<span class='error_goto'> if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)</span>
@@ -2833,7 +2403,7 @@ __pyx_t_11.strides[0] = __pyx_v_bhtree-&gt;bodies-&gt;positions.strides[0];
 }
 
 __pyx_t_12 = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(__pyx_v_iter_number); if (unlikely((__pyx_t_12 == (int)-1) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 94, __pyx_L1_error)</span>
-    __pyx_f_3src_4main_saveScatterPlot(__pyx_v_fig, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_v_folder, __pyx_t_12, ((struct __pyx_obj_3src_4node_Node *)Py_None), ((struct __pyx_obj_3src_6bodies_Bodies *)Py_None), 0);
+    __pyx_f_3src_4main_saveScatterPlot(__pyx_v_fig, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_v_folder, __pyx_t_12, ((struct __pyx_obj_3src_4node_Node *)Py_None), ((struct __pyx_obj_3src_6bodies_Bodies *)Py_None));
     __PYX_XDEC_MEMVIEW(&amp;__pyx_t_9, 1);
     __pyx_t_9.memview = NULL;
     __pyx_t_9.data = NULL;
@@ -2857,7 +2427,7 @@ __pyx_t_12 = <span class='pyx_c_api'>__Pyx_PyInt_As_int</span>(__pyx_v_iter_numb
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__2);
   <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__2);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">097</span>:         bhtree.iterate(float(dt))</pre>
-<pre class='cython code score-0 '>    ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;iterate(__pyx_v_bhtree, ((double)__pyx_v_dt), 0);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)</span>
+<pre class='cython code score-0 '>    ((struct __pyx_vtabstruct_3src_6bhtree_BHTree *)__pyx_v_bhtree-&gt;__pyx_vtab)-&gt;iterate(__pyx_v_bhtree, ((double)__pyx_v_dt));<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">098</span>: </pre>
 <pre class="cython line score-27" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">099</span>:     timetaken = time.time()-starttime</pre>
 <pre class='cython code score-27 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_5, __pyx_n_s_time);<span class='error_goto'> if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)</span>

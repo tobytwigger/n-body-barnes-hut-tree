@@ -7,7 +7,7 @@ from src.area cimport Area
 from libcpp cimport bool
 from cpython cimport bool
 
-cdef class Node:
+cdef class Node(object):
 
     cdef int[:] bodies
     cdef bool parent

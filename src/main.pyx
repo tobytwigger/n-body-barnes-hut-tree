@@ -7,7 +7,7 @@ cimport numpy as np
 
 
 
-cpdef drawGrid(ax, Node node):
+cdef drawGrid(ax, Node node):
     for child in node.children:
         if child is not None:
 
@@ -17,7 +17,7 @@ cpdef drawGrid(ax, Node node):
                 ax = drawGrid(ax, child)
     return ax
 
-cpdef plotNodeArea(ax, Area area):
+cdef plotNodeArea(ax, Area area):
     color = random.choice(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
     # Front Face
     ax.plot([area.min_x, area.max_x], [area.min_y, area.min_y], [area.min_z, area.min_z], color=color)
@@ -40,7 +40,7 @@ cpdef plotNodeArea(ax, Area area):
     ax.plot([area.min_x, area.max_x], [area.max_y, area.max_y], [area.min_z, area.min_z], color=color)
     return ax
 
-cpdef drawForces(ax, Bodies bodies):
+cdef drawForces(ax, Bodies bodies):
     x = bodies.positions[:, 0]
     y = bodies.positions[:, 1]
     z = bodies.positions[:, 2]
@@ -53,7 +53,7 @@ cpdef drawForces(ax, Bodies bodies):
     return ax
 
 
-cpdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies):
+cdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies):
 
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(x, y, z)

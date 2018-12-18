@@ -10,13 +10,13 @@ from src.area cimport Area
 from src.bhtree import BHTree
 from src.bhtree cimport BHTree
 
-cpdef drawGrid(ax, Node node)
+cdef drawGrid(ax, Node node)
 
-cpdef plotNodeArea(ax, Area area)
+cdef plotNodeArea(ax, Area area)
 
-cpdef drawForces(ax, Bodies bodies)
+cdef drawForces(ax, Bodies bodies)
 
-cpdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies)
+cdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies)
 
 cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies) except *
 
