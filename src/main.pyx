@@ -4,7 +4,7 @@ import random
 import time
 import numpy as np
 cimport numpy as np
-
+# cython: profile=True
 
 
 cdef drawGrid(ax, Node node):

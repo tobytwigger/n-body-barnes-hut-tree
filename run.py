@@ -14,5 +14,5 @@ else:
     folder = 'images/'+sys.argv[2]
     dt = float(sys.argv[3])
     area_side = 1*10**5
-    num_bodies = 400
+    num_bodies = 3
     universe.main(iterations, folder, dt, area_side, num_bodies)
