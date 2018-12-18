@@ -10,10 +10,10 @@ class BHTree:
 
     def __init__(self):
         self.bodies = Bodies()
-        self.root_node = Node(self.bodies.get_area())
+        self.root_node = Node(self.bodies.area)
 
     def generate_data(self, area, n):
-        self.bodies.set_area(area)
+        self.bodies.area = area
         np.random.normal(
             [area.get_center_x(), area.get_center_y(), area.get_center_z()], 5, (n, 3))
         self.bodies.positions = np.random.triangular(area.get_minimum_coordinates(), area.get_central_coordinates(), area.get_maximum_coordinates(), (n, 3))
@@ -33,8 +33,8 @@ class BHTree:
         # Grow the area of the calulation space
         min_coordinates = [min(self.bodies.positions[:, 0]), min(self.bodies.positions[:, 1]), min(self.bodies.positions[:, 2])]
         max_coordinates = [max(self.bodies.positions[:, 0]), max(self.bodies.positions[:, 1]), max(self.bodies.positions[:, 2])]
-        self.bodies.get_area().change_area_size(min_coordinates, max_coordinates)
-        self.root_node = Node(self.bodies.get_area())
+        self.bodies.area.change_area_size(min_coordinates, max_coordinates)
+        self.root_node = Node(self.bodies.area)
 
     def iterate(self, dt):
         # Calculate the new position, velocity and acceleration of each body in turn

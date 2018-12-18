@@ -1,18 +1,13 @@
-
-import sys
-from bhtree import BHTree
-from area cimport Area
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 import random
 import time
 import numpy as np
+cimport numpy as np
 
 
 
-
-
-def drawGrid(ax, node):
+cpdef drawGrid(ax, Node node):
     for child in node.children:
         if child is not None:
 
@@ -22,7 +17,7 @@ def drawGrid(ax, node):
                 ax = drawGrid(ax, child)
     return ax
 
-def plotNodeArea(ax, area):
+cpdef plotNodeArea(ax, Area area):
     color = random.choice(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
     # Front Face
     ax.plot([area.min_x, area.max_x], [area.min_y, area.min_y], [area.min_z, area.min_z], color=color)
@@ -45,7 +40,7 @@ def plotNodeArea(ax, area):
     ax.plot([area.min_x, area.max_x], [area.max_y, area.max_y], [area.min_z, area.min_z], color=color)
     return ax
 
-def drawForces(ax, bodies):
+cpdef drawForces(ax, Bodies bodies):
     x = bodies.positions[:, 0]
     y = bodies.positions[:, 1]
     z = bodies.positions[:, 2]
@@ -58,7 +53,7 @@ def drawForces(ax, bodies):
     return ax
 
 
-def saveScatterPlot(fig, x, y, z, directory, iter_number, root_node=None, bodies=None):
+cpdef void saveScatterPlot(fig, double[:] x, double[:] y, double[:] z, str directory, int iter_number, Node root_node, Bodies bodies):
 
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(x, y, z)
@@ -70,12 +65,12 @@ def saveScatterPlot(fig, x, y, z, directory, iter_number, root_node=None, bodies
     ax.set_xlim([min(x), max(x)])
     ax.set_ylim([min(y), max(y)])
     ax.set_zlim([min(z), max(z)])
-    plt.savefig('images/{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
+    plt.savefig('{}/iteration_{}'.format(directory, iter_number), bbox_inches='tight')
     plt.cla()
     plt.clf()
 
 
-cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies):
+cpdef void main(int iterations, str folder, float dt, float area_side, int num_bodies) except *:
 
     cdef Area area
 
@@ -96,7 +91,7 @@ cpdef void main(int iterations, str folder, float dt, float area_side, int num_b
     fig = plt.figure()
     for i in range(int(iterations)):
         print('Iteration {}'.format(i))
-        saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, iter_number)#, None, bhtree.bodies)#, bhtree.root_node)
+        saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, iter_number, None, None)# bhtree.root_node, bhtree.bodies)
         iter_number += 1
         print('Complete')
         bhtree.iterate(float(dt))

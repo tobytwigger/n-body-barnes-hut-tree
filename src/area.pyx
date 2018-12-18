@@ -3,7 +3,7 @@ cimport numpy as np
 
 cdef class Area:
 
-    def __init__(self, double[:] min_coordinates, double[:] max_coordinates):
+    def __cinit__(self, double[:] min_coordinates, double[:] max_coordinates):
 
         self.min_x = min_coordinates[0]
         self.min_y = min_coordinates[1]
@@ -39,7 +39,7 @@ cdef class Area:
         index = index[:4] if positions[0] <= self.get_center_x() else index[4:]
         index = index[:2] if positions[1] <= self.get_center_y() else index[2:]
         index = index[:1] if positions[2] <= self.get_center_z() else index[1:]
-        return index[0]
+        return int(index[0])
 
     cpdef Area get_node_index_area(self, int node_index):
         if node_index == 0:
