@@ -4,22 +4,27 @@
 import numpy as np
 cimport numpy as np
 
-class Node:
+cdef class Node:
 
     def __init__(self, area, depth=0):
         self.bodies = np.array([], dtype=np.int64)
-        self.parent = False
+        self.parent = 0
         self.area = area
         self.children = np.full(8, None)
         self.depth = depth
         self.mass = 0
-        self.com = np.array(3, dtype=float)
+        self.com = np.zeros(3, dtype=np.float64)
 
-    def addBody(self, all_bodies, body_id):
-        self.com = ((self.com * self.mass) + (all_bodies.get_position(body_id) * all_bodies.masses[body_id]))/(self.mass + all_bodies.masses[body_id])
+    cpdef void addBody(self, all_bodies, Py_ssize_t body_id) except *:
+        cdef Py_ssize_t body, node_id
+
+        self.com = (
+                           np.multiply(self.com, self.mass) +
+                           np.multiply(all_bodies.get_position(body_id), all_bodies.masses[body_id])
+                   )/(self.mass + all_bodies.masses[body_id])
         self.mass += all_bodies.masses[body_id]
         # If we have bodies already present or this is a parent
-        if (len(self.bodies) > 0 or self.parent) and self.depth <= all_bodies.max_depth:
+        if (len(self.bodies) > 0 or self.parent is 1) and self.depth <= all_bodies.max_depth:
             detached_bodies = [body_id]  # bodies to add to children
             if len(self.bodies) > 0:
                 # if node has children, move own body down to child
@@ -36,15 +41,9 @@ class Node:
                 self.children[node_id].addBody(all_bodies, body)
 
 
-            self.parent = True
+            self.parent = 1
 
 
         else:
             self.bodies = np.append(np.array(self.bodies, dtype=np.int64), body_id)
             self.mass += all_bodies.masses[body_id]
-
-    def get_center_of_mass(self, bodies):
-        return self.com
-
-    def get_total_mass(self, bodies):
-        return self.mass

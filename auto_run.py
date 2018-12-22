@@ -1,11 +1,25 @@
 import src.main as universe
 import os
-import sys
+from mpi4py import MPI
 
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+iterations = int(1000)
 
-directory = 'images/profileTest'
-if not os.path.exists(directory):
-    os.makedirs(directory)
-area_side = 1*10**5
-num_bodies = 400
-universe.main(10, directory, 0.01, area_side, num_bodies)
+i = 0
+directory = 'images/{}_{}'.format('auto_run', i)
+
+if rank == 0:
+    while os.path.exists(directory):
+        i += 1
+        directory = 'images/{}_{}'.format('auto_run', i)
+    os.mkdir(directory)
+
+directory=comm.bcast(directory, root=0)
+
+dt = float(9000)
+area_side = 9*10**8#0
+num_bodies = 2
+if rank == 0:
+    print('Starting simulation')
+universe.main(iterations, directory, dt, area_side, num_bodies, False)
