@@ -3,8 +3,10 @@
 
 import sys
 from src.bhtree import BHTree
+from src.bhtree cimport BHTree
 
 from src.area import Area
+from src.area cimport Area
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
@@ -65,7 +67,7 @@ def drawForces(ax, bodies):
     return ax
 
 
-def saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=False, root_node=None, bodies=None):
+cdef saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=False, root_node=None, bodies=None):
     # print('Saving...')
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -118,9 +120,12 @@ def saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=False, root_n
     plt.clf()
     # print('finish')
 
-def main(iterations, folder, dt, area_side, num_bodies, rotation):
+cpdef main(int iterations, str folder, float dt, float area_side, int num_bodies, int rotation):
     cdef:
         int i
+        int rank
+        BHTree bhtree
+        Area area
 
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -134,34 +139,26 @@ def main(iterations, folder, dt, area_side, num_bodies, rotation):
         bhtree.generate_data(area, int(num_bodies))
         starttime = time.time()
 
-    fig = plt.figure()
+    # fig = plt.figure()
     # print('Starting MPI tests:')
-    time_1 = None
     for i in range(int(iterations)):
 
-        if rank == 0 and time_1 is not None:
-            print('Extra: {}'.format(time.time()-time_1))
-        if rank == 0:
-            time_1 = time.time()
-        bhtree = comm.bcast(bhtree, root=0)
-        if rank == 0:
-            print('Broadcasting: {}'.format(time.time()-time_1))
+        bhtree.bodies = comm.bcast(bhtree.bodies, root=0)
+        bhtree.root_node = comm.bcast(bhtree.root_node, root=0)
 
-        if rank == 0 or rank == 1:
-            time_1 = time.time()
-        saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, i, rotation)#, bhtree.root_node, bhtree.bodies)
-        if rank == 0 or rank == 1:
-            print('Plotting: {}'.format(time.time()-time_1))
+        # if rank == 0:
+        #     time_1 = time.time()
+        # saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, i, rotation)#, bhtree.root_node, bhtree.bodies)
+        # if rank == 0:
+        #     print('Plotting: {}'.format(time.time()-time_1))
 
 
         if rank == 0:
             time_1 = time.time()
-        bhtree.iterate(float(dt))
+        bhtree.iterate(dt)
         if rank == 0:
             print('Iterating: {}'.format(time.time()-time_1))
 
-        if rank == 0:
-            time_1 = time.time()
         if rank == 0:
             # print('Rank {}: Iteration took {}s'.format(rank, time.time()-iter_start_time))
             periteration = ((time.time() - starttime)/(i if i != 0 else 1))

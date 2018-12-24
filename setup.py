@@ -33,13 +33,13 @@ ext_modules = [
 
 setup(
     name='universe',
+    package_data = {
+      'area': ['src/area.pxd'],
+      'node': ['src/node.pxd'],
+      'bodies': ['src/bodies.pxd'],
+      'bhtree': ['src/bhtree.pxd'],
+      'main': ['src/main.pxd']
+    },
     ext_modules=cythonize(ext_modules, language_level=3, annotate=True)
 )
 
-# package_data = {
-#   'area': ['src/area.pxd'],
-#   'node': ['src/node.pxd'],
-#   'bodies': ['src/bodies.pxd'],
-#   'bhtree': ['src/bhtree.pxd'],
-#   'main': ['src/main.pxd'],
-# },

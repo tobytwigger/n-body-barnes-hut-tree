@@ -4,7 +4,11 @@
 from src.node import Node
 from src.node cimport Node
 
+from src.area import Area
+from src.area cimport Area
+
 from src.bodies import Bodies
+from src.bodies cimport Bodies
 
 import math
 import numpy as np
@@ -14,37 +18,41 @@ from mpi4py import MPI
 
 import time
 
-cdef class BHTree(object):
+cdef class BHTree:
 
     def __init__(self):
-        self.bodies = Bodies()
-        self.theta = 0.5
-        self.root_node = Node(self.bodies.get_area())
-        self._shutdown_threads = 'random_string'
-        self._data_send_request = np.full((3, 3), 0., dtype=np.float64)
-        self._data_send_request_tag = 0
+        self._init()
 
-    def generate_data(self, area, n):
+
+    cdef void _init(self):
+        self.bodies = Bodies()
+        self.theta = 0
+        self.root_node = Node(self.bodies.get_area())
+
+    cdef void generate_data(self, Area area, int n):
         self.bodies.generate_data(area, n)
-        self._data_send_request_tag = self.bodies.n + 1
         self.populate()
 
-    def populate(self):
+    cdef void populate(self):
+        cdef int i
+        cdef int n
+
+        n = self.bodies.n
         # print('populating')
         # Reset the tree
         self.reset_children()
         # Iterate through each body
-        for i in range(self.bodies.n):
+        for i in range(n):
             self.root_node.addBody(self.bodies, i)
 
-    def reset_children(self):
+    cdef void reset_children(self):
         # Grow the area of the calulation space
         min_coordinates = np.array([min(self.bodies.positions[:, 0]), min(self.bodies.positions[:, 1]), min(self.bodies.positions[:, 2])], dtype=np.float64)
         max_coordinates = np.array([max(self.bodies.positions[:, 0]), max(self.bodies.positions[:, 1]), max(self.bodies.positions[:, 2])], dtype=np.float64)
         self.bodies.get_area().change_area_size(min_coordinates, max_coordinates)
         self.root_node = Node(self.bodies.get_area())
 
-    cpdef np.ndarray iterate(self, float dt):
+    cdef void iterate(self, float dt):
         cdef:
             Py_ssize_t body_id
             list bodies
@@ -57,7 +65,7 @@ cdef class BHTree(object):
         status = MPI.Status()
         # print('About to process {} bodies'.format(len(bodies)))
         if rank == 0:
-            bodies = np.array_split(np.arange(self.bodies.n), num_p)
+            bodies = np.array_split(range(self.bodies.n), num_p)
             body_number = 0
         else:
             bodies = None

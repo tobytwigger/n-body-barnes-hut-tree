@@ -4,27 +4,33 @@
 from src.node import Node
 from src.node cimport Node
 
-from src.bodies import Bodies
+from src.area import Area
+from src.area cimport Area
 
-import math
+from src.bodies import Bodies
+from src.bodies cimport Bodies
+
 import numpy as np
 cimport numpy as np
 
-from mpi4py import MPI
-
-cdef class BHTree(object):
+cdef class BHTree:
 
     # bodies
     # theta
     # root_node
-    cdef public object bodies
+    cdef public Bodies bodies
     cdef public float theta
-    cdef public object root_node
-    cdef str _shutdown_threads
-    cdef np.ndarray _data_send_request
-    cdef int _data_send_request_tag
+    cdef public Node root_node
 
-    cpdef np.ndarray iterate(self, float dt)
+    cdef void _init(self)
+
+    cdef void generate_data(self, Area area, int n)
+
+    cdef void populate(self)
+
+    cdef void reset_children(self)
+
+    cdef void iterate(self, float dt)
 
     cdef np.ndarray get_force_on_body(self, Py_ssize_t body_id, Node node)
 

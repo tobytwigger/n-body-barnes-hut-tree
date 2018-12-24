@@ -25,6 +25,6 @@ num_bodies = 500
 
 if rank == 0:
     print('Starting simulation')
-universe.main(iterations, directory, dt, area_side, num_bodies, True)
+universe.main(iterations, directory, dt, area_side, num_bodies, 1)
 if rank == 0:
     print('Total runtime: {}s'.format(time.time() - starttime))
