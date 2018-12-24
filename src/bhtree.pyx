@@ -44,97 +44,57 @@ cdef class BHTree(object):
         self.bodies.get_area().change_area_size(min_coordinates, max_coordinates)
         self.root_node = Node(self.bodies.get_area())
 
-    cpdef void iterate(self, float dt) except *:
-        cdef Py_ssize_t body_id
+    cpdef np.ndarray iterate(self, float dt):
+        cdef:
+            Py_ssize_t body_id
+            list bodies
+            int body_number
+            np.ndarray body_totals
 
         comm = MPI.COMM_WORLD
         rank = comm.Get_rank()
         num_p = comm.Get_size()
         status = MPI.Status()
-        active_processors = np.array([], dtype=np.int32)
-        bodies = np.arange(self.bodies.n, dtype=np.int32)
         # print('About to process {} bodies'.format(len(bodies)))
         if rank == 0:
-            starttime = time.time()
+            bodies = np.array_split(np.arange(self.bodies.n), num_p)
             body_number = 0
-
-            while body_number < self.bodies.n:
-                # Check if a new processor is now available
-                # If so, send it a body
-
-                # Get a new response
-                details = np.empty((3, 3), dtype=np.float64)
-                comm.Recv(details, source=MPI.ANY_SOURCE, tag=MPI.ANY_TAG, status=status)
-                process_id = status.source
-                body_id = status.tag
-                # print('Rank {}, got a response from rank {}: {} - {}'.format(rank, process_id, body_id, details))
-                 # Send a new body to the process
-                # print('Sending body {} to process {}'.format(bodies[body_number], process_id))
-                comm.send(None, dest=process_id, tag=bodies[body_number])
-                # print('Finished body {}, sending body {} to process {}'.format(body_id, bodies[body_number], process_id))
-
-                # Check to see if this was a response to being sent a body, or a request to get a body
-                if body_id is not self._data_send_request_tag:
-                    # print('Rank {}, rank {} successfully processed body {}'.format(rank, process_id, body_id))
-                    # Add the response to the bodies class
-                    # print('Positions was {}'.format(self.bodies.positions[body_id]))
-                    # print('Received from process {} the results to body {}: {}'.format(process_id, body_id, details))
-                    # print('Updating position by {}'.format(details[2]))
-                    self.bodies.update_body(details[0], details[1], details[2], body_id)
-                    # print('New position is {}'.format(self.bodies.get_position(body_id)))
-                else:
-                    # print('Initialised rank {}'.format(process_id))
-                    active_processors = np.append(active_processors, process_id)
-
-                # if body_number % 50 == 0:
-                    # print('Finished body number {}'.format(body_number))
-                body_number = body_number + 1
-
-            # print('We now need to shut down these processors: {}'.format(active_processors))
-            requests = []
-            for p in active_processors:
-                # print('Shutting down process {}'.format(p))
-                requests.append(comm.isend(self._shutdown_threads, dest=p, tag=0))
-            MPI.Request.waitall(requests)
-
         else:
-            # Send a request for a bit of data
-            # print('Rank {}: Sending a request for data: {} - {}'.format(rank, self._data_send_request_tag, self._data_send_request))
-            comm.Send(self._data_send_request, dest=0, tag=self._data_send_request_tag)
-            while True:
-                force = np.zeros(3)
-                acceleration = np.zeros(3)
-                shutdown = comm.recv(source=0, tag=MPI.ANY_TAG, status=status)
-                body_id = status.tag
-                # print('Rank {} processing body {}, shutdown command {}'.format(rank, body_id, shutdown))
+            bodies = None
+        body_totals = np.zeros((self.bodies.n, 3, 3))
+        my_bodies = comm.scatter(bodies, root=0)
 
-                # print('I\'m rank {} and ̣I\'ve just received {}'.format(rank, body_id))
-                if shutdown == self._shutdown_threads:
-                    print('Rank {}, out.'.format(rank))
-                    break
-                else:
-                    # Find the updated force
-                    force = self.get_force_on_body(body_id, self.root_node)
-                    acceleration_dt = force/self.bodies.get_mass(body_id)
-                    velocity_dt = np.array([a * dt for a in acceleration_dt], dtype=np.float64)
-                    position_dt = np.array([v * dt for v in velocity_dt], dtype=np.float64)
-                    # print('I\'m rank {}, and have just processed body {}. This has a return statement of {}'.format(rank, body_id, np.array([acceleration_dt, velocity_dt, position_dt])))
-                    comm.Send(np.array([acceleration_dt, velocity_dt, position_dt], dtype=np.float64), dest=0, tag=body_id)
+        body_calculations = np.zeros((self.bodies.n, 3, 3))
 
-        self.bodies = comm.bcast(self.bodies, root=0)
-        self.populate()
+        # print('Rank {} has to process {}'.format(rank, my_bodies))
+
+        for body in my_bodies:
+            force = self.get_force_on_body(body, self.root_node)
+            acceleration_dt = force/self.bodies.get_mass(body)
+            velocity_dt = np.array([a * dt for a in acceleration_dt], dtype=np.float64)
+            position_dt = np.array([v * dt for v in velocity_dt], dtype=np.float64)
+            body_calculations[body] = np.array([
+                acceleration_dt, velocity_dt, position_dt
+            ])
+            # print('Rank {} put body {}\'s calculation as {}'.format(rank, body, body_calculations[body]))
+
+        body_calculations = comm.Reduce(
+            [body_calculations, MPI.DOUBLE],
+            [body_totals, MPI.DOUBLE],
+            op = MPI.SUM,
+            root = 0
+        )
+
+        body_positions = np.zeros((self.bodies.n, 3))
         if rank == 0:
-            print('Processed in {}s'.format(time.time() - starttime))
+            # print('Rank {} has body_totals as {}'.format(rank, body_totals))
+            body_id = 0
+            for body_derivatives in body_totals:
+                self.bodies.update_body(body_derivatives[0], body_derivatives[1], body_derivatives[2], body_id)
+                body_positions[body_id] = body_derivatives[2]
+                body_id = body_id + 1
 
-            # bodies = np.arange(self.bodies.n, dtype=np.int32)
-            # comm.Scatter(bodies, recvbuf, root=0)
-
-            # Find the updated force
-            # self.bodies.forces[body_id] = self.get_force_on_body(body_id, self.root_node)
-            # # Find acceleration
-            # self.bodies.accelerate(body_id, self.bodies.forces[body_id]/self.bodies.get_mass(body_id), dt)
-
-
+        self.populate()
 
     def slow_iterate(self, dt):
         # Calculate the new position, velocity and acceleration of each body in turn

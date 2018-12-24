@@ -83,10 +83,10 @@ def saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=False, root_n
     if bodies is not None:
         ax = drawForces(ax, bodies)
 
-
-    ax.set_xlim([min(x), max(x)])
-    ax.set_ylim([min(y), max(y)])
-    ax.set_zlim([min(z), max(z)])
+    tolerance = round(len(x) * 0.04)
+    ax.set_xlim([np.partition(x, tolerance)[tolerance], np.partition(x, -tolerance)[-tolerance]])
+    ax.set_ylim([np.partition(y, tolerance)[tolerance], np.partition(y, -tolerance)[-tolerance]])
+    ax.set_zlim([np.partition(z, tolerance)[tolerance], np.partition(z, -tolerance)[-tolerance]])
     ax.set_xlabel('X Axis')
     ax.set_ylabel('Y Axis')
     ax.set_zlabel('Z Axis')
@@ -106,7 +106,7 @@ def saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=False, root_n
         for angle in angles:
             azimuth = angle[0]
             elevation = angle[1]
-            # print('Saving {}-{}: iteration {}'.format(azimuth, elevation, iter_number))
+            # print('Rank {}: Saving {}-{}: iteration {}'.format(rank, azimuth, elevation, iter_number))
             if not os.path.exists('{}/{}-{}'.format(directory, azimuth, elevation)):
                 os.mkdir('{}/{}-{}'.format(directory, azimuth, elevation))
             ax.view_init(elevation, azimuth)
@@ -132,34 +132,49 @@ def main(iterations, folder, dt, area_side, num_bodies, rotation):
     # Generate all the relevant bodies
     if rank == 0:
         bhtree.generate_data(area, int(num_bodies))
-    starttime = time.time()
+        starttime = time.time()
 
     fig = plt.figure()
     # print('Starting MPI tests:')
-
+    time_1 = None
     for i in range(int(iterations)):
+
+        if rank == 0 and time_1 is not None:
+            print('Extra: {}'.format(time.time()-time_1))
+        if rank == 0:
+            time_1 = time.time()
         bhtree = comm.bcast(bhtree, root=0)
-        print('Rank {} broadcasted: {}'.format(rank, time.time()-starttime))
         if rank == 0:
-            saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, i, rotation)#, bhtree.root_node, bhtree.bodies)
+            print('Broadcasting: {}'.format(time.time()-time_1))
+
+        if rank == 0 or rank == 1:
+            time_1 = time.time()
+        saveScatterPlot(fig, bhtree.bodies.positions[:, 0], bhtree.bodies.positions[:, 1], bhtree.bodies.positions[:, 2], folder, i, rotation)#, bhtree.root_node, bhtree.bodies)
+        if rank == 0 or rank == 1:
+            print('Plotting: {}'.format(time.time()-time_1))
+
+
         if rank == 0:
-            iter_start_time = time.time()
-            print('Iterating: {}'.format(time.time()-starttime))
-
-
-        # print('Rank {}: About to iterate'.format(rank))
-
+            time_1 = time.time()
         bhtree.iterate(float(dt))
+        if rank == 0:
+            print('Iterating: {}'.format(time.time()-time_1))
 
         if rank == 0:
-            print('Rank {}: Iteration took {}s'.format(rank, time.time()-iter_start_time))
+            time_1 = time.time()
+        if rank == 0:
+            # print('Rank {}: Iteration took {}s'.format(rank, time.time()-iter_start_time))
             periteration = ((time.time() - starttime)/(i if i != 0 else 1))
-            if i % 25 == 0 and False:
+            if i % 5 == 0:
                 print('Rank {}: Computed iteration {}'.format(rank, i))
-                print('Rank {0:}: ETA: {0:.2f}m ({1:.2f}m passed)'.format(rank, (((iterations - i) * periteration)/ 60 ), ((i * periteration)/ 60 )))
-            print('restarting: {}'.format(time.time()-starttime))
+                print('Rank {}: ETA: {}m ({}m passed)'.format(rank, (((iterations - i) * periteration)/ 60 ), ((i * periteration)/ 60 )))
 
+    # if rank == 0:
+    #     print('Saving Images')
+    # positionsintime = comm.bcast(positionsintime, root=0)
 
+    # for i in range(int(iterations)):
+    #     saveScatterPlot(fig, positionsintime[i][:, 0], positionsintime[i][:, 1], positionsintime[i][:, 2], folder, i, rotation)#, bhtree.root_node, bhtree.bodies)
 
     if rank == 0:
         time_taken = time.time()-starttime

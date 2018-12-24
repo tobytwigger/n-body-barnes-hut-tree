@@ -24,7 +24,7 @@ cdef class BHTree(object):
     cdef np.ndarray _data_send_request
     cdef int _data_send_request_tag
 
-    cpdef void iterate(self, float dt) except *
+    cpdef np.ndarray iterate(self, float dt)
 
     cdef np.ndarray get_force_on_body(self, Py_ssize_t body_id, Node node)
 
