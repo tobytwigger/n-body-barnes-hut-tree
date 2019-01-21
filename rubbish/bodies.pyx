@@ -3,6 +3,8 @@
 
 import numpy as np
 cimport numpy as np
+import random
+import math
 
 cdef class Bodies:
 
@@ -15,28 +17,7 @@ cdef class Bodies:
         self.masses = None
         self.forces = None
         self.n = 0
-
-    cdef np.ndarray generate_3d_array(self, int n, double min, double max):
-        return_array = np.zeros((n, 3))
-        iteration_number = 0
-        for a in np.linspace(min, max, n):
-            for i in [0, 1, 2]:
-                return_array[iteration_number][i] = a
-            iteration_number = iteration_number + 1
-        return return_array
-
-    cdef void generate_data(self, Area area, int n):
-        self.area = area
-        self.positions = np.random.triangular(area.get_minimum_coordinates(), area.get_central_coordinates(), area.get_maximum_coordinates(), (n, 3))
-        # self.masses = np.array([m * 1 * 10 ** 31 + 1 * 10 **30 for m in np.random.random_sample(n)], dtype=np.float)
-        self.velocities = np.random.random_sample((n, 3)) * (2 * 10 ** 2)
-        self.accelerations = np.random.random_sample((n, 3)) * 7 * 10 ** 0
-        # self.positions = self.generate_3d_array(n, self.area.min_x, self.area.max_x)
-        self.masses = np.full(n, 8*10**29)
-        # self.velocities = self.generate_3d_array(n, 0, 1*10**4)
-        # self.accelerations = np.zeros((n, 3))
-        self.forces = np.zeros((n, 3))
-        self.n = n
+        print('BODIES HAS BEEN USED')
 
     cdef void update_body(self, np.ndarray acceleration_dt, np.ndarray velocity_dt, np.ndarray position_dt, Py_ssize_t body_id):
         self.update_accelerations(acceleration_dt, body_id)

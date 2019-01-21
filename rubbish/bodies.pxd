@@ -18,10 +18,6 @@ cdef class Bodies:
     cdef np.ndarray forces
     cdef int n
 
-    cdef np.ndarray generate_3d_array(self, int n, double min, double max)
-
-    cdef void generate_data(self, Area area, int n)
-
     cdef void update_body(self, np.ndarray acceleration_dt, np.ndarray velocity_dt, np.ndarray position_dt, Py_ssize_t body_id)
 
     cdef void update_accelerations(self, np.ndarray accelerations, Py_ssize_t body_id)

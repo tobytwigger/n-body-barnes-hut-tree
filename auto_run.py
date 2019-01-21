@@ -5,26 +5,23 @@ import time
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
-iterations = int(10)
+iterations = int(100)
 starttime = time.time()
 
 i = 0
 directory = 'images/{}_{}'.format('auto_run', i)
 
 if rank == 0:
-    while os.path.exists(directory):
+    while os.path.exists(directory+'.csv'):
         i += 1
         directory = 'images/{}_{}'.format('auto_run', i)
-    os.mkdir(directory)
 
+    print('Your galaxy ref. number: {}'.format(i))
 directory=comm.bcast(directory, root=0)
 
-dt = float(2)
-area_side = 9*10**8#0
-num_bodies = 500
-
+dt = float(10.**15)
 if rank == 0:
     print('Starting simulation')
-universe.main(iterations, directory, dt, area_side, num_bodies, 1)
+universe.main(iterations, directory, dt, 0)
 if rank == 0:
     print('Total runtime: {}s'.format(time.time() - starttime))

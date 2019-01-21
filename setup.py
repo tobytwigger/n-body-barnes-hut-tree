@@ -3,42 +3,58 @@ from distutils.extension import Extension
 from Cython.Build import cythonize
 import numpy
 
+
+
 ext_modules = [
-    Extension(
-        'src.area',
-        ['src/area.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src']
-    ),
     Extension(
         'src.node',
         ['src/node.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src']
+        include_dirs=[numpy.get_include(), '.', 'src'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ]
     ),
     Extension(
-        'src.bodies',
-        ['src/bodies.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src']
+        'src.galaxy',
+        ['src/galaxy.pyx'],
+        include_dirs=[numpy.get_include(), '.', 'src'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ]
     ),
     Extension(
         'src.bhtree',
         ['src/bhtree.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src']
+        include_dirs=[numpy.get_include(), '.', 'src'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ]
     ),
     Extension(
         'src.main',
         ['src/main.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src']
+        include_dirs=[numpy.get_include(), '.', 'src'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ]
+    ),
+    Extension(
+        'analysis.plotting',
+        ['analysis/plotting.pyx'],
+        include_dirs=[numpy.get_include(), '.', 'src', 'plotting'],
+        define_macros=[
+            ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
+        ]
     )
 ]
 
 setup(
     name='universe',
     package_data = {
-      'area': ['src/area.pxd'],
-      'node': ['src/node.pxd'],
-      'bodies': ['src/bodies.pxd'],
-      'bhtree': ['src/bhtree.pxd'],
-      'main': ['src/main.pxd']
+        'node': ['src/node.pxd'],
+        'galaxy': ['src/galaxy.pxd'],
+        'bhtree': ['src/bhtree.pxd'],
+        'main': ['src/main.pxd']
     },
     ext_modules=cythonize(ext_modules, language_level=3, annotate=True)
 )

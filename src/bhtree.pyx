@@ -4,179 +4,246 @@
 from src.node import Node
 from src.node cimport Node
 
-from src.area import Area
-from src.area cimport Area
+from libc cimport math
 
-from src.bodies import Bodies
-from src.bodies cimport Bodies
 
-import math
 import numpy as np
 cimport numpy as np
+import numpy.ma as ma
 
+import random
 from mpi4py import MPI
 
-import time
+cimport cython
 
 cdef class BHTree:
 
-    def __init__(self):
-        self._init()
-
-
-    cdef void _init(self):
-        self.bodies = Bodies()
+    def __init__(self, double[:, :] area):
+        self.area = area
         self.theta = 0
-        self.root_node = Node(self.bodies.get_area())
+        self.root_node = Node(self.area)
 
-    cdef void generate_data(self, Area area, int n):
-        self.bodies.generate_data(area, n)
-        self.populate()
+    cdef void populate(self) except *:
+        cdef int i, n
 
-    cdef void populate(self):
-        cdef int i
-        cdef int n
-
-        n = self.bodies.n
-        # print('populating')
+        n = len(self.stars)
         # Reset the tree
         self.reset_children()
         # Iterate through each body
         for i in range(n):
-            self.root_node.addBody(self.bodies, i)
+            self.root_node.add_body(self.stars, self.star_mass, i)
 
-    cdef void reset_children(self):
+    cdef void reset_children(self) except *:
         # Grow the area of the calulation space
-        min_coordinates = np.array([min(self.bodies.positions[:, 0]), min(self.bodies.positions[:, 1]), min(self.bodies.positions[:, 2])], dtype=np.float64)
-        max_coordinates = np.array([max(self.bodies.positions[:, 0]), max(self.bodies.positions[:, 1]), max(self.bodies.positions[:, 2])], dtype=np.float64)
-        self.bodies.get_area().change_area_size(min_coordinates, max_coordinates)
-        self.root_node = Node(self.bodies.get_area())
+        self.area = np.array([
+            [np.min(self.stars[:, 0, :]), np.min(self.stars[:, 1, :]), np.min(self.stars[:, 2, :])],
+            [np.max(self.stars[:, 0, :]), np.max(self.stars[:, 1, :]), np.max(self.stars[:, 2, :])]
+        ], dtype=np.float64)
 
-    cdef void iterate(self, float dt):
+        self.root_node = Node(self.area)
+
+    # @cython.boundscheck(False)
+    # @cython.wraparound(False)
+    # @cython.cdivision(True)
+    cdef void iterate(self, float dt) except *:
         cdef:
-            Py_ssize_t body_id
-            list bodies
-            int body_number
-            np.ndarray body_totals
+            Py_ssize_t i
+            int[:] bodies
+            double[:] force
+            double[:, :, :] body_totals, stars
+            double body_mass
+            int l, m, n, rank, num_p, num_of_bodies
 
         comm = MPI.COMM_WORLD
         rank = comm.Get_rank()
         num_p = comm.Get_size()
-        status = MPI.Status()
-        # print('About to process {} bodies'.format(len(bodies)))
-        if rank == 0:
-            bodies = np.array_split(range(self.bodies.n), num_p)
-            body_number = 0
+
+        # Split up the stars between the processes.
+        n = <int>len(self.stars)
+        l = <int>(n / num_p)
+        m = n % num_p
+        if n < num_p:
+            if rank == 0:
+                num_of_bodies = n
+                bodies = np.arange(n, dtype=np.intc)
+            else:
+                num_of_bodies = 0
         else:
-            bodies = None
-        body_totals = np.zeros((self.bodies.n, 3, 3))
-        my_bodies = comm.scatter(bodies, root=0)
+            if m > rank:
+                num_of_bodies = l+1
+                bodies = np.arange(rank*l, ((rank+1)*l)+1, dtype=np.intc)
+                bodies[num_of_bodies-1] = n-rank-1
+            else:
+                num_of_bodies = l
+                bodies = np.arange(rank*l, (rank+1)*l, dtype=np.intc)
 
-        body_calculations = np.zeros((self.bodies.n, 3, 3))
+        # print('Rank {} got bodies {}'.format(rank, np.asarray(bodies)))
+        # Set up variables ready for saving star data in, and deleting bodies that're too far away
+        stars = np.zeros((n, 3, 3), dtype=np.float64)
+        deleted_bodies = np.zeros(n, dtype=np.intc)
+        area_length = np.max([self.area[1][0] - self.area[0][0], self.area[1][1] - self.area[0][1], self.area[1][2] - self.area[0][2]])
+        central_coordinates = np.array([(self.area[1][0] + self.area[0][0])/2, (self.area[1][1] + self.area[0][1])/2, (self.area[1][2] + self.area[0][2])/2], dtype=np.float64)
 
-        # print('Rank {} has to process {}'.format(rank, my_bodies))
+        # Each rank iterates through their own bodies, saving the data to 'stars' and deleted_bodies
+        i = 0
+        while i < num_of_bodies:
+            # Update positions
+            stars[bodies[i]][0][0] = stars[bodies[i]][1][0] * dt/2
+            stars[bodies[i]][0][1] = stars[bodies[i]][1][1] * dt/2
+            stars[bodies[i]][0][2] = stars[bodies[i]][1][2] * dt/2
 
-        for body in my_bodies:
-            force = self.get_force_on_body(body, self.root_node)
-            acceleration_dt = force/self.bodies.get_mass(body)
-            velocity_dt = np.array([a * dt for a in acceleration_dt], dtype=np.float64)
-            position_dt = np.array([v * dt for v in velocity_dt], dtype=np.float64)
-            body_calculations[body] = np.array([
-                acceleration_dt, velocity_dt, position_dt
-            ])
-            # print('Rank {} put body {}\'s calculation as {}'.format(rank, body, body_calculations[body]))
+            acceleration = self.get_acceleration_of_body(bodies[i], self.root_node)
+            stars[bodies[i]][2][0] = acceleration[0]
+            stars[bodies[i]][2][1] = acceleration[1]
+            stars[bodies[i]][2][2] = acceleration[2]
+            stars[bodies[i]][1][0] = stars[bodies[i]][1][0] + stars[bodies[i]][2][0] * dt
+            stars[bodies[i]][1][1] = stars[bodies[i]][1][1] + stars[bodies[i]][2][1] * dt
+            stars[bodies[i]][1][2] = stars[bodies[i]][1][2] + stars[bodies[i]][2][2] * dt
+            stars[bodies[i]][0][0] = stars[bodies[i]][0][0] + stars[bodies[i]][1][0] * dt/2
+            stars[bodies[i]][0][1] = stars[bodies[i]][0][1] + stars[bodies[i]][1][1] * dt/2
+            stars[bodies[i]][0][2] = stars[bodies[i]][0][2] + stars[bodies[i]][1][2] * dt/2
 
-        body_calculations = comm.Reduce(
-            [body_calculations, MPI.DOUBLE],
-            [body_totals, MPI.DOUBLE],
-            op = MPI.SUM,
-            root = 0
+            # print(np.asarray(self.stars[bodies[i]]))
+            # print('Max change in body {} is {}'.format(bodies[i], max(self.stars[bodies[i]][0][0],self.stars[ bodies[i]][0][0], self.stars[bodies[i]][0][0]) ))
+            # d = math.sqrt(
+            #     math.pow((central_coordinates[0] - stars[bodies[i]][0][0]), 2)
+            #     + math.pow((central_coordinates[1] - stars[bodies[i]][0][1]), 2)
+            #     + math.pow((central_coordinates[2] - stars[bodies[i]][0][2]), 2)
+            # )
+            # print('Body is {}m away and the total length is {}'.format(d, area_length))
+            # if 2 * area_length < d:
+            #     deleted_bodies[bodies[i]] = 1
+
+            i = i + 1
+        # Share the updated positions
+        body_totals = np.zeros((n, 3, 3), dtype=np.float64)
+        comm.Allreduce(
+            stars,
+            body_totals,
+            op = MPI.SUM
         )
 
-        body_positions = np.zeros((self.bodies.n, 3))
-        if rank == 0:
-            # print('Rank {} has body_totals as {}'.format(rank, body_totals))
-            body_id = 0
-            for body_derivatives in body_totals:
-                self.bodies.update_body(body_derivatives[0], body_derivatives[1], body_derivatives[2], body_id)
-                body_positions[body_id] = body_derivatives[2]
-                body_id = body_id + 1
+        # Deleting
+        # raw_mask = np.zeros(n, dtype=np.intc)
+        #
+        # comm.Allreduce(
+        #     deleted_bodies,
+        #     raw_mask,
+        #     op=MPI.SUM
+        # )
+        # mask = []
+        # for i in range(len(raw_mask)):
+        #     if raw_mask[i] == 1:
+        #         mask.append(i)
+        #
+        # if len(mask) > 0:
+        #     self.stars = np.delete(self.stars, raw_mask, axis=0)
+        #     self.star_mass = np.delete(self.star_mass, raw_mask, axis=0)
 
-        self.populate()
+        i=0
+        # while i < (len(raw_mask) - sum(raw_mask)):
+        while i < n:
 
-    def slow_iterate(self, dt):
-        # Calculate the new position, velocity and acceleration of each body in turn
-        for i in range(self.bodies.n):
-            # Find the updated force
-            force = self.get_force_on_body(i, self.root_node)
-            self.bodies.forces[i] = force
-            # Find acceleration
-            acceleration = force/self.bodies.get_mass(i)
-            self.bodies.accelerate(i, acceleration, dt)
+            self.stars[i][0][0] = self.stars[i][0][0] + body_totals[i][0][0] + (self.stars[i][1][0] * dt)
+            self.stars[i][0][1] = self.stars[i][0][1] + body_totals[i][0][1] + (self.stars[i][1][1] * dt)
+            self.stars[i][0][2] = self.stars[i][0][2] + body_totals[i][0][2] + (self.stars[i][1][2] * dt)
+            self.stars[i][1][0] = self.stars[i][1][0] + body_totals[i][1][0] + (self.stars[i][2][0] * dt)
+            self.stars[i][1][1] = self.stars[i][1][1] + body_totals[i][1][1] + (self.stars[i][2][1] * dt)
+            self.stars[i][1][2] = self.stars[i][1][2] + body_totals[i][1][2] + (self.stars[i][2][2] * dt)
+            self.stars[i][2][0] = self.stars[i][2][0] + body_totals[i][2][0]
+            self.stars[i][2][1] = self.stars[i][2][1] + body_totals[i][2][1]
+            self.stars[i][2][2] = self.stars[i][2][2] + body_totals[i][2][2]
 
-        self.populate()
+            i = i + 1
 
-    cdef np.ndarray get_force_on_body(self, Py_ssize_t body_id, Node node):
+    cdef double[:] get_acceleration_of_body(self, Py_ssize_t body_id, Node node):
         cdef:
-            np.ndarray force
+            double[:] force, additional_force
             int k
             float s
-            np.ndarray d
+            double[:] d = np.zeros(3)
             float r
-            object child
-            object subnode
-
+            Node child, subnode
         force = np.zeros(3)
-
         if node.parent is 0:
             for k in node.bodies:
-                if k != body_id:  # Skip same body
-                    force += self.get_force_due_to_body(body_id, k)
+                if k != body_id:
+                    additional_force = self.get_acceleration_due_to_body(body_id, k)
+                    force[0] = force[0] + additional_force[0]
+                    force[1] = force[1] + additional_force[1]
+                    force[2] = force[2] + additional_force[2]
         else:
-            s = max(node.area.get_dimensions())
-
-            d = node.com - self.bodies.positions[body_id]
+            s = np.max([node.area[1][0] - node.area[0][0], node.area[1][1] - node.area[0][1], node.area[1][2] - node.area[0][2]])
+            d[0] = node.com[0] - self.stars[body_id][0][0]
+            d[1] = node.com[1] - self.stars[body_id][0][1]
+            d[2] = node.com[2] - self.stars[body_id][0][2]
             r = math.sqrt(np.dot(d, d))
             if r > 0 and s / r < self.theta:
-                force += self.get_force_due_to_node(body_id, node)
+                additional_force = self.get_acceleration_due_to_node(body_id, node)
+                for i in range(len(additional_force)):
+                    force[i] = force[i] + additional_force[i]
             else:
                 # Iterate through child nodes
                 for subnode in [child for child in node.children if child is not None]:
-                    force += self.get_force_on_body(body_id, subnode)
-
+                    additional_force = self.get_acceleration_of_body(body_id, subnode)
+                    for i in range(len(additional_force)):
+                        force[i] = force[i] + additional_force[i]
         return force
 
-    cdef np.ndarray get_force_due_to_body(self, Py_ssize_t body_id, Py_ssize_t gen_body_id):
+    cdef double[:] get_acceleration_due_to_body(self, Py_ssize_t body_id, Py_ssize_t gen_body_id):
         cdef:
-            np.ndarray distance
+            double[:] distance = np.zeros(3)
             float mass
             float gen_mass
 
-        distance = np.array([a+b for a, b in zip(self.bodies.get_position(body_id), self.bodies.get_position(gen_body_id))])
-        mass = self.bodies.get_mass(body_id)
-        gen_mass = self.bodies.get_mass(gen_body_id)
-        return self.calculate_force(mass, distance, gen_mass)
+        distance[0] = self.stars[body_id][0][0] - self.stars[gen_body_id][0][0]
+        if np.isnan(distance[0]):
+            print(np.asarray(self.stars));
+            print('Body x is: {}    Body against is {}'.format(self.stars[body_id][0][0], self.stars[gen_body_id][0][0]))
+        distance[1] = self.stars[body_id][0][1] - self.stars[gen_body_id][0][1]
+        distance[2] = self.stars[body_id][0][2] - self.stars[gen_body_id][0][2]
+        gen_mass = self.star_mass[gen_body_id]
 
-    cdef np.ndarray get_force_due_to_node(self, Py_ssize_t body_id, Node node):
+        comm = MPI.COMM_WORLD
+        rank = comm.Get_rank()
+        return self.calculate_acceleration(distance, gen_mass)
+
+    cdef double[:] get_acceleration_due_to_node(self, Py_ssize_t body_id, Node node):
         cdef:
-            np.ndarray distance
+            double[:] distance
             float mass, gen_mass, a, b
+        distance = np.array([a-b for a, b in zip(self.stars[body_id][0], node.com)])
 
-        distance = np.array([a+b for a, b in zip(self.bodies.get_position(body_id), node.com)])
-        mass = self.bodies.get_mass(body_id)
         gen_mass = node.mass
-        return self.calculate_force(mass, distance, gen_mass)
+        comm = MPI.COMM_WORLD
+        rank = comm.Get_rank()
+        return self.calculate_acceleration(distance, gen_mass)
 
-    cdef np.ndarray calculate_force(self, float m, np.ndarray d, float m2):
+    cdef double[:] calculate_acceleration(self, double[:] d, float m):
         cdef:
             double G, r
-
-        G = 6.67 * math.pow(10, -11)
-        r = math.sqrt(np.dot(d, d))
-        constant = -((G*m*m2)/(r**3))
+            double[:] force = np.zeros(3)
+            double constant
+        comm = MPI.COMM_WORLD
+        rank = comm.Get_rank()
+        G = 6.67 * pow(10.0, -11)
+        r = math.sqrt(
+            math.pow(d[0], 2)
+            + math.pow(d[1], 2)
+            + math.pow(d[2], 2)
+        )
+        if r == 0.:
+            print('r is 0!')
+            exit(1)
+        constant = -((G*m)/(pow(r, 3) + 1))
+        if np.isnan(constant):
+            print('D is ({}, {}, {})'.format(d[0], d[1], d[2]))
+            print('R is nan. {} * {} / {}^3 ({})'.format(G, m, r, pow(r, 3)))
+            exit(1)
         if math.isinf(constant):
             print('R is too large to calculate!')
-        force = np.array([dist * constant for dist in d], dtype=np.float64)
-        # print('Using G={:20.20f}, r={:20f}, m1={:10f}, m2={:10f}, constant={}, force={}'.format(G, r**3, m, m2, constant, force))
-
+            exit(1)
+        force[0] = constant * d[0]
+        force[1] = constant * d[1]
+        force[2] = constant * d[2]
         return force
