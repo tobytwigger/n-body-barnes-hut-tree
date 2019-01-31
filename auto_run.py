@@ -5,7 +5,7 @@ import time
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
-iterations = int(100)
+iterations = int(20000)
 starttime = time.time()
 
 i = 0
