@@ -191,10 +191,14 @@ cdef class Galaxy:
     #     # self.stars = np.array([])
 
     def TomCode(self):
+        # Define parameters
         n = 1000
-        area_side = 5*10**15
+        area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
+
+        # Generate Galaxy
         masses, velocities, points = self._DefInitial(n, area_side)
+
         self.star_mass = masses
         stars = np.zeros((n, 3, 3))
         stars[:, 0, :] = points
@@ -203,16 +207,22 @@ cdef class Galaxy:
         self.area = area
         self.stars = stars
 
+        # print(np.asarray(self.stars))
+        # print(np.asarray(self.star_mass))
+
 
     def _DefInitial(self, n, size):
         '''
         Generates a spiral galaxy
         '''
+        # Generate holders
         masses = abs(np.random.normal(0.5, 0.05, n))
         velocities = np.zeros((n, 3))
         points = np.zeros((n, 3))
 
+        # Generate Positions
         points = self._DefPoints(size, points)
+
         internal_COMs = np.zeros((n, 3))
         internal_masses = np.zeros(n)
         distances = np.linalg.norm(points[:, 0:2], axis = 1)
@@ -228,6 +238,8 @@ cdef class Galaxy:
                 internal_COMs[i] = [0.0, 0.0, 0.0]
 
         relative_points = points - internal_COMs
+
+        # Generate Velocities
         velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)
         return masses, velocities, points
 
@@ -254,8 +266,12 @@ cdef class Galaxy:
         '''
         Initialises point velocities
         '''
+
+        relative_distances = np.linalg.norm(relative_points, axis = 1)
+        speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+
         radial_vectors = relative_points[:, 0:2]
-        vertical_vectors = np.random.normal(0, size / 100, len(velocities))
+        vertical_vectors = np.random.normal(0, speeds / 1000, len(velocities))
 
         vectors = np.zeros((len(velocities), 3))
         vectors[:, 0] = - radial_vectors[:, 1]
@@ -263,8 +279,6 @@ cdef class Galaxy:
         vectors[:, 2] = vertical_vectors
 
         normalisation = np.linalg.norm(vectors, axis = 1)
-        relative_distances = np.linalg.norm(relative_points, axis = 1)
-        speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)

@@ -2747,7 +2747,7 @@ static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, PyObject *__pyx_v_n, PyObject *__pyx_v_size); /* proto */
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, PyObject *__pyx_v_size, PyObject *__pyx_v_points); /* proto */
-static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, PyObject *__pyx_v_size, PyObject *__pyx_v_relative_points, PyObject *__pyx_v_internal_masses, PyObject *__pyx_v_velocities); /* proto */
+static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_size, PyObject *__pyx_v_relative_points, PyObject *__pyx_v_internal_masses, PyObject *__pyx_v_velocities); /* proto */
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_8__reduce_cython__(struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_10__setstate_cython__(struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_3src_6galaxy___pyx_unpickle_Galaxy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
@@ -2809,7 +2809,6 @@ static PyObject *__pyx_float_6_;
 static PyObject *__pyx_float_9_;
 static PyObject *__pyx_float_0_0;
 static PyObject *__pyx_float_0_1;
-static PyObject *__pyx_float_0_5;
 static PyObject *__pyx_float_0_6;
 static PyObject *__pyx_float_10_;
 static PyObject *__pyx_float_2_0;
@@ -2830,6 +2829,7 @@ static PyObject *__pyx_int_65;
 static PyObject *__pyx_int_100;
 static PyObject *__pyx_int_360;
 static PyObject *__pyx_int_500;
+static PyObject *__pyx_int_1000;
 static PyObject *__pyx_int_60784338;
 static PyObject *__pyx_int_184977713;
 static PyObject *__pyx_int_5000000000000000;
@@ -5594,8 +5594,8 @@ static void __pyx_f_3src_6galaxy_6Galaxy_four_bodies(struct __pyx_obj_3src_6gala
  *     #     # self.stars = np.array([])
  * 
  *     def TomCode(self):             # <<<<<<<<<<<<<<
+ *         # Define parameters
  *         n = 1000
- *         area_side = 5*10**15
  */
 
 /* Python wrapper */
@@ -5613,7 +5613,7 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_1TomCode(PyObject *__pyx_v_self, 
 
 static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self) {
   long __pyx_v_n;
-  PyObject *__pyx_v_area_side = NULL;
+  long __pyx_v_area_side;
   PyObject *__pyx_v_area = NULL;
   PyObject *__pyx_v_masses = NULL;
   PyObject *__pyx_v_velocities = NULL;
@@ -5627,49 +5627,49 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6ga
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  PyObject *(*__pyx_t_7)(PyObject *);
-  __Pyx_memviewslice __pyx_t_8 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
+  PyObject *(*__pyx_t_8)(PyObject *);
   __Pyx_memviewslice __pyx_t_9 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_t_10 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_t_11 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("TomCode", 0);
   __Pyx_TraceCall("TomCode", __pyx_f[0], 193, 0, __PYX_ERR(0, 193, __pyx_L1_error));
 
-  /* "src/galaxy.pyx":194
- * 
- *     def TomCode(self):
- *         n = 1000             # <<<<<<<<<<<<<<
- *         area_side = 5*10**15
- *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
- */
-  __Pyx_TraceLine(194,0,__PYX_ERR(0, 194, __pyx_L1_error))
-  __pyx_v_n = 0x3E8;
-
   /* "src/galaxy.pyx":195
  *     def TomCode(self):
- *         n = 1000
- *         area_side = 5*10**15             # <<<<<<<<<<<<<<
+ *         # Define parameters
+ *         n = 1000             # <<<<<<<<<<<<<<
+ *         area_side = 1
  *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
- *         masses, velocities, points = self._DefInitial(n, area_side)
  */
   __Pyx_TraceLine(195,0,__PYX_ERR(0, 195, __pyx_L1_error))
-  __Pyx_INCREF(__pyx_int_5000000000000000);
-  __pyx_v_area_side = __pyx_int_5000000000000000;
+  __pyx_v_n = 0x3E8;
 
   /* "src/galaxy.pyx":196
+ *         # Define parameters
  *         n = 1000
- *         area_side = 5*10**15
- *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)             # <<<<<<<<<<<<<<
- *         masses, velocities, points = self._DefInitial(n, area_side)
- *         self.star_mass = masses
+ *         area_side = 1             # <<<<<<<<<<<<<<
+ *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
+ * 
  */
   __Pyx_TraceLine(196,0,__PYX_ERR(0, 196, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_v_area_side = 1;
+
+  /* "src/galaxy.pyx":197
+ *         n = 1000
+ *         area_side = 1
+ *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)             # <<<<<<<<<<<<<<
+ * 
+ *         # Generate Galaxy
+ */
+  __Pyx_TraceLine(197,0,__PYX_ERR(0, 197, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -5680,279 +5680,289 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6ga
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
   PyList_SET_ITEM(__pyx_t_1, 2, __pyx_int_0);
-  __pyx_t_3 = PyList_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_area_side); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_v_area_side);
-  __Pyx_GIVEREF(__pyx_v_area_side);
-  PyList_SET_ITEM(__pyx_t_3, 0, __pyx_v_area_side);
-  __Pyx_INCREF(__pyx_v_area_side);
-  __Pyx_GIVEREF(__pyx_v_area_side);
-  PyList_SET_ITEM(__pyx_t_3, 1, __pyx_v_area_side);
-  __Pyx_INCREF(__pyx_v_area_side);
-  __Pyx_GIVEREF(__pyx_v_area_side);
-  PyList_SET_ITEM(__pyx_t_3, 2, __pyx_v_area_side);
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_v_area_side); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
+  __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_v_area_side); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyList_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
-  __pyx_t_1 = 0;
-  __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
+  PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_5);
+  __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_area = __pyx_t_5;
   __pyx_t_5 = 0;
-
-  /* "src/galaxy.pyx":197
- *         area_side = 5*10**15
- *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
- *         masses, velocities, points = self._DefInitial(n, area_side)             # <<<<<<<<<<<<<<
- *         self.star_mass = masses
- *         stars = np.zeros((n, 3, 3))
- */
-  __Pyx_TraceLine(197,0,__PYX_ERR(0, 197, __pyx_L1_error))
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefInitial); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = NULL;
+  __pyx_t_5 = PyList_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
+  __pyx_t_1 = 0;
   __pyx_t_6 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_2);
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_area = __pyx_t_4;
+  __pyx_t_4 = 0;
+
+  /* "src/galaxy.pyx":200
+ * 
+ *         # Generate Galaxy
+ *         masses, velocities, points = self._DefInitial(n, area_side)             # <<<<<<<<<<<<<<
+ * 
+ *         self.star_mass = masses
+ */
+  __Pyx_TraceLine(200,0,__PYX_ERR(0, 200, __pyx_L1_error))
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefInitial); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v_area_side); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = NULL;
+  __pyx_t_7 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-      __pyx_t_6 = 1;
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_7 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_v_area_side};
-    __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_6, __pyx_t_2};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_3, __pyx_v_area_side};
-    __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_6, __pyx_t_2};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else
   #endif
   {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (__pyx_t_2) {
-      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__pyx_t_1) {
+      __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
     }
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_6, __pyx_t_3);
-    __Pyx_INCREF(__pyx_v_area_side);
-    __Pyx_GIVEREF(__pyx_v_area_side);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_6, __pyx_v_area_side);
-    __pyx_t_3 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_7, __pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_7, __pyx_t_2);
+    __pyx_t_6 = 0;
+    __pyx_t_2 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
-    PyObject* sequence = __pyx_t_5;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if ((likely(PyTuple_CheckExact(__pyx_t_4))) || (PyList_CheckExact(__pyx_t_4))) {
+    PyObject* sequence = __pyx_t_4;
     Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 197, __pyx_L1_error)
+      __PYX_ERR(0, 200, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
+      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 2); 
     } else {
-      __pyx_t_4 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
+      __pyx_t_5 = PyList_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 2); 
     }
-    __Pyx_INCREF(__pyx_t_4);
-    __Pyx_INCREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_t_3);
+    __Pyx_INCREF(__pyx_t_2);
     #else
-    __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     #endif
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_2 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
-    index = 0; __pyx_t_4 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_4);
-    index = 1; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 2; __pyx_t_3 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
+    __pyx_t_6 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext;
+    index = 0; __pyx_t_5 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_5);
+    index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 3) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
-    __pyx_t_7 = NULL;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    index = 2; __pyx_t_2 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_2)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_2);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_6), 3) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_8 = NULL;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     goto __pyx_L4_unpacking_done;
     __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_7 = NULL;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_8 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 197, __pyx_L1_error)
+    __PYX_ERR(0, 200, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
-  __pyx_v_masses = __pyx_t_4;
-  __pyx_t_4 = 0;
-  __pyx_v_velocities = __pyx_t_1;
-  __pyx_t_1 = 0;
-  __pyx_v_points = __pyx_t_3;
+  __pyx_v_masses = __pyx_t_5;
+  __pyx_t_5 = 0;
+  __pyx_v_velocities = __pyx_t_3;
   __pyx_t_3 = 0;
+  __pyx_v_points = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":198
- *         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
+  /* "src/galaxy.pyx":202
  *         masses, velocities, points = self._DefInitial(n, area_side)
+ * 
  *         self.star_mass = masses             # <<<<<<<<<<<<<<
  *         stars = np.zeros((n, 3, 3))
  *         stars[:, 0, :] = points
  */
-  __Pyx_TraceLine(198,0,__PYX_ERR(0, 198, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_masses, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_TraceLine(202,0,__PYX_ERR(0, 202, __pyx_L1_error))
+  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_masses, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 202, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->star_mass, 0);
-  __pyx_v_self->star_mass = __pyx_t_8;
-  __pyx_t_8.memview = NULL;
-  __pyx_t_8.data = NULL;
+  __pyx_v_self->star_mass = __pyx_t_9;
+  __pyx_t_9.memview = NULL;
+  __pyx_t_9.data = NULL;
 
-  /* "src/galaxy.pyx":199
- *         masses, velocities, points = self._DefInitial(n, area_side)
+  /* "src/galaxy.pyx":203
+ * 
  *         self.star_mass = masses
  *         stars = np.zeros((n, 3, 3))             # <<<<<<<<<<<<<<
  *         stars[:, 0, :] = points
  *         stars[:, 1, :] = velocities
  */
-  __Pyx_TraceLine(199,0,__PYX_ERR(0, 199, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __Pyx_TraceLine(203,0,__PYX_ERR(0, 203, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_int_3);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_3);
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_int_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_int_3);
+  __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  __pyx_t_5 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_stars = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_stars = __pyx_t_4;
+  __pyx_t_4 = 0;
 
-  /* "src/galaxy.pyx":200
+  /* "src/galaxy.pyx":204
  *         self.star_mass = masses
  *         stars = np.zeros((n, 3, 3))
  *         stars[:, 0, :] = points             # <<<<<<<<<<<<<<
  *         stars[:, 1, :] = velocities
  *         # print(stars)
  */
-  __Pyx_TraceLine(200,0,__PYX_ERR(0, 200, __pyx_L1_error))
-  if (unlikely(PyObject_SetItem(__pyx_v_stars, __pyx_tuple__3, __pyx_v_points) < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_TraceLine(204,0,__PYX_ERR(0, 204, __pyx_L1_error))
+  if (unlikely(PyObject_SetItem(__pyx_v_stars, __pyx_tuple__3, __pyx_v_points) < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
 
-  /* "src/galaxy.pyx":201
+  /* "src/galaxy.pyx":205
  *         stars = np.zeros((n, 3, 3))
  *         stars[:, 0, :] = points
  *         stars[:, 1, :] = velocities             # <<<<<<<<<<<<<<
  *         # print(stars)
  *         self.area = area
  */
-  __Pyx_TraceLine(201,0,__PYX_ERR(0, 201, __pyx_L1_error))
-  if (unlikely(PyObject_SetItem(__pyx_v_stars, __pyx_tuple__4, __pyx_v_velocities) < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_TraceLine(205,0,__PYX_ERR(0, 205, __pyx_L1_error))
+  if (unlikely(PyObject_SetItem(__pyx_v_stars, __pyx_tuple__4, __pyx_v_velocities) < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
 
-  /* "src/galaxy.pyx":203
+  /* "src/galaxy.pyx":207
  *         stars[:, 1, :] = velocities
  *         # print(stars)
  *         self.area = area             # <<<<<<<<<<<<<<
  *         self.stars = stars
  * 
  */
-  __Pyx_TraceLine(203,0,__PYX_ERR(0, 203, __pyx_L1_error))
-  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_area, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_TraceLine(207,0,__PYX_ERR(0, 207, __pyx_L1_error))
+  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_area, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 207, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->area, 0);
-  __pyx_v_self->area = __pyx_t_9;
-  __pyx_t_9.memview = NULL;
-  __pyx_t_9.data = NULL;
+  __pyx_v_self->area = __pyx_t_10;
+  __pyx_t_10.memview = NULL;
+  __pyx_t_10.data = NULL;
 
-  /* "src/galaxy.pyx":204
+  /* "src/galaxy.pyx":208
  *         # print(stars)
  *         self.area = area
  *         self.stars = stars             # <<<<<<<<<<<<<<
  * 
- * 
+ *         # print(np.asarray(self.stars))
  */
-  __Pyx_TraceLine(204,0,__PYX_ERR(0, 204, __pyx_L1_error))
-  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_v_stars, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __Pyx_TraceLine(208,0,__PYX_ERR(0, 208, __pyx_L1_error))
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_v_stars, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 208, __pyx_L1_error)
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->stars, 0);
-  __pyx_v_self->stars = __pyx_t_10;
-  __pyx_t_10.memview = NULL;
-  __pyx_t_10.data = NULL;
+  __pyx_v_self->stars = __pyx_t_11;
+  __pyx_t_11.memview = NULL;
+  __pyx_t_11.data = NULL;
 
   /* "src/galaxy.pyx":193
  *     #     # self.stars = np.array([])
  * 
  *     def TomCode(self):             # <<<<<<<<<<<<<<
+ *         # Define parameters
  *         n = 1000
- *         area_side = 5*10**15
  */
 
   /* function exit code */
@@ -5964,13 +5974,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6ga
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_8, 1);
+  __Pyx_XDECREF(__pyx_t_6);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_10, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_t_11, 1);
   __Pyx_AddTraceback("src.galaxy.Galaxy.TomCode", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_area_side);
   __Pyx_XDECREF(__pyx_v_area);
   __Pyx_XDECREF(__pyx_v_masses);
   __Pyx_XDECREF(__pyx_v_velocities);
@@ -5982,7 +5992,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_TomCode(struct __pyx_obj_3src_6ga
   return __pyx_r;
 }
 
-/* "src/galaxy.pyx":207
+/* "src/galaxy.pyx":214
  * 
  * 
  *     def _DefInitial(self, n, size):             # <<<<<<<<<<<<<<
@@ -6022,11 +6032,11 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_3_DefInitial(PyObject *__pyx_v_se
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_DefInitial", 1, 2, 2, 1); __PYX_ERR(0, 207, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_DefInitial", 1, 2, 2, 1); __PYX_ERR(0, 214, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefInitial") < 0)) __PYX_ERR(0, 207, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefInitial") < 0)) __PYX_ERR(0, 214, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6039,7 +6049,7 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_3_DefInitial(PyObject *__pyx_v_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_DefInitial", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 207, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_DefInitial", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 214, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("src.galaxy.Galaxy._DefInitial", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6069,99 +6079,103 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  int __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
-  Py_ssize_t __pyx_t_6;
-  PyObject *(*__pyx_t_7)(PyObject *);
-  int __pyx_t_8;
-  PyObject *__pyx_t_9 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  Py_ssize_t __pyx_t_7;
+  PyObject *(*__pyx_t_8)(PyObject *);
+  int __pyx_t_9;
   __Pyx_RefNannySetupContext("_DefInitial", 0);
-  __Pyx_TraceCall("_DefInitial", __pyx_f[0], 207, 0, __PYX_ERR(0, 207, __pyx_L1_error));
+  __Pyx_TraceCall("_DefInitial", __pyx_f[0], 214, 0, __PYX_ERR(0, 214, __pyx_L1_error));
 
-  /* "src/galaxy.pyx":211
- *         Generates a spiral galaxy
+  /* "src/galaxy.pyx":219
  *         '''
- *         masses = abs(np.random.normal(0.5, 0.05, n))             # <<<<<<<<<<<<<<
+ *         # Generate holders
+ *         masses = abs(np.random.normal(10.**10, 0.05, n))             # <<<<<<<<<<<<<<
  *         velocities = np.zeros((n, 3))
  *         points = np.zeros((n, 3))
  */
-  __Pyx_TraceLine(211,0,__PYX_ERR(0, 211, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __Pyx_TraceLine(219,0,__PYX_ERR(0, 219, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  __pyx_t_4 = 0;
+  __pyx_t_3 = PyFloat_FromDouble(pow(10., 10.0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  __pyx_t_5 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_2, function);
-      __pyx_t_4 = 1;
+      __pyx_t_5 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_float_0_5, __pyx_float_0_05, __pyx_v_n};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_t_3, __pyx_float_0_05, __pyx_v_n};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_float_0_5, __pyx_float_0_05, __pyx_v_n};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 3+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_t_3, __pyx_float_0_05, __pyx_v_n};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(3+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 211, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    __pyx_t_6 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 219, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
-    __Pyx_INCREF(__pyx_float_0_5);
-    __Pyx_GIVEREF(__pyx_float_0_5);
-    PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_4, __pyx_float_0_5);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_5, __pyx_t_3);
     __Pyx_INCREF(__pyx_float_0_05);
     __Pyx_GIVEREF(__pyx_float_0_05);
-    PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_float_0_05);
+    PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, __pyx_float_0_05);
     __Pyx_INCREF(__pyx_v_n);
     __Pyx_GIVEREF(__pyx_v_n);
-    PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_4, __pyx_v_n);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_5, __pyx_v_n);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyNumber_Absolute(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Absolute(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_masses = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":212
- *         '''
- *         masses = abs(np.random.normal(0.5, 0.05, n))
+  /* "src/galaxy.pyx":220
+ *         # Generate holders
+ *         masses = abs(np.random.normal(10.**10, 0.05, n))
  *         velocities = np.zeros((n, 3))             # <<<<<<<<<<<<<<
  *         points = np.zeros((n, 3))
  * 
  */
-  __Pyx_TraceLine(212,0,__PYX_ERR(0, 212, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __Pyx_TraceLine(220,0,__PYX_ERR(0, 220, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_n);
   __Pyx_GIVEREF(__pyx_v_n);
@@ -6170,45 +6184,45 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   __Pyx_GIVEREF(__pyx_int_3);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_3);
   __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_5);
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
     if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
     }
   }
-  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_3, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1);
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_3, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_v_velocities = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":213
- *         masses = abs(np.random.normal(0.5, 0.05, n))
+  /* "src/galaxy.pyx":221
+ *         masses = abs(np.random.normal(10.**10, 0.05, n))
  *         velocities = np.zeros((n, 3))
  *         points = np.zeros((n, 3))             # <<<<<<<<<<<<<<
  * 
- *         points = self._DefPoints(size, points)
+ *         # Generate Positions
  */
-  __Pyx_TraceLine(213,0,__PYX_ERR(0, 213, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_TraceLine(221,0,__PYX_ERR(0, 221, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_n);
   __Pyx_GIVEREF(__pyx_v_n);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_n);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_n);
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_3);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_int_3);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
     __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
@@ -6219,66 +6233,66 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
       __Pyx_DECREF_SET(__pyx_t_1, function);
     }
   }
-  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5);
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_6);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 221, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_points = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":215
- *         points = np.zeros((n, 3))
+  /* "src/galaxy.pyx":224
  * 
+ *         # Generate Positions
  *         points = self._DefPoints(size, points)             # <<<<<<<<<<<<<<
+ * 
  *         internal_COMs = np.zeros((n, 3))
- *         internal_masses = np.zeros(n)
  */
-  __Pyx_TraceLine(215,0,__PYX_ERR(0, 215, __pyx_L1_error))
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefPoints); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_TraceLine(224,0,__PYX_ERR(0, 224, __pyx_L1_error))
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefPoints); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = NULL;
-  __pyx_t_4 = 0;
+  __pyx_t_6 = NULL;
+  __pyx_t_5 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_5)) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_6)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_1, function);
-      __pyx_t_4 = 1;
+      __pyx_t_5 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_size, __pyx_v_points};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_size, __pyx_v_points};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_v_size, __pyx_v_points};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_size, __pyx_v_points};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (__pyx_t_5) {
-      __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    if (__pyx_t_6) {
+      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
     }
     __Pyx_INCREF(__pyx_v_size);
     __Pyx_GIVEREF(__pyx_v_size);
-    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_4, __pyx_v_size);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_5, __pyx_v_size);
     __Pyx_INCREF(__pyx_v_points);
     __Pyx_GIVEREF(__pyx_v_points);
-    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_4, __pyx_v_points);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_5, __pyx_v_points);
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
@@ -6286,20 +6300,20 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   __Pyx_DECREF_SET(__pyx_v_points, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":216
- * 
+  /* "src/galaxy.pyx":226
  *         points = self._DefPoints(size, points)
+ * 
  *         internal_COMs = np.zeros((n, 3))             # <<<<<<<<<<<<<<
  *         internal_masses = np.zeros(n)
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)
  */
-  __Pyx_TraceLine(216,0,__PYX_ERR(0, 216, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+  __Pyx_TraceLine(226,0,__PYX_ERR(0, 226, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_n);
   __Pyx_GIVEREF(__pyx_v_n);
@@ -6307,36 +6321,36 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_3);
-  __pyx_t_5 = NULL;
+  __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_5)) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_6)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_6);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_6, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_internal_COMs = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":217
- *         points = self._DefPoints(size, points)
+  /* "src/galaxy.pyx":227
+ * 
  *         internal_COMs = np.zeros((n, 3))
  *         internal_masses = np.zeros(n)             # <<<<<<<<<<<<<<
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)
  * 
  */
-  __Pyx_TraceLine(217,0,__PYX_ERR(0, 217, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_TraceLine(227,0,__PYX_ERR(0, 227, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -6351,146 +6365,146 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   }
   __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_v_n) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_n);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_internal_masses = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":218
+  /* "src/galaxy.pyx":228
  *         internal_COMs = np.zeros((n, 3))
  *         internal_masses = np.zeros(n)
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(n):
  */
-  __Pyx_TraceLine(218,0,__PYX_ERR(0, 218, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __Pyx_TraceLine(228,0,__PYX_ERR(0, 228, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_points, __pyx_tuple__6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_points, __pyx_tuple__6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_distances = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_v_distances = __pyx_t_6;
+  __pyx_t_6 = 0;
 
-  /* "src/galaxy.pyx":220
+  /* "src/galaxy.pyx":230
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)
  * 
  *         for i in range(n):             # <<<<<<<<<<<<<<
  *             COM_points = points[distances < distances[i]]
  *             COM_masses = masses[distances < distances[i]]
  */
-  __Pyx_TraceLine(220,0,__PYX_ERR(0, 220, __pyx_L1_error))
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
-    __pyx_t_1 = __pyx_t_5; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
-    __pyx_t_7 = NULL;
+  __Pyx_TraceLine(230,0,__PYX_ERR(0, 230, __pyx_L1_error))
+  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_n); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
+    __pyx_t_1 = __pyx_t_6; __Pyx_INCREF(__pyx_t_1); __pyx_t_7 = 0;
+    __pyx_t_8 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_8 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 230, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
-    if (likely(!__pyx_t_7)) {
+    if (likely(!__pyx_t_8)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_1)) break;
+        if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
-        if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+        if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_5); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
     } else {
-      __pyx_t_5 = __pyx_t_7(__pyx_t_1);
-      if (unlikely(!__pyx_t_5)) {
+      __pyx_t_6 = __pyx_t_8(__pyx_t_1);
+      if (unlikely(!__pyx_t_6)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 220, __pyx_L1_error)
+          else __PYX_ERR(0, 230, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GOTREF(__pyx_t_6);
     }
-    __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_5);
-    __pyx_t_5 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
+    __pyx_t_6 = 0;
 
-    /* "src/galaxy.pyx":221
+    /* "src/galaxy.pyx":231
  * 
  *         for i in range(n):
  *             COM_points = points[distances < distances[i]]             # <<<<<<<<<<<<<<
  *             COM_masses = masses[distances < distances[i]]
  * 
  */
-    __Pyx_TraceLine(221,0,__PYX_ERR(0, 221, __pyx_L1_error))
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_distances, __pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 221, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_v_distances, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 221, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_points, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 221, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_TraceLine(231,0,__PYX_ERR(0, 231, __pyx_L1_error))
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_distances, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_v_distances, __pyx_t_6, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_points, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_COM_points, __pyx_t_5);
-    __pyx_t_5 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_COM_points, __pyx_t_6);
+    __pyx_t_6 = 0;
 
-    /* "src/galaxy.pyx":222
+    /* "src/galaxy.pyx":232
  *         for i in range(n):
  *             COM_points = points[distances < distances[i]]
  *             COM_masses = masses[distances < distances[i]]             # <<<<<<<<<<<<<<
  * 
  *             internal_masses[i] = np.sum(COM_masses)
  */
-    __Pyx_TraceLine(222,0,__PYX_ERR(0, 222, __pyx_L1_error))
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_distances, __pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_v_distances, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_masses, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_TraceLine(232,0,__PYX_ERR(0, 232, __pyx_L1_error))
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_distances, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_3 = PyObject_RichCompare(__pyx_v_distances, __pyx_t_6, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_masses, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_COM_masses, __pyx_t_5);
-    __pyx_t_5 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_COM_masses, __pyx_t_6);
+    __pyx_t_6 = 0;
 
-    /* "src/galaxy.pyx":224
+    /* "src/galaxy.pyx":234
  *             COM_masses = masses[distances < distances[i]]
  * 
  *             internal_masses[i] = np.sum(COM_masses)             # <<<<<<<<<<<<<<
  *             if internal_masses[i] != 0:
  *                 internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]
  */
-    __Pyx_TraceLine(224,0,__PYX_ERR(0, 224, __pyx_L1_error))
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __Pyx_TraceLine(234,0,__PYX_ERR(0, 234, __pyx_L1_error))
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sum); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -6503,45 +6517,45 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
         __Pyx_DECREF_SET(__pyx_t_2, function);
       }
     }
-    __pyx_t_5 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_COM_masses) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_COM_masses);
+    __pyx_t_6 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_COM_masses) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_COM_masses);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 234, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_internal_masses, __pyx_v_i, __pyx_t_5) < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_internal_masses, __pyx_v_i, __pyx_t_6) < 0)) __PYX_ERR(0, 234, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "src/galaxy.pyx":225
+    /* "src/galaxy.pyx":235
  * 
  *             internal_masses[i] = np.sum(COM_masses)
  *             if internal_masses[i] != 0:             # <<<<<<<<<<<<<<
  *                 internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]
  *             else:
  */
-    __Pyx_TraceLine(225,0,__PYX_ERR(0, 225, __pyx_L1_error))
-    __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_internal_masses, __pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 225, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_5, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __Pyx_TraceLine(235,0,__PYX_ERR(0, 235, __pyx_L1_error))
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_v_internal_masses, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_6, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 225, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (__pyx_t_8) {
+    if (__pyx_t_9) {
 
-      /* "src/galaxy.pyx":226
+      /* "src/galaxy.pyx":236
  *             internal_masses[i] = np.sum(COM_masses)
  *             if internal_masses[i] != 0:
  *                 internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]             # <<<<<<<<<<<<<<
  *             else:
  *                 internal_COMs[i] = [0.0, 0.0, 0.0]
  */
-      __Pyx_TraceLine(226,0,__PYX_ERR(0, 226, __pyx_L1_error))
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __Pyx_TraceLine(236,0,__PYX_ERR(0, 236, __pyx_L1_error))
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_tensordot); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_tensordot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 236, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_v_COM_points);
       __Pyx_GIVEREF(__pyx_v_COM_points);
@@ -6549,24 +6563,24 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
       __Pyx_INCREF(__pyx_v_COM_masses);
       __Pyx_GIVEREF(__pyx_v_COM_masses);
       PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_COM_masses);
-      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_axes, __pyx_tuple__7) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 226, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_axes, __pyx_tuple__7) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 236, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_internal_masses, __pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_internal_masses, __pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_9, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_internal_COMs, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_internal_COMs, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 236, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "src/galaxy.pyx":225
+      /* "src/galaxy.pyx":235
  * 
  *             internal_masses[i] = np.sum(COM_masses)
  *             if internal_masses[i] != 0:             # <<<<<<<<<<<<<<
@@ -6576,16 +6590,16 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
       goto __pyx_L5;
     }
 
-    /* "src/galaxy.pyx":228
+    /* "src/galaxy.pyx":238
  *                 internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]
  *             else:
  *                 internal_COMs[i] = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  * 
  *         relative_points = points - internal_COMs
  */
-    __Pyx_TraceLine(228,0,__PYX_ERR(0, 228, __pyx_L1_error))
+    __Pyx_TraceLine(238,0,__PYX_ERR(0, 238, __pyx_L1_error))
     /*else*/ {
-      __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+      __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_float_0_0);
       __Pyx_GIVEREF(__pyx_float_0_0);
@@ -6596,47 +6610,47 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
       __Pyx_INCREF(__pyx_float_0_0);
       __Pyx_GIVEREF(__pyx_float_0_0);
       PyList_SET_ITEM(__pyx_t_2, 2, __pyx_float_0_0);
-      if (unlikely(PyObject_SetItem(__pyx_v_internal_COMs, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 228, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_internal_COMs, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
     __pyx_L5:;
 
-    /* "src/galaxy.pyx":220
+    /* "src/galaxy.pyx":230
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)
  * 
  *         for i in range(n):             # <<<<<<<<<<<<<<
  *             COM_points = points[distances < distances[i]]
  *             COM_masses = masses[distances < distances[i]]
  */
-    __Pyx_TraceLine(220,0,__PYX_ERR(0, 220, __pyx_L1_error))
+    __Pyx_TraceLine(230,0,__PYX_ERR(0, 230, __pyx_L1_error))
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "src/galaxy.pyx":230
+  /* "src/galaxy.pyx":240
  *                 internal_COMs[i] = [0.0, 0.0, 0.0]
  * 
  *         relative_points = points - internal_COMs             # <<<<<<<<<<<<<<
- *         velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)
- *         return masses, velocities, points
+ * 
+ *         # Generate Velocities
  */
-  __Pyx_TraceLine(230,0,__PYX_ERR(0, 230, __pyx_L1_error))
-  __pyx_t_1 = PyNumber_Subtract(__pyx_v_points, __pyx_v_internal_COMs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __Pyx_TraceLine(240,0,__PYX_ERR(0, 240, __pyx_L1_error))
+  __pyx_t_1 = PyNumber_Subtract(__pyx_v_points, __pyx_v_internal_COMs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_relative_points = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "src/galaxy.pyx":231
+  /* "src/galaxy.pyx":243
  * 
- *         relative_points = points - internal_COMs
+ *         # Generate Velocities
  *         velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)             # <<<<<<<<<<<<<<
  *         return masses, velocities, points
  * 
  */
-  __Pyx_TraceLine(231,0,__PYX_ERR(0, 231, __pyx_L1_error))
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefVelocities); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __Pyx_TraceLine(243,0,__PYX_ERR(0, 243, __pyx_L1_error))
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_DefVelocities); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
-  __pyx_t_4 = 0;
+  __pyx_t_5 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
     __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
     if (likely(__pyx_t_3)) {
@@ -6644,13 +6658,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_2, function);
-      __pyx_t_4 = 1;
+      __pyx_t_5 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_size, __pyx_v_relative_points, __pyx_v_internal_masses, __pyx_v_velocities};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 4+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 4+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
@@ -6658,47 +6672,47 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_size, __pyx_v_relative_points, __pyx_v_internal_masses, __pyx_v_velocities};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_4, 4+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 4+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_9 = PyTuple_New(4+__pyx_t_4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 231, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_4 = PyTuple_New(4+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     }
     __Pyx_INCREF(__pyx_v_size);
     __Pyx_GIVEREF(__pyx_v_size);
-    PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_4, __pyx_v_size);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_5, __pyx_v_size);
     __Pyx_INCREF(__pyx_v_relative_points);
     __Pyx_GIVEREF(__pyx_v_relative_points);
-    PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_4, __pyx_v_relative_points);
+    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_5, __pyx_v_relative_points);
     __Pyx_INCREF(__pyx_v_internal_masses);
     __Pyx_GIVEREF(__pyx_v_internal_masses);
-    PyTuple_SET_ITEM(__pyx_t_9, 2+__pyx_t_4, __pyx_v_internal_masses);
+    PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_5, __pyx_v_internal_masses);
     __Pyx_INCREF(__pyx_v_velocities);
     __Pyx_GIVEREF(__pyx_v_velocities);
-    PyTuple_SET_ITEM(__pyx_t_9, 3+__pyx_t_4, __pyx_v_velocities);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_4, 3+__pyx_t_5, __pyx_v_velocities);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF_SET(__pyx_v_velocities, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "src/galaxy.pyx":232
- *         relative_points = points - internal_COMs
+  /* "src/galaxy.pyx":244
+ *         # Generate Velocities
  *         velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)
  *         return masses, velocities, points             # <<<<<<<<<<<<<<
  * 
  *     def _DefPoints(self, size, points):
  */
-  __Pyx_TraceLine(232,0,__PYX_ERR(0, 232, __pyx_L1_error))
+  __Pyx_TraceLine(244,0,__PYX_ERR(0, 244, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_masses);
   __Pyx_GIVEREF(__pyx_v_masses);
@@ -6713,7 +6727,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/galaxy.pyx":207
+  /* "src/galaxy.pyx":214
  * 
  * 
  *     def _DefInitial(self, n, size):             # <<<<<<<<<<<<<<
@@ -6726,8 +6740,8 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("src.galaxy.Galaxy._DefInitial", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6747,7 +6761,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_2_DefInitial(struct __pyx_obj_3sr
   return __pyx_r;
 }
 
-/* "src/galaxy.pyx":234
+/* "src/galaxy.pyx":246
  *         return masses, velocities, points
  * 
  *     def _DefPoints(self, size, points):             # <<<<<<<<<<<<<<
@@ -6787,11 +6801,11 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_5_DefPoints(PyObject *__pyx_v_sel
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_points)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_DefPoints", 1, 2, 2, 1); __PYX_ERR(0, 234, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_DefPoints", 1, 2, 2, 1); __PYX_ERR(0, 246, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefPoints") < 0)) __PYX_ERR(0, 234, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefPoints") < 0)) __PYX_ERR(0, 246, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6804,7 +6818,7 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_5_DefPoints(PyObject *__pyx_v_sel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_DefPoints", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 234, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_DefPoints", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 246, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("src.galaxy.Galaxy._DefPoints", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6834,49 +6848,49 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   int __pyx_t_5;
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("_DefPoints", 0);
-  __Pyx_TraceCall("_DefPoints", __pyx_f[0], 234, 0, __PYX_ERR(0, 234, __pyx_L1_error));
+  __Pyx_TraceCall("_DefPoints", __pyx_f[0], 246, 0, __PYX_ERR(0, 246, __pyx_L1_error));
 
-  /* "src/galaxy.pyx":238
+  /* "src/galaxy.pyx":250
  *         Initialises galaxy points
  *         '''
  *         n = len(points)             # <<<<<<<<<<<<<<
  *         galaxy_spread = size / 5
  * 
  */
-  __Pyx_TraceLine(238,0,__PYX_ERR(0, 238, __pyx_L1_error))
-  __pyx_t_1 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 238, __pyx_L1_error)
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __Pyx_TraceLine(250,0,__PYX_ERR(0, 250, __pyx_L1_error))
+  __pyx_t_1 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 250, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_n = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":239
+  /* "src/galaxy.pyx":251
  *         '''
  *         n = len(points)
  *         galaxy_spread = size / 5             # <<<<<<<<<<<<<<
  * 
  *         points_r = np.random.exponential(size, n)
  */
-  __Pyx_TraceLine(239,0,__PYX_ERR(0, 239, __pyx_L1_error))
-  __pyx_t_2 = __Pyx_PyInt_TrueDivideObjC(__pyx_v_size, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_TraceLine(251,0,__PYX_ERR(0, 251, __pyx_L1_error))
+  __pyx_t_2 = __Pyx_PyInt_TrueDivideObjC(__pyx_v_size, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_galaxy_spread = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":241
+  /* "src/galaxy.pyx":253
  *         galaxy_spread = size / 5
  * 
  *         points_r = np.random.exponential(size, n)             # <<<<<<<<<<<<<<
  *         points_p = np.random.rand(n) * 2 * np.pi
  * 
  */
-  __Pyx_TraceLine(241,0,__PYX_ERR(0, 241, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __Pyx_TraceLine(253,0,__PYX_ERR(0, 253, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_exponential); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_exponential); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -6894,7 +6908,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_size, __pyx_v_n};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
@@ -6902,13 +6916,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_v_size, __pyx_v_n};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -6919,7 +6933,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
     __Pyx_INCREF(__pyx_v_n);
     __Pyx_GIVEREF(__pyx_v_n);
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, __pyx_v_n);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -6927,20 +6941,20 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   __pyx_v_points_r = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":242
+  /* "src/galaxy.pyx":254
  * 
  *         points_r = np.random.exponential(size, n)
  *         points_p = np.random.rand(n) * 2 * np.pi             # <<<<<<<<<<<<<<
  * 
  *         points_x = points_r * np.cos(points_p)
  */
-  __Pyx_TraceLine(242,0,__PYX_ERR(0, 242, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_TraceLine(254,0,__PYX_ERR(0, 254, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_rand); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_rand); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -6955,35 +6969,35 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   }
   __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_6, __pyx_v_n) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_n);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_int_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_2, __pyx_int_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_pi); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_pi); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_v_points_p = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":244
+  /* "src/galaxy.pyx":256
  *         points_p = np.random.rand(n) * 2 * np.pi
  * 
  *         points_x = points_r * np.cos(points_p)             # <<<<<<<<<<<<<<
  *         points_y = points_r * np.sin(points_p)
  * 
  */
-  __Pyx_TraceLine(244,0,__PYX_ERR(0, 244, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_TraceLine(256,0,__PYX_ERR(0, 256, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_cos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_cos); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -6998,26 +7012,26 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   }
   __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_6, __pyx_v_points_p) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_points_p);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 244, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Multiply(__pyx_v_points_r, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_v_points_r, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_points_x = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "src/galaxy.pyx":245
+  /* "src/galaxy.pyx":257
  * 
  *         points_x = points_r * np.cos(points_p)
  *         points_y = points_r * np.sin(points_p)             # <<<<<<<<<<<<<<
  * 
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
  */
-  __Pyx_TraceLine(245,0,__PYX_ERR(0, 245, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __Pyx_TraceLine(257,0,__PYX_ERR(0, 257, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sin); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sin); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -7032,29 +7046,29 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   }
   __pyx_t_3 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_2, __pyx_v_points_p) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_points_p);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_v_points_r, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_v_points_r, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_points_y = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "src/galaxy.pyx":247
+  /* "src/galaxy.pyx":259
  *         points_y = points_r * np.sin(points_p)
  * 
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x             # <<<<<<<<<<<<<<
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)
  */
-  __Pyx_TraceLine(247,0,__PYX_ERR(0, 247, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __Pyx_TraceLine(259,0,__PYX_ERR(0, 259, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -7072,7 +7086,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else
@@ -7080,13 +7094,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -7100,31 +7114,31 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
     __Pyx_INCREF(__pyx_v_n);
     __Pyx_GIVEREF(__pyx_v_n);
     PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_5, __pyx_v_n);
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Add(__pyx_t_6, __pyx_v_points_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_6, __pyx_v_points_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__8, __pyx_t_3) < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__8, __pyx_t_3) < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "src/galaxy.pyx":248
+  /* "src/galaxy.pyx":260
  * 
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y             # <<<<<<<<<<<<<<
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)
  * 
  */
-  __Pyx_TraceLine(248,0,__PYX_ERR(0, 248, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __Pyx_TraceLine(260,0,__PYX_ERR(0, 260, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_normal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_normal); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -7142,7 +7156,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else
@@ -7150,13 +7164,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else
   #endif
   {
-    __pyx_t_2 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -7170,31 +7184,31 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
     __Pyx_INCREF(__pyx_v_n);
     __Pyx_GIVEREF(__pyx_v_n);
     PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_5, __pyx_v_n);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_v_points_y); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Add(__pyx_t_3, __pyx_v_points_y); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__9, __pyx_t_6) < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__9, __pyx_t_6) < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "src/galaxy.pyx":249
+  /* "src/galaxy.pyx":261
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)             # <<<<<<<<<<<<<<
  * 
  *         return points
  */
-  __Pyx_TraceLine(249,0,__PYX_ERR(0, 249, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __Pyx_TraceLine(261,0,__PYX_ERR(0, 261, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_normal); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -7212,7 +7226,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else
@@ -7220,13 +7234,13 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_int_0, __pyx_v_galaxy_spread, __pyx_v_n};
-    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_5, 3+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(3+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_2) {
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -7240,28 +7254,28 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
     __Pyx_INCREF(__pyx_v_n);
     __Pyx_GIVEREF(__pyx_v_n);
     PyTuple_SET_ITEM(__pyx_t_4, 2+__pyx_t_5, __pyx_v_n);
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__10, __pyx_t_6) < 0)) __PYX_ERR(0, 249, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_points, __pyx_tuple__10, __pyx_t_6) < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "src/galaxy.pyx":251
+  /* "src/galaxy.pyx":263
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)
  * 
  *         return points             # <<<<<<<<<<<<<<
  * 
  *     def _DefVelocities(self, size, relative_points, internal_masses, velocities):
  */
-  __Pyx_TraceLine(251,0,__PYX_ERR(0, 251, __pyx_L1_error))
+  __Pyx_TraceLine(263,0,__PYX_ERR(0, 263, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_points);
   __pyx_r = __pyx_v_points;
   goto __pyx_L0;
 
-  /* "src/galaxy.pyx":234
+  /* "src/galaxy.pyx":246
  *         return masses, velocities, points
  * 
  *     def _DefPoints(self, size, points):             # <<<<<<<<<<<<<<
@@ -7290,7 +7304,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
   return __pyx_r;
 }
 
-/* "src/galaxy.pyx":253
+/* "src/galaxy.pyx":265
  *         return points
  * 
  *     def _DefVelocities(self, size, relative_points, internal_masses, velocities):             # <<<<<<<<<<<<<<
@@ -7302,7 +7316,7 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_4_DefPoints(CYTHON_UNUSED struct 
 static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_7_DefVelocities(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static char __pyx_doc_3src_6galaxy_6Galaxy_6_DefVelocities[] = "\n        Initialises point velocities\n        ";
 static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_7_DefVelocities(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_size = 0;
+  CYTHON_UNUSED PyObject *__pyx_v_size = 0;
   PyObject *__pyx_v_relative_points = 0;
   PyObject *__pyx_v_internal_masses = 0;
   PyObject *__pyx_v_velocities = 0;
@@ -7336,23 +7350,23 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_7_DefVelocities(PyObject *__pyx_v
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_relative_points)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 1); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 1); __PYX_ERR(0, 265, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_internal_masses)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 2); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 2); __PYX_ERR(0, 265, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_velocities)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 3); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, 3); __PYX_ERR(0, 265, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefVelocities") < 0)) __PYX_ERR(0, 253, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_DefVelocities") < 0)) __PYX_ERR(0, 265, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -7369,7 +7383,7 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_7_DefVelocities(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 253, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_DefVelocities", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 265, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("src.galaxy.Galaxy._DefVelocities", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7382,61 +7396,133 @@ static PyObject *__pyx_pw_3src_6galaxy_6Galaxy_7_DefVelocities(PyObject *__pyx_v
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, PyObject *__pyx_v_size, PyObject *__pyx_v_relative_points, PyObject *__pyx_v_internal_masses, PyObject *__pyx_v_velocities) {
+static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED struct __pyx_obj_3src_6galaxy_Galaxy *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_size, PyObject *__pyx_v_relative_points, PyObject *__pyx_v_internal_masses, PyObject *__pyx_v_velocities) {
+  PyObject *__pyx_v_relative_distances = NULL;
+  PyObject *__pyx_v_speeds = NULL;
   PyObject *__pyx_v_radial_vectors = NULL;
   PyObject *__pyx_v_vertical_vectors = NULL;
   PyObject *__pyx_v_vectors = NULL;
   PyObject *__pyx_v_normalisation = NULL;
-  PyObject *__pyx_v_relative_distances = NULL;
-  PyObject *__pyx_v_speeds = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  Py_ssize_t __pyx_t_5;
   PyObject *__pyx_t_6 = NULL;
   int __pyx_t_7;
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("_DefVelocities", 0);
-  __Pyx_TraceCall("_DefVelocities", __pyx_f[0], 253, 0, __PYX_ERR(0, 253, __pyx_L1_error));
+  __Pyx_TraceCall("_DefVelocities", __pyx_f[0], 265, 0, __PYX_ERR(0, 265, __pyx_L1_error));
 
-  /* "src/galaxy.pyx":257
- *         Initialises point velocities
+  /* "src/galaxy.pyx":270
  *         '''
- *         radial_vectors = relative_points[:, 0:2]             # <<<<<<<<<<<<<<
- *         vertical_vectors = np.random.normal(0, size / 100, len(velocities))
+ * 
+ *         relative_distances = np.linalg.norm(relative_points, axis = 1)             # <<<<<<<<<<<<<<
+ *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
  * 
  */
-  __Pyx_TraceLine(257,0,__PYX_ERR(0, 257, __pyx_L1_error))
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_relative_points, __pyx_tuple__6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __Pyx_TraceLine(270,0,__PYX_ERR(0, 270, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_radial_vectors = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linalg); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_norm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_v_relative_points);
+  __Pyx_GIVEREF(__pyx_v_relative_points);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_relative_points);
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_relative_distances = __pyx_t_4;
+  __pyx_t_4 = 0;
 
-  /* "src/galaxy.pyx":258
- *         '''
+  /* "src/galaxy.pyx":271
+ * 
+ *         relative_distances = np.linalg.norm(relative_points, axis = 1)
+ *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))             # <<<<<<<<<<<<<<
+ * 
  *         radial_vectors = relative_points[:, 0:2]
- *         vertical_vectors = np.random.normal(0, size / 100, len(velocities))             # <<<<<<<<<<<<<<
+ */
+  __Pyx_TraceLine(271,0,__PYX_ERR(0, 271, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyFloat_FromDouble(pow(10.0, -11.0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = PyNumber_Multiply(__pyx_v_internal_masses, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_v_relative_distances); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_4 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_1, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 271, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_speeds = __pyx_t_4;
+  __pyx_t_4 = 0;
+
+  /* "src/galaxy.pyx":273
+ *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+ * 
+ *         radial_vectors = relative_points[:, 0:2]             # <<<<<<<<<<<<<<
+ *         vertical_vectors = np.random.normal(0, speeds / 1000, len(velocities))
+ * 
+ */
+  __Pyx_TraceLine(273,0,__PYX_ERR(0, 273, __pyx_L1_error))
+  __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_relative_points, __pyx_tuple__6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_v_radial_vectors = __pyx_t_4;
+  __pyx_t_4 = 0;
+
+  /* "src/galaxy.pyx":274
+ * 
+ *         radial_vectors = relative_points[:, 0:2]
+ *         vertical_vectors = np.random.normal(0, speeds / 1000, len(velocities))             # <<<<<<<<<<<<<<
  * 
  *         vectors = np.zeros((len(velocities), 3))
  */
-  __Pyx_TraceLine(258,0,__PYX_ERR(0, 258, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __Pyx_TraceLine(274,0,__PYX_ERR(0, 274, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_normal); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_TrueDivideObjC(__pyx_v_size, __pyx_int_100, 0x64, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_TrueDivideObjC(__pyx_v_speeds, __pyx_int_1000, 0x3E8, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_Length(__pyx_v_velocities); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 258, __pyx_L1_error)
-  __pyx_t_5 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_5 = PyObject_Length(__pyx_v_velocities); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -7451,26 +7537,26 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED str
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_int_0, __pyx_t_3, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_int_0, __pyx_t_3, __pyx_t_1};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_int_0, __pyx_t_3, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_int_0, __pyx_t_3, __pyx_t_1};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_7, 3+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(3+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 274, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -7480,41 +7566,41 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED str
     PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_int_0);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_7, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_7, __pyx_t_1);
     __pyx_t_3 = 0;
-    __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_1 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_vertical_vectors = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_vertical_vectors = __pyx_t_4;
+  __pyx_t_4 = 0;
 
-  /* "src/galaxy.pyx":260
- *         vertical_vectors = np.random.normal(0, size / 100, len(velocities))
+  /* "src/galaxy.pyx":276
+ *         vertical_vectors = np.random.normal(0, speeds / 1000, len(velocities))
  * 
  *         vectors = np.zeros((len(velocities), 3))             # <<<<<<<<<<<<<<
  *         vectors[:, 0] = - radial_vectors[:, 1]
  *         vectors[:, 1] = radial_vectors[:, 0]
  */
-  __Pyx_TraceLine(260,0,__PYX_ERR(0, 260, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_TraceLine(276,0,__PYX_ERR(0, 276, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = PyObject_Length(__pyx_v_velocities); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 260, __pyx_L1_error)
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = PyObject_Length(__pyx_v_velocities); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_3);
   __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -7526,226 +7612,154 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED str
       __Pyx_DECREF_SET(__pyx_t_8, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5);
+  __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_v_vectors = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_vectors = __pyx_t_4;
+  __pyx_t_4 = 0;
 
-  /* "src/galaxy.pyx":261
+  /* "src/galaxy.pyx":277
  * 
  *         vectors = np.zeros((len(velocities), 3))
  *         vectors[:, 0] = - radial_vectors[:, 1]             # <<<<<<<<<<<<<<
  *         vectors[:, 1] = radial_vectors[:, 0]
  *         vectors[:, 2] = vertical_vectors
  */
-  __Pyx_TraceLine(261,0,__PYX_ERR(0, 261, __pyx_L1_error))
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_radial_vectors, __pyx_tuple__9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = PyNumber_Negative(__pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_TraceLine(277,0,__PYX_ERR(0, 277, __pyx_L1_error))
+  __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_radial_vectors, __pyx_tuple__9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_8 = PyNumber_Negative(__pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__8, __pyx_t_8) < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__8, __pyx_t_8) < 0)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "src/galaxy.pyx":262
+  /* "src/galaxy.pyx":278
  *         vectors = np.zeros((len(velocities), 3))
  *         vectors[:, 0] = - radial_vectors[:, 1]
  *         vectors[:, 1] = radial_vectors[:, 0]             # <<<<<<<<<<<<<<
  *         vectors[:, 2] = vertical_vectors
  * 
  */
-  __Pyx_TraceLine(262,0,__PYX_ERR(0, 262, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_radial_vectors, __pyx_tuple__8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __Pyx_TraceLine(278,0,__PYX_ERR(0, 278, __pyx_L1_error))
+  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_radial_vectors, __pyx_tuple__8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__9, __pyx_t_8) < 0)) __PYX_ERR(0, 262, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__9, __pyx_t_8) < 0)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "src/galaxy.pyx":263
+  /* "src/galaxy.pyx":279
  *         vectors[:, 0] = - radial_vectors[:, 1]
  *         vectors[:, 1] = radial_vectors[:, 0]
  *         vectors[:, 2] = vertical_vectors             # <<<<<<<<<<<<<<
  * 
  *         normalisation = np.linalg.norm(vectors, axis = 1)
  */
-  __Pyx_TraceLine(263,0,__PYX_ERR(0, 263, __pyx_L1_error))
-  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__10, __pyx_v_vertical_vectors) < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
+  __Pyx_TraceLine(279,0,__PYX_ERR(0, 279, __pyx_L1_error))
+  if (unlikely(PyObject_SetItem(__pyx_v_vectors, __pyx_tuple__10, __pyx_v_vertical_vectors) < 0)) __PYX_ERR(0, 279, __pyx_L1_error)
 
-  /* "src/galaxy.pyx":265
+  /* "src/galaxy.pyx":281
  *         vectors[:, 2] = vertical_vectors
  * 
  *         normalisation = np.linalg.norm(vectors, axis = 1)             # <<<<<<<<<<<<<<
- *         relative_distances = np.linalg.norm(relative_points, axis = 1)
- *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
- */
-  __Pyx_TraceLine(265,0,__PYX_ERR(0, 265, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_linalg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_norm); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_v_vectors);
-  __Pyx_GIVEREF(__pyx_v_vectors);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_vectors);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 265, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_normalisation = __pyx_t_2;
-  __pyx_t_2 = 0;
-
-  /* "src/galaxy.pyx":266
- * 
- *         normalisation = np.linalg.norm(vectors, axis = 1)
- *         relative_distances = np.linalg.norm(relative_points, axis = 1)             # <<<<<<<<<<<<<<
- *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
- *         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
- */
-  __Pyx_TraceLine(266,0,__PYX_ERR(0, 266, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_linalg); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_norm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_INCREF(__pyx_v_relative_points);
-  __Pyx_GIVEREF(__pyx_v_relative_points);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_relative_points);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 266, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_relative_distances = __pyx_t_8;
-  __pyx_t_8 = 0;
-
-  /* "src/galaxy.pyx":267
- *         normalisation = np.linalg.norm(vectors, axis = 1)
- *         relative_distances = np.linalg.norm(relative_points, axis = 1)
- *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))             # <<<<<<<<<<<<<<
  *         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
  *         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
  */
-  __Pyx_TraceLine(267,0,__PYX_ERR(0, 267, __pyx_L1_error))
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyFloat_FromDouble(pow(10.0, -11.0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_v_internal_masses, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_v_relative_distances); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
-    }
-  }
-  __pyx_t_8 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 267, __pyx_L1_error)
+  __Pyx_TraceLine(281,0,__PYX_ERR(0, 281, __pyx_L1_error))
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_speeds = __pyx_t_8;
-  __pyx_t_8 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_norm); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_INCREF(__pyx_v_vectors);
+  __Pyx_GIVEREF(__pyx_v_vectors);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_vectors);
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 281, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 281, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_normalisation = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":268
- *         relative_distances = np.linalg.norm(relative_points, axis = 1)
- *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+  /* "src/galaxy.pyx":282
+ * 
+ *         normalisation = np.linalg.norm(vectors, axis = 1)
  *         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)             # <<<<<<<<<<<<<<
  *         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
  *         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)
  */
-  __Pyx_TraceLine(268,0,__PYX_ERR(0, 268, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_v_normalisation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__8, __pyx_t_8) < 0)) __PYX_ERR(0, 268, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_TraceLine(282,0,__PYX_ERR(0, 282, __pyx_L1_error))
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_v_normalisation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__8, __pyx_t_2) < 0)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":269
- *         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+  /* "src/galaxy.pyx":283
+ *         normalisation = np.linalg.norm(vectors, axis = 1)
  *         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
  *         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)             # <<<<<<<<<<<<<<
  *         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)
  *         return velocities
  */
-  __Pyx_TraceLine(269,0,__PYX_ERR(0, 269, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 269, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_v_normalisation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 269, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 269, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__9, __pyx_t_8) < 0)) __PYX_ERR(0, 269, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_TraceLine(283,0,__PYX_ERR(0, 283, __pyx_L1_error))
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_v_normalisation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__9, __pyx_t_2) < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":270
+  /* "src/galaxy.pyx":284
  *         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
  *         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
  *         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)             # <<<<<<<<<<<<<<
  *         return velocities
  */
-  __Pyx_TraceLine(270,0,__PYX_ERR(0, 270, __pyx_L1_error))
-  __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__10); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 270, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_v_normalisation); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 270, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 270, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__10, __pyx_t_8) < 0)) __PYX_ERR(0, 270, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_TraceLine(284,0,__PYX_ERR(0, 284, __pyx_L1_error))
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_vectors, __pyx_tuple__10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_v_normalisation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Multiply(__pyx_v_speeds, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(PyObject_SetItem(__pyx_v_velocities, __pyx_tuple__10, __pyx_t_2) < 0)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "src/galaxy.pyx":271
+  /* "src/galaxy.pyx":285
  *         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
  *         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)
  *         return velocities             # <<<<<<<<<<<<<<
  */
-  __Pyx_TraceLine(271,0,__PYX_ERR(0, 271, __pyx_L1_error))
+  __Pyx_TraceLine(285,0,__PYX_ERR(0, 285, __pyx_L1_error))
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_velocities);
   __pyx_r = __pyx_v_velocities;
   goto __pyx_L0;
 
-  /* "src/galaxy.pyx":253
+  /* "src/galaxy.pyx":265
  *         return points
  * 
  *     def _DefVelocities(self, size, relative_points, internal_masses, velocities):             # <<<<<<<<<<<<<<
@@ -7758,18 +7772,18 @@ static PyObject *__pyx_pf_3src_6galaxy_6Galaxy_6_DefVelocities(CYTHON_UNUSED str
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("src.galaxy.Galaxy._DefVelocities", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_relative_distances);
+  __Pyx_XDECREF(__pyx_v_speeds);
   __Pyx_XDECREF(__pyx_v_radial_vectors);
   __Pyx_XDECREF(__pyx_v_vertical_vectors);
   __Pyx_XDECREF(__pyx_v_vectors);
   __Pyx_XDECREF(__pyx_v_normalisation);
-  __Pyx_XDECREF(__pyx_v_relative_distances);
-  __Pyx_XDECREF(__pyx_v_speeds);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_TraceReturn(__pyx_r, 0);
   __Pyx_RefNannyFinishContext();
@@ -25826,86 +25840,86 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "src/galaxy.pyx":200
+  /* "src/galaxy.pyx":204
  *         self.star_mass = masses
  *         stars = np.zeros((n, 3, 3))
  *         stars[:, 0, :] = points             # <<<<<<<<<<<<<<
  *         stars[:, 1, :] = velocities
  *         # print(stars)
  */
-  __pyx_slice__2 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_slice__2 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__2);
   __Pyx_GIVEREF(__pyx_slice__2);
-  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_slice__2, __pyx_int_0, __pyx_slice__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_slice__2, __pyx_int_0, __pyx_slice__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "src/galaxy.pyx":201
+  /* "src/galaxy.pyx":205
  *         stars = np.zeros((n, 3, 3))
  *         stars[:, 0, :] = points
  *         stars[:, 1, :] = velocities             # <<<<<<<<<<<<<<
  *         # print(stars)
  *         self.area = area
  */
-  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_slice__2, __pyx_int_1, __pyx_slice__2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_slice__2, __pyx_int_1, __pyx_slice__2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "src/galaxy.pyx":218
+  /* "src/galaxy.pyx":228
  *         internal_COMs = np.zeros((n, 3))
  *         internal_masses = np.zeros(n)
  *         distances = np.linalg.norm(points[:, 0:2], axis = 1)             # <<<<<<<<<<<<<<
  * 
  *         for i in range(n):
  */
-  __pyx_slice__5 = PySlice_New(__pyx_int_0, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_slice__5 = PySlice_New(__pyx_int_0, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
-  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_slice__2, __pyx_slice__5); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_slice__2, __pyx_slice__5); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "src/galaxy.pyx":226
+  /* "src/galaxy.pyx":236
  *             internal_masses[i] = np.sum(COM_masses)
  *             if internal_masses[i] != 0:
  *                 internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]             # <<<<<<<<<<<<<<
  *             else:
  *                 internal_COMs[i] = [0.0, 0.0, 0.0]
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "src/galaxy.pyx":247
+  /* "src/galaxy.pyx":259
  *         points_y = points_r * np.sin(points_p)
  * 
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x             # <<<<<<<<<<<<<<
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)
  */
-  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_0); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_0); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "src/galaxy.pyx":248
+  /* "src/galaxy.pyx":260
  * 
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y             # <<<<<<<<<<<<<<
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)
  * 
  */
-  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_1); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_1); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "src/galaxy.pyx":249
+  /* "src/galaxy.pyx":261
  *         points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
  *         points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y
  *         points[:, 2] = np.random.normal(0, galaxy_spread, n)             # <<<<<<<<<<<<<<
  * 
  *         return points
  */
-  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_2); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 249, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_slice__2, __pyx_int_2); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
@@ -26259,7 +26273,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   __pyx_float_9_ = PyFloat_FromDouble(9.); if (unlikely(!__pyx_float_9_)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_0 = PyFloat_FromDouble(0.0); if (unlikely(!__pyx_float_0_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_1 = PyFloat_FromDouble(0.1); if (unlikely(!__pyx_float_0_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_float_0_5 = PyFloat_FromDouble(0.5); if (unlikely(!__pyx_float_0_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_0_6 = PyFloat_FromDouble(0.6); if (unlikely(!__pyx_float_0_6)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_10_ = PyFloat_FromDouble(10.); if (unlikely(!__pyx_float_10_)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_float_2_0 = PyFloat_FromDouble(2.0); if (unlikely(!__pyx_float_2_0)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -26280,6 +26293,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_360 = PyInt_FromLong(360); if (unlikely(!__pyx_int_360)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_500 = PyInt_FromLong(500); if (unlikely(!__pyx_int_500)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_1000 = PyInt_FromLong(1000); if (unlikely(!__pyx_int_1000)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_60784338 = PyInt_FromLong(60784338L); if (unlikely(!__pyx_int_60784338)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_184977713 = PyInt_FromLong(184977713L); if (unlikely(!__pyx_int_184977713)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_5000000000000000 = PyInt_FromString((char *)"5000000000000000", 0, 0); if (unlikely(!__pyx_int_5000000000000000)) __PYX_ERR(0, 1, __pyx_L1_error)
