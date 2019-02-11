@@ -87,7 +87,7 @@ cpdef main(int iterations, str folder, float dt, int rotation):
         iteration_time = time.time()
         bhtree.iterate(dt)
         iteration_times[i][2] = time.time() - iteration_time
-
+        print('Iteration {} of {} complete'.format(i, iterations))
     if rank == 0:
         print('Rank {}: populating took {:.4f}s, saving {:.4f}s and iterating {:.4f}s'.format( rank, np.average(iteration_times[:, 0]), np.average(iteration_times[:, 1]), np.average(iteration_times[:, 2])))
     #     fig = plt.figure()

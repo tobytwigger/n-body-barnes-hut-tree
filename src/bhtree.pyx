@@ -77,14 +77,11 @@ cdef class BHTree:
                 num_of_bodies = l
                 bodies = np.arange(rank*l, (rank+1)*l, dtype=np.intc)
 
-        # print('Rank {} got bodies {}'.format(rank, np.asarray(bodies)))
-        # Set up variables ready for saving star data in, and deleting bodies that're too far away
-        stars = np.zeros((n, 3, 3), dtype=np.float64)
-        deleted_bodies = np.zeros(n, dtype=np.intc)
+        stars = self.stars
         area_length = np.max([self.area[1][0] - self.area[0][0], self.area[1][1] - self.area[0][1], self.area[1][2] - self.area[0][2]])
         central_coordinates = np.array([(self.area[1][0] + self.area[0][0])/2, (self.area[1][1] + self.area[0][1])/2, (self.area[1][2] + self.area[0][2])/2], dtype=np.float64)
 
-        # Each rank iterates through their own bodies, saving the data to 'stars' and deleted_bodies
+        # Each rank iterates through their own bodies, saving the data to 'stars'
         i = 0
         while i < num_of_bodies:
 
@@ -110,12 +107,9 @@ cdef class BHTree:
                 # v(1) += v(1/2) + 1/2 * dt * a(1)
                 stars[body_id][1][j] += v_half[j] + 1/2 * dt * stars[body_id][2][j]
 
-
-
-
-
             i = i + 1
-        # Share the updated positions
+
+        # Share the updated star information
         body_totals = np.zeros((n, 3, 3), dtype=np.float64)
         comm.Allreduce(
             stars,
@@ -123,38 +117,7 @@ cdef class BHTree:
             op = MPI.SUM
         )
 
-        # Deleting
-        # raw_mask = np.zeros(n, dtype=np.intc)
-        #
-        # comm.Allreduce(
-        #     deleted_bodies,
-        #     raw_mask,
-        #     op=MPI.SUM
-        # )
-        # mask = []
-        # for i in range(len(raw_mask)):
-        #     if raw_mask[i] == 1:
-        #         mask.append(i)
-        #
-        # if len(mask) > 0:
-        #     self.stars = np.delete(self.stars, raw_mask, axis=0)
-        #     self.star_mass = np.delete(self.star_mass, raw_mask, axis=0)
-
-        i=0
-        # while i < (len(raw_mask) - sum(raw_mask)):
-        while i < n:
-
-            self.stars[i][0][0] = self.stars[i][0][0] + body_totals[i][0][0] + (self.stars[i][1][0] * dt)
-            self.stars[i][0][1] = self.stars[i][0][1] + body_totals[i][0][1] + (self.stars[i][1][1] * dt)
-            self.stars[i][0][2] = self.stars[i][0][2] + body_totals[i][0][2] + (self.stars[i][1][2] * dt)
-            self.stars[i][1][0] = self.stars[i][1][0] + body_totals[i][1][0] + (self.stars[i][2][0] * dt)
-            self.stars[i][1][1] = self.stars[i][1][1] + body_totals[i][1][1] + (self.stars[i][2][1] * dt)
-            self.stars[i][1][2] = self.stars[i][1][2] + body_totals[i][1][2] + (self.stars[i][2][2] * dt)
-            self.stars[i][2][0] = self.stars[i][2][0] + body_totals[i][2][0]
-            self.stars[i][2][1] = self.stars[i][2][1] + body_totals[i][2][1]
-            self.stars[i][2][2] = self.stars[i][2][2] + body_totals[i][2][2]
-
-            i = i + 1
+        self.stars = body_totals
 
     cdef double[:] get_acceleration_of_body(self, Py_ssize_t body_id, Node node):
         cdef:
