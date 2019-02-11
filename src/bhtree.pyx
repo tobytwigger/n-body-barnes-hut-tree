@@ -114,11 +114,7 @@ cdef class BHTree:
 
             # Get the acceleration
             acceleration = self.get_acceleration_of_body(body_id, self.root_node)
-            # if body_id == 0:
-            #     print('Additional acceleration for body {}: {}'.format(body_id, np.asarray(acceleration)))
-            #     print('Old acceleration for body {}: {}'.format(body_id, np.asarray(self.stars[0][2])))
-            #     print('Old velocity for body {}: {}'.format(body_id, np.asarray(self.stars[0][1])))
-            #     print('Old position for body {}: {}'.format(body_id, np.asarray(self.stars[0][0])))
+
             # Update star data
             for j in range(3):
 
@@ -130,10 +126,7 @@ cdef class BHTree:
 
                 # a(1) += a(new)
                 stars[body_id][2][j] += acceleration[j]
-            # if body_id == 0:
-            #     print('New acceleration for body {}: {}'.format(body_id, np.asarray(stars[0][2])))
-            #     print('New velocity for body {}: {}'.format(body_id, np.asarray(stars[0][1])))
-            #     print('New position for body {}: {}'.format(body_id, np.asarray(stars[0][0])))
+
             if body_id == 0:
                 print('Average change in position for body 0: {}'.format(np.mean(np.asarray(stars[0][0]) - np.asarray(self.stars[0][0]))))
             i = i + 1
@@ -247,7 +240,7 @@ cdef class BHTree:
             double constant
 
         # Find the gravitational constant and the distances
-        G = 6.67 * pow(10., -11.)
+        G = 6.67 * pow(10., -12.)
         r = math.sqrt(
             math.pow(d[0], 2.)
             + math.pow(d[1], 2.)
