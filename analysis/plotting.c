@@ -1295,6 +1295,7 @@ struct __pyx_obj_3src_6bhtree_BHTree {
   __Pyx_memviewslice stars;
   __Pyx_memviewslice star_mass;
   __Pyx_memviewslice area;
+  double sf;
   float theta;
   struct __pyx_obj_3src_4node_Node *root_node;
 };

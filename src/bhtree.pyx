@@ -102,7 +102,7 @@ cdef class BHTree:
                 num_of_bodies = l
                 bodies = np.arange(rank*l, (rank+1)*l, dtype=np.intc)
 
-        stars = self.stars
+        stars = np.zeros((n, 3, 3), dtype=np.float64)
         area_length = np.max([self.area[1][0] - self.area[0][0], self.area[1][1] - self.area[0][1], self.area[1][2] - self.area[0][2]])
         central_coordinates = np.array([(self.area[1][0] + self.area[0][0])/2, (self.area[1][1] + self.area[0][1])/2, (self.area[1][2] + self.area[0][2])/2], dtype=np.float64)
 
@@ -114,24 +114,28 @@ cdef class BHTree:
 
             # Get the acceleration
             acceleration = self.get_acceleration_of_body(body_id, self.root_node)
-
-            # Set an empty array for the halfway points of v
-            v_half = np.zeros(3, dtype=np.float64)
-
+            # if body_id == 0:
+            #     print('Additional acceleration for body {}: {}'.format(body_id, np.asarray(acceleration)))
+            #     print('Old acceleration for body {}: {}'.format(body_id, np.asarray(self.stars[0][2])))
+            #     print('Old velocity for body {}: {}'.format(body_id, np.asarray(self.stars[0][1])))
+            #     print('Old position for body {}: {}'.format(body_id, np.asarray(self.stars[0][0])))
             # Update star data
             for j in range(3):
-                # v(1/2) += 1/2 * a(0) * dt
-                v_half[j] += 0.5 * stars[body_id][2][j] * dt
 
-                # r(1) += v(1/2) * dt
-                stars[body_id][0][j] += v_half[j] * dt
+                # r(1) += v(0)*dt + 1/2 * a(0) * dt
+                stars[body_id][0][j] = self.stars[body_id][0][j] + self.stars[body_id][1][j] * dt + 0.5 * self.stars[body_id][2][j] * dt
+
+                # v(1) += (a(0)  + 1/2 * newacc) * dt
+                stars[body_id][1][j] = self.stars[body_id][1][j] + (self.stars[body_id][2][j] + 1/2 * acceleration[j]) * dt
 
                 # a(1) += a(new)
                 stars[body_id][2][j] += acceleration[j]
-
-                # v(1) += v(1/2) + 1/2 * dt * a(1)
-                stars[body_id][1][j] += v_half[j] + 1/2 * dt * stars[body_id][2][j]
-
+            # if body_id == 0:
+            #     print('New acceleration for body {}: {}'.format(body_id, np.asarray(stars[0][2])))
+            #     print('New velocity for body {}: {}'.format(body_id, np.asarray(stars[0][1])))
+            #     print('New position for body {}: {}'.format(body_id, np.asarray(stars[0][0])))
+            if body_id == 0:
+                print('Average change in position for body 0: {}'.format(np.mean(np.asarray(stars[0][0]) - np.asarray(self.stars[0][0]))))
             i = i + 1
 
         # Share the updated star information
@@ -204,10 +208,18 @@ cdef class BHTree:
         distance[1] = self.stars[body_id][0][1] - self.stars[gen_body_id][0][1]
         distance[2] = self.stars[body_id][0][2] - self.stars[gen_body_id][0][2]
         gen_mass = self.star_mass[gen_body_id]
-
+        # if body_id == 0:
+        #     print('Distance from body {} to {}: {}'.format(body_id, gen_body_id, np.asarray(distance)))
         return self.calculate_acceleration(distance, gen_mass)
 
     cdef double[:] get_acceleration_due_to_node(self, Py_ssize_t body_id, Node node):
+        """
+        
+        :param body_id: 
+        :param node: 
+        
+        :return: 
+        """
         cdef:
             double[:] distance = np.zeros(3)
             float mass, gen_mass, a, b
@@ -235,29 +247,24 @@ cdef class BHTree:
             double constant
 
         # Find the gravitational constant and the distances
-        # G = 6.67 * pow(10., -11.)
-        G = 6.67 * pow(10., -1.)
+        G = 6.67 * pow(10., -11.)
         r = math.sqrt(
             math.pow(d[0], 2.)
             + math.pow(d[1], 2.)
             + math.pow(d[2], 2.)
         )
-        if r == 0.:
-            print('r is 0!')
-            exit(1)
 
         # Constant in gravitational eq, with a softening factor
-        sf = np.max(self.area[1]) * 0.58 * len(self.stars) ** (-0.26)
-        constant = -((G*m)/(pow(r, 3) + sf))
+        constant = -((G*m)/(pow(r, 3) + self.sf))
 
 
-        if np.isnan(sf):
+        if np.isnan(self.sf):
             print(np.asarray(self.area))
             print('SF is nan: {} {}'.format(np.max(self.area[1]), len(self.stars)))
             exit(1)
         if np.isnan(constant):
             print('D is ({}, {}, {})'.format(d[0], d[1], d[2]))
-            print('Constant is nan. {} * {} / {}^3 ({}) + sf {}'.format(G, m, r, pow(r, 3), sf))
+            print('Constant is nan. {} * {} / {}^3 ({}) + sf {}'.format(G, m, r, pow(r, 3), self.sf))
             exit(1)
         if math.isinf(constant):
             print('R is too large to calculate!')

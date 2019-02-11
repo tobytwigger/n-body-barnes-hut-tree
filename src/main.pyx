@@ -17,6 +17,8 @@ cimport numpy as np
 
 from mpi4py import MPI
 
+import math
+
 import csv
 
 
@@ -64,6 +66,8 @@ cpdef main(int iterations, str folder, float dt, int rotation):
     comm.Bcast(star_mass, root=0)
     bhtree.stars = stars
     bhtree.star_mass = star_mass
+    bhtree.sf = np.max(bhtree.area[1]) * 0.58 * len(bhtree.stars) ** (-0.26)
+
 
     # Save the iteration times and the start time
     iteration_times = np.zeros((iterations, 3))
@@ -82,6 +86,12 @@ cpdef main(int iterations, str folder, float dt, int rotation):
             saveCSV(bhtree.stars[:, 0, 0], bhtree.stars[:, 0, 1], bhtree.stars[:, 0, 2], folder, i)
             iteration_times[i][1] = time.time() - save_time
         comm.Barrier()
+
+        # Calculate the energy
+        E = 0
+        for j in range(len(bhtree.stars)):
+            E += 0.5 * bhtree.star_mass[j] * math.sqrt(math.pow(bhtree.stars[j][1][0], 2.) + math.pow(bhtree.stars[j][1][1], 2.) + math.pow(bhtree.stars[j][1][2], 2.))
+        # print('Total energy: {}'.format(E))
 
         # Iterate the system in time
         iteration_time = time.time()

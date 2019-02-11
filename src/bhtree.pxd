@@ -15,6 +15,7 @@ cdef class BHTree:
     cdef double[:, :, :] stars
     cdef double[:] star_mass
     cdef double[:, :] area
+    cdef double sf
 
     cdef float theta
     cdef Node root_node

@@ -8,8 +8,8 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
 # Set runtime variables
-iterations = 200
-dt = 10.
+iterations = 500
+dt = 1000.
 # dt = 10.**3.3 # Use with four_bodies
 # Create a csv file to save data into
 i = 0
