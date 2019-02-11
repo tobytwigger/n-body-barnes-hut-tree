@@ -85,13 +85,13 @@ ax.set_zlabel('Z Axis')
 ax.w_xaxis.set_pane_color((0,0,0,1))
 ax.w_yaxis.set_pane_color((0,0,0,1))
 ax.w_zaxis.set_pane_color((0,0,0,1))
-ax.set_facecolor('black')
+# ax.set_facecolor('black')
 ax.grid(False)
 ax.set_title('3D Test')
 
 # Creating the Animation object
 line_ani = animation.FuncAnimation(fig, animation_update_positions, len(positions), fargs=(positions, points),
-                                   interval=50, blit=False)
+                                   interval=350, blit=False)
 
 plt.show()
 

@@ -47,7 +47,7 @@ cdef class BHTree:
     # @cython.cdivision(True)
     cdef void iterate(self, float dt) except *:
         cdef:
-            Py_ssize_t i
+            Py_ssize_t i, body_id
             int[:] bodies
             double[:] force
             double[:, :, :] body_totals, stars
@@ -198,7 +198,7 @@ cdef class BHTree:
         if r == 0.:
             print('r is 0!')
             exit(1)
-        constant = -((G*m)/(pow(r, 3) + 1))
+        constant = -((G*m)/(pow(r, 3) + 100))
         if np.isnan(constant):
             print('D is ({}, {}, {})'.format(d[0], d[1], d[2]))
             print('R is nan. {} * {} / {}^3 ({})'.format(G, m, r, pow(r, 3)))
