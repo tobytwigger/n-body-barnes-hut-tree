@@ -12,6 +12,8 @@ autorun_number = sys.argv[1]
 file = './images/auto_run_'+autorun_number+'.csv'
 directory = 'images/{}_{}'.format('auto_run', autorun_number)
 
+
+
 if sys.argv[2] == 'all':
     if rank == 0:
         if not os.path.exists(directory):
@@ -21,3 +23,6 @@ if sys.argv[2] == 'all':
 
 elif sys.argv[2] == 'single':
     plot.gen_single_axes(file, int(sys.argv[3]))
+
+elif sys.argv[2] == 'animation':
+    plot.animation(file)

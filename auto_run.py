@@ -3,25 +3,37 @@ import os
 from mpi4py import MPI
 import time
 
+# Set up MPI variables
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
-iterations = int(2)
-starttime = time.time()
 
+# Set runtime variables
+iterations = 200
+dt = float(10.**25.)
+# dt = 10.**3.3 # Use with four_bodies
+# Create a csv file to save data into
 i = 0
-directory = 'images/{}_{}'.format('auto_run', i)
+csvfile = 'images/{}_{}'.format('auto_run', i)
 
 if rank == 0:
-    while os.path.exists(directory+'.csv'):
+    # Find the next possible number to save data into
+    while os.path.exists(csvfile+'.csv'):
         i += 1
-        directory = 'images/{}_{}'.format('auto_run', i)
+        csvfile = 'images/{}_{}'.format('auto_run', i)
 
+    # Let the user know which file contains their data
     print('Your galaxy ref. number: {}'.format(i))
-directory=comm.bcast(directory, root=0)
 
-dt = float(10.**15)
+csvfile=comm.bcast(csvfile, root=0)
+
+
 if rank == 0:
+    # Define when the code begins
+    starttime = time.time()
     print('Starting simulation')
-universe.main(iterations, directory, dt, 0)
+
+# Start the simulation
+universe.main(iterations, csvfile, dt, 0)
+
 if rank == 0:
     print('Total runtime: {}s'.format(time.time() - starttime))

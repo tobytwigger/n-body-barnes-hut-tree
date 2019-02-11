@@ -87,32 +87,32 @@ cdef class BHTree:
         # Each rank iterates through their own bodies, saving the data to 'stars' and deleted_bodies
         i = 0
         while i < num_of_bodies:
-            # Update positions
-            stars[bodies[i]][0][0] = stars[bodies[i]][1][0] * dt/2
-            stars[bodies[i]][0][1] = stars[bodies[i]][1][1] * dt/2
-            stars[bodies[i]][0][2] = stars[bodies[i]][1][2] * dt/2
 
-            acceleration = self.get_acceleration_of_body(bodies[i], self.root_node)
-            stars[bodies[i]][2][0] = acceleration[0]
-            stars[bodies[i]][2][1] = acceleration[1]
-            stars[bodies[i]][2][2] = acceleration[2]
-            stars[bodies[i]][1][0] = stars[bodies[i]][1][0] + stars[bodies[i]][2][0] * dt
-            stars[bodies[i]][1][1] = stars[bodies[i]][1][1] + stars[bodies[i]][2][1] * dt
-            stars[bodies[i]][1][2] = stars[bodies[i]][1][2] + stars[bodies[i]][2][2] * dt
-            stars[bodies[i]][0][0] = stars[bodies[i]][0][0] + stars[bodies[i]][1][0] * dt/2
-            stars[bodies[i]][0][1] = stars[bodies[i]][0][1] + stars[bodies[i]][1][1] * dt/2
-            stars[bodies[i]][0][2] = stars[bodies[i]][0][2] + stars[bodies[i]][1][2] * dt/2
+            body_id = bodies[i]
 
-            # print(np.asarray(self.stars[bodies[i]]))
-            # print('Max change in body {} is {}'.format(bodies[i], max(self.stars[bodies[i]][0][0],self.stars[ bodies[i]][0][0], self.stars[bodies[i]][0][0]) ))
-            # d = math.sqrt(
-            #     math.pow((central_coordinates[0] - stars[bodies[i]][0][0]), 2)
-            #     + math.pow((central_coordinates[1] - stars[bodies[i]][0][1]), 2)
-            #     + math.pow((central_coordinates[2] - stars[bodies[i]][0][2]), 2)
-            # )
-            # print('Body is {}m away and the total length is {}'.format(d, area_length))
-            # if 2 * area_length < d:
-            #     deleted_bodies[bodies[i]] = 1
+            # Get the acceleration
+            acceleration = self.get_acceleration_of_body(body_id, self.root_node)
+
+            # Set an empty array for the halfway points of v
+            v_half = np.zeros(3, dtype=np.float64)
+
+            # Update star data
+            for j in range(3):
+                # v(1/2) += 1/2 * a(0) * dt
+                v_half[j] += 0.5 * stars[body_id][2][j] * dt
+
+                # r(1) += v(1/2) * dt
+                stars[body_id][0][j] += v_half[j] * dt
+
+                # a(1) += a(new)
+                stars[body_id][2][j] += acceleration[j]
+
+                # v(1) += v(1/2) + 1/2 * dt * a(1)
+                stars[body_id][1][j] += v_half[j] + 1/2 * dt * stars[body_id][2][j]
+
+
+
+
 
             i = i + 1
         # Share the updated positions
