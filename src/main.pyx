@@ -91,7 +91,7 @@ cpdef main(int iterations, str folder, float dt, int rotation):
         E = 0
         for j in range(len(bhtree.stars)):
             E += 0.5 * bhtree.star_mass[j] * math.sqrt(math.pow(bhtree.stars[j][1][0], 2.) + math.pow(bhtree.stars[j][1][1], 2.) + math.pow(bhtree.stars[j][1][2], 2.))
-        print('Total energy: {}'.format(E))
+        # print('Total energy: {}'.format(E))
 
         # Iterate the system in time
         iteration_time = time.time()

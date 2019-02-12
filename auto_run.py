@@ -9,7 +9,7 @@ rank = comm.Get_rank()
 
 # Set runtime variables
 iterations = 5000
-dt = 100.
+dt = 600.
 # dt = 10.**3.3 # Use with four_bodies
 # Create a csv file to save data into
 i = 0

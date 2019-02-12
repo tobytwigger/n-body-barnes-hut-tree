@@ -12,7 +12,7 @@ cdef class Galaxy:
 
     cdef void spiral(self) except *:
         n = 500
-        area_side = 5*10**15
+        area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
         self.stars = np.zeros((n, 3, 3), dtype=np.float64)
 
@@ -130,7 +130,7 @@ cdef class Galaxy:
             self.stars[i][2][2] = random.random() * 100
             i = i + 1
 
-        self.star_mass = np.full(n, 8*10**19, dtype=np.float64)
+        self.star_mass = abs(np.random.normal(0.5, 0.05, n))
         self.area = area
 
     cdef void four_bodies(self) except *:
@@ -192,7 +192,7 @@ cdef class Galaxy:
 
     def TomCode(self):
         # Define parameters
-        n = 1000
+        n = 10000
         area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
 
@@ -271,7 +271,7 @@ cdef class Galaxy:
         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
 
         radial_vectors = relative_points[:, 0:2]
-        vertical_vectors = np.random.normal(0, speeds / 1000, len(velocities))
+        vertical_vectors = np.random.normal(0, speeds / 100, len(velocities))
 
         vectors = np.zeros((len(velocities), 3))
         vectors[:, 0] = - radial_vectors[:, 1]

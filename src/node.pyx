@@ -17,30 +17,45 @@ cdef class Node:
         self.bodies = np.zeros(0, dtype=np.intc)
 
     cdef void add_body(self, double[:, :, :] stars, double[:] star_mass, int body_id) except *:
+        """
+        Add a body in a node or chile node
+        
+        :param stars: Positions, velocities and accelerations of the bodies
+        :param star_mass: Masses of the stars
+        :param body_id: ID of the body being added
+        
+        :return: 
+        """
         cdef Py_ssize_t body, node_id
 
-        mass_ratio = star_mass[body_id] / (self.mass + star_mass[body_id])
-        self.com[0] = (self.com[0] * self.mass) + (stars[body_id][0][0] * mass_ratio)
-        self.com[1] = (self.com[1] * self.mass) + (stars[body_id][0][1] * mass_ratio)
-        self.com[2] = (self.com[2] * self.mass) + (stars[body_id][0][2] * mass_ratio)
+        # Change the centre of mass and the mass of the node
+        # Even if a body is saved in a child node, we still alter the CoM and mass.
+        old_mass = self.mass
         self.mass = self.mass + star_mass[body_id]
-        # If we have bodies already present or this is a parent
+        for j in range(3):
+            self.com[j] = ((self.com[j] * old_mass) + (stars[body_id][0][j] * star_mass[body_id]))/self.mass
+
+        # This node is either a parent, or has bodies present already
         if (len(self.bodies) > 0 or self.parent is 1) and self.depth <= self.max_depth:
-            detached_bodies = [body_id]  # bodies to add to children
+
+            # Build up an array of all bodies to be added
+            detached_bodies = [body_id]
             if len(self.bodies) > 0:
-                # if node has children, move own body down to child
                 detached_bodies = np.append(detached_bodies, self.bodies)
                 self.bodies = np.array([], dtype=np.intc)
 
+            # Iterate through each body to add to a child
             for body in detached_bodies:
-                # Find the node ID
+
+                # Get the index of the node to add the body to
                 index = np.array([0,1,2,3,4,5,6,7], dtype=np.intc)
                 index = index[:4] if stars[body][0][0] <= np.sum(self.area[:, 0])/2 else index[4:]
                 index = index[:2] if stars[body][0][1] <= np.sum(self.area[:, 1])/2 else index[2:]
                 index = index[:1] if stars[body][0][2] <= np.sum(self.area[:, 2])/2 else index[1:]
                 node_id = int(index[0])
 
-                if not self.children[node_id]:
+                # Create a new node for a child if needed
+                if self.children[node_id] is None:
                     new_area = np.zeros((2, 3), dtype=np.float64)
                     if node_id == 0:
                         new_area = np.array([[self.area[0][0], self.area[0][1], self.area[0][2]], [np.sum(self.area[:, 0])/2, np.sum(self.area[:, 1])/2, np.sum(self.area[:, 2])/2]], dtype=np.float64)
@@ -62,14 +77,11 @@ cdef class Node:
                     child_node = Node(new_area, self.depth+1)
                     self.children[node_id] = child_node
 
-                self.temp_node = self.children[node_id]
-                self.temp_node.add_body(stars, star_mass, body)
-
+                # Add the body to the new child node
+                (<Node>self.children[node_id]).add_body(stars, star_mass, body)
 
             self.parent = 1
 
-
+        # This node is empty, so we can just add the body straight away.
         else:
-            new_bodies = np.append(self.bodies, np.array(body_id, dtype=np.intc))
-            self.bodies = new_bodies
-            self.mass = self.mass + star_mass[body_id]
+            self.bodies = np.append(self.bodies, np.array(body_id, dtype=np.intc))

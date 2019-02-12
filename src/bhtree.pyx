@@ -20,7 +20,7 @@ cdef class BHTree:
 
     def __init__(self, double[:, :] area):
         self.area = area
-        self.theta = 0
+        self.theta = 0.7
         self.root_node = Node(self.area)
 
     cdef void populate(self) except *:
@@ -197,12 +197,12 @@ cdef class BHTree:
             float mass
             float gen_mass
 
-        distance[0] = self.stars[body_id][0][0] - self.stars[gen_body_id][0][0]
-        distance[1] = self.stars[body_id][0][1] - self.stars[gen_body_id][0][1]
-        distance[2] = self.stars[body_id][0][2] - self.stars[gen_body_id][0][2]
+        for j in range(3):
+            distance[j] = self.stars[body_id][0][j] - self.stars[gen_body_id][0][j]
         gen_mass = self.star_mass[gen_body_id]
-        # if body_id == 0:
-        #     print('Distance from body {} to {}: {}'.format(body_id, gen_body_id, np.asarray(distance)))
+
+        # print('Body: Distance of ({}, {}, {}) with a mass of {}'.format(distance[0], distance[1], distance[2], gen_mass))
+
         return self.calculate_acceleration(distance, gen_mass)
 
     cdef double[:] get_acceleration_due_to_node(self, Py_ssize_t body_id, Node node):
@@ -217,10 +217,10 @@ cdef class BHTree:
             double[:] distance = np.zeros(3)
             float mass, gen_mass, a, b
 
-        distance[0] = self.stars[body_id][0][0] - node.com[0]
-        distance[1] = self.stars[body_id][0][1] - node.com[1]
-        distance[2] = self.stars[body_id][0][2] - node.com[2]
+        for j in range(3):
+            distance[j] = self.stars[body_id][0][j] - node.com[j]
         gen_mass = node.mass
+        # print('Node: Distance of ({}, {}, {}) with a mass of {}'.format(distance[0], distance[1], distance[2], gen_mass))
 
         return self.calculate_acceleration(distance, gen_mass)
 
