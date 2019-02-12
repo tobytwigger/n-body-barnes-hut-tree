@@ -9,7 +9,7 @@ ext_modules = [
     Extension(
         'src.node',
         ['src/node.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src'],
+        include_dirs=[numpy.get_include(), 'src'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ]
@@ -17,7 +17,7 @@ ext_modules = [
     Extension(
         'src.galaxy',
         ['src/galaxy.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src'],
+        include_dirs=[numpy.get_include(), 'src'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ]
@@ -25,7 +25,7 @@ ext_modules = [
     Extension(
         'src.bhtree',
         ['src/bhtree.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src'],
+        include_dirs=[numpy.get_include(), 'src'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ]
@@ -33,7 +33,7 @@ ext_modules = [
     Extension(
         'src.main',
         ['src/main.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src'],
+        include_dirs=[numpy.get_include(), 'src'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ]
@@ -41,7 +41,7 @@ ext_modules = [
     Extension(
         'analysis.plotting',
         ['analysis/plotting.pyx'],
-        include_dirs=[numpy.get_include(), '.', 'src', 'plotting'],
+        include_dirs=[numpy.get_include(), 'plotting'],
         define_macros=[
             ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"),
         ]
@@ -56,6 +56,6 @@ setup(
         'bhtree': ['src/bhtree.pxd'],
         'main': ['src/main.pxd']
     },
-    ext_modules=cythonize(ext_modules, language_level=3, annotate=True)
+    ext_modules=cythonize(ext_modules, language_level=3)#, annotate=True)
 )
 
