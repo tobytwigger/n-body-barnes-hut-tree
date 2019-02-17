@@ -1,6 +1,9 @@
-# cython: profile=True
-# cython: linetrace=True
-
+# cython: profile=False
+# cython: linetrace=False
+# cython: cdivision=True
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: initializedcheck=False
 import numpy as np
 cimport numpy as np
 import random
@@ -10,7 +13,7 @@ import sys
 
 cdef class Galaxy:
 
-    cdef void spiral(self) except *:
+    cdef void spiral(self):
         n = 500
         area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
@@ -133,7 +136,7 @@ cdef class Galaxy:
         self.star_mass = abs(np.random.normal(0.5, 0.05, n))
         self.area = area
 
-    cdef void four_bodies(self) except *:
+    cdef void four_bodies(self):
         self.star_mass = np.full(4, 1, dtype=np.float64)
         # self.star_mass[3] = 1000000000
         self.area = np.array( [ [0., 0., 0.], [10., 10., 10.] ] )
@@ -216,7 +219,7 @@ cdef class Galaxy:
         Generates a spiral galaxy
         '''
         # Generate holders
-        masses = abs(np.random.normal(0.5, 0.05, n))
+        masses = abs(np.random.normal(1, 0.5, n))
         velocities = np.zeros((n, 3))
         points = np.zeros((n, 3))
 
@@ -271,7 +274,7 @@ cdef class Galaxy:
         speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
 
         radial_vectors = relative_points[:, 0:2]
-        vertical_vectors = np.random.normal(0, speeds / 100, len(velocities))
+        vertical_vectors = np.random.normal(0, speeds / 10, len(velocities))
 
         vectors = np.zeros((len(velocities), 3))
         vectors[:, 0] = - radial_vectors[:, 1]

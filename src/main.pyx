@@ -1,5 +1,9 @@
-# cython: profile=True
-# cython: linetrace=True
+# cython: profile=False
+# cython: linetrace=False
+# cython: cdivision=True
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: initializedcheck=False
 
 import sys
 from src.bhtree import BHTree
@@ -17,6 +21,8 @@ cimport numpy as np
 
 from mpi4py import MPI
 
+import matplotlib.pyplot as plt
+
 import math
 
 import csv
@@ -30,7 +36,7 @@ def saveCSV(x, y, z, file, iter_number):
             csvwriter.writerow([iter_number, x[i], y[i], z[i]])
 
 # Entrance to main program.
-cpdef main(int iterations, str folder, float dt, int rotation):
+cpdef main(int iterations, str folder, float dt):
     cdef:
         int i
         int rank, num_bodies
@@ -48,6 +54,7 @@ cpdef main(int iterations, str folder, float dt, int rotation):
 
     # Create a galaxy.
     galaxy = Galaxy()
+
     # galaxy.spiral()
     galaxy.TomCode()
     # galaxy.four_bodies()
@@ -71,45 +78,29 @@ cpdef main(int iterations, str folder, float dt, int rotation):
 
     # Save the iteration times and the start time
     iteration_times = np.zeros((iterations, 3))
-
     # Iterate through each iteration requested
     for i in range(iterations):
 
         # Populate the Barnes Hut Tree
-        populate_time = time.time()
-        bhtree.populate()
-        iteration_times[i][0] = time.time() - populate_time
+        if i % 2 == 0:
+            bhtree.populate()
+        # iteration_times[i][0] = time.time() - populate_time
 
         # Save the data in the CSV
         if rank == 0:
-            save_time = time.time()
             saveCSV(bhtree.stars[:, 0, 0], bhtree.stars[:, 0, 1], bhtree.stars[:, 0, 2], folder, i)
-            iteration_times[i][1] = time.time() - save_time
         comm.Barrier()
 
         # Calculate the energy
-        E = 0
-        for j in range(len(bhtree.stars)):
-            E += 0.5 * bhtree.star_mass[j] * math.sqrt(math.pow(bhtree.stars[j][1][0], 2.) + math.pow(bhtree.stars[j][1][1], 2.) + math.pow(bhtree.stars[j][1][2], 2.))
+        # E = 0
+        # for j in range(len(bhtree.stars)):
+        #     E += (0.5 * bhtree.star_mass[j] * math.sqrt(math.pow(bhtree.stars[j][1][0], 2.) + math.pow(bhtree.stars[j][1][1], 2.) + math.pow(bhtree.stars[j][1][2], 2.)))
         # print('Total energy: {}'.format(E))
 
         # Iterate the system in time
-        iteration_time = time.time()
+        # iteration_time = time.time()
         bhtree.iterate(dt)
-        iteration_times[i][2] = time.time() - iteration_time
-        if rank == 0:
-            print('Iteration {} of {} complete'.format(i, iterations))
-    if rank == 0:
-        print('Rank {}: populating took {:.4f}s, saving {:.4f}s and iterating {:.4f}s'.format( rank, np.average(iteration_times[:, 0]), np.average(iteration_times[:, 1]), np.average(iteration_times[:, 2])))
-    #     fig = plt.figure()
-    #     plt.plot(times[:, 0], label='Populating Time')
-    #     plt.plot(times[:, 1], label='Iterating Time')
-    #     plt.legend(loc='upper left')
-    #
-    #     plt.ylabel('Time for one iteration')
-    #     plt.xlabel('Iteration Number')
-    #     plt.show()
-    #
-    #     if rank == 0 and  i % 5 == 0:
-    #         periteration = ((time.time() - process_start_time)/(i if i != 0 else 1))
-    #         print('Computed iteration {}. ETA: {:.2f}m ({:.2f}m passed)'.format(i, ((iterations - i) * periteration), (i * periteration) ))
+        # iteration_times[i][2] = time.time() - iteration_time
+        # if rank == 0:
+        #     print('Iteration {} of {} complete'.format(i, iterations))
+    # print('Rank {}: populating took {:.8f}s and iterating {:.8f}s'.format( rank, np.average(iteration_times[:, 0]), np.average(iteration_times[:, 2])))

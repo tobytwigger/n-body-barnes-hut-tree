@@ -6,10 +6,11 @@ import time
 # Set up MPI variables
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
+num_p = comm.Get_size()
 
 # Set runtime variables
-iterations = 5000
-dt = 600.
+iterations = 20000
+dt = 60.
 # dt = 10.**3.3 # Use with four_bodies
 # Create a csv file to save data into
 i = 0
@@ -22,7 +23,7 @@ if rank == 0:
         csvfile = 'images/{}_{}'.format('auto_run', i)
 
     # Let the user know which file contains their data
-    print('Your galaxy ref. number: {}'.format(i))
+    print('Your galaxy ref. number with {} threads: {}'.format(num_p, i))
 
 csvfile=comm.bcast(csvfile, root=0)
 
@@ -30,10 +31,9 @@ csvfile=comm.bcast(csvfile, root=0)
 if rank == 0:
     # Define when the code begins
     starttime = time.time()
-    print('Starting simulation')
 
 # Start the simulation
-universe.main(iterations, csvfile, dt, 0)
+universe.main(iterations, csvfile, dt)
 
 if rank == 0:
     print('Total runtime: {}s'.format(time.time() - starttime))

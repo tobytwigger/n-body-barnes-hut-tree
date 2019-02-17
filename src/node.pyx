@@ -1,5 +1,9 @@
-# cython: profile=True
-# cython: linetrace=True
+# cython: profile=False
+# cython: linetrace=False
+# cython: cdivision=True
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: initializedcheck=False
 
 import numpy as np
 cimport numpy as np
@@ -16,7 +20,7 @@ cdef class Node:
         self.max_depth = 25
         self.bodies = np.zeros(0, dtype=np.intc)
 
-    cdef void add_body(self, double[:, :, :] stars, double[:] star_mass, int body_id) except *:
+    cdef void add_body(self, double[:, :, :] stars, double[:] star_mass, int body_id):
         """
         Add a body in a node or chile node
         
@@ -26,7 +30,12 @@ cdef class Node:
         
         :return: 
         """
-        cdef Py_ssize_t body, node_id
+        cdef:
+            Py_ssize_t body, node_id
+            double old_mass
+            int[:] detached_bodies, index
+            double[:, :] new_area
+            Node child_node
 
         # Change the centre of mass and the mass of the node
         # Even if a body is saved in a child node, we still alter the CoM and mass.
@@ -39,7 +48,7 @@ cdef class Node:
         if (len(self.bodies) > 0 or self.parent is 1) and self.depth <= self.max_depth:
 
             # Build up an array of all bodies to be added
-            detached_bodies = [body_id]
+            detached_bodies = np.array([body_id], dtype=np.intc)
             if len(self.bodies) > 0:
                 detached_bodies = np.append(detached_bodies, self.bodies)
                 self.bodies = np.array([], dtype=np.intc)
@@ -48,11 +57,11 @@ cdef class Node:
             for body in detached_bodies:
 
                 # Get the index of the node to add the body to
-                index = np.array([0,1,2,3,4,5,6,7], dtype=np.intc)
+                index = np.arange(8, dtype=np.intc)
                 index = index[:4] if stars[body][0][0] <= np.sum(self.area[:, 0])/2 else index[4:]
                 index = index[:2] if stars[body][0][1] <= np.sum(self.area[:, 1])/2 else index[2:]
                 index = index[:1] if stars[body][0][2] <= np.sum(self.area[:, 2])/2 else index[1:]
-                node_id = int(index[0])
+                node_id = <int>index[0]
 
                 # Create a new node for a child if needed
                 if self.children[node_id] is None:
@@ -78,7 +87,7 @@ cdef class Node:
                     self.children[node_id] = child_node
 
                 # Add the body to the new child node
-                (<Node>self.children[node_id]).add_body(stars, star_mass, body)
+                (<Node>self.children[node_id]).add_body(stars, star_mass, <int>body)
 
             self.parent = 1
 

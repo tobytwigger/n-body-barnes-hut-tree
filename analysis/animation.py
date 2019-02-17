@@ -12,7 +12,6 @@ from mpi4py import MPI
 import csv
 
 def animation_update_positions(iteration_number, positions, points):
-    print(points)
     points._offsets3d = (positions[iteration_number, :, 0], positions[iteration_number, :, 1], positions[iteration_number, :, 2])
     return points
 
