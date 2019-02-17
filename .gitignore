@@ -12,4 +12,8 @@ src/*.c
 src/*.so
 src/*.html
 
+analysis/plotting.*.c
+analysis/plotting.*.so
+analysis/plotting.*.html
+
 .idea/
