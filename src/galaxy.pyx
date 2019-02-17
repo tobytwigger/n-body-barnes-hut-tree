@@ -1,6 +1,9 @@
-# cython: profile=True
-# cython: linetrace=True
-
+# cython: profile=False
+# cython: linetrace=False
+# cython: cdivision=True
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: initializedcheck=False
 import numpy as np
 cimport numpy as np
 import random
@@ -10,9 +13,9 @@ import sys
 
 cdef class Galaxy:
 
-    cdef void spiral(self) except *:
+    cdef void spiral(self):
         n = 500
-        area_side = 5*10**15
+        area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
         self.stars = np.zeros((n, 3, 3), dtype=np.float64)
 
@@ -130,30 +133,48 @@ cdef class Galaxy:
             self.stars[i][2][2] = random.random() * 100
             i = i + 1
 
-        self.star_mass = np.full(n, 8*10**19, dtype=np.float64)
+        self.star_mass = abs(np.random.normal(0.5, 0.05, n))
         self.area = area
 
-    cdef void four_bodies(self) except *:
+    cdef void four_bodies(self):
         self.star_mass = np.full(4, 1, dtype=np.float64)
-        self.star_mass[3] = 1000000000
+        # self.star_mass[3] = 1000000000
         self.area = np.array( [ [0., 0., 0.], [10., 10., 10.] ] )
+        # self.stars = np.array([
+        # [
+        #     [1., 1., 0.],
+        #     [0.1, 0.3, 0.1],
+        #     [0.1, 0.1, 0.]
+        # ], [
+        #     [9., 9., 0.],
+        #     [-0.1, -0.3, 0.],
+        #     [-0.1, -0.1, 0.4]
+        # ], [
+        #     [4., 4., 0.],
+        #     [0.1, 0.3, 0.],
+        #     [0.1, 0.1, 0.5]
+        # ], [
+        #     [3., 9., 1.0],
+        #     [-0.1, -0.3, 0.2],
+        #     [-0.1, -0.1, 0.1]
+        # ]], dtype=np.float64)
         self.stars = np.array([
         [
-            [1., 1., 0.],
-            [0.1, 0.3, 0.1],
-            [0.1, 0.1, 0.]
+            [1., 1., 1.],
+            [0., 0., 0.],
+            [0., 0., 0.]
         ], [
-            [9., 9., 0.],
-            [-0.1, -0.3, 0.],
-            [-0.1, -0.1, 0.4]
+            [9., 2., 5.4],
+            [0., 0., 0.],
+            [0., 0., 0.],
         ], [
-            [4., 4., 0.],
-            [0.1, 0.3, 0.],
-            [0.1, 0.1, 0.5]
+            [4., 6., 1.],
+            [0., 0., 0.],
+            [0., 0., 0.],
         ], [
-            [3., 9., 1.0],
-            [-0.1, -0.3, 0.2],
-            [-0.1, -0.1, 0.1]
+            [3., 10., 10.],
+            [0., 0., 0.],
+            [0., 0., 0.],
         ]], dtype=np.float64)
     #
     # def illustris(self):
@@ -173,10 +194,14 @@ cdef class Galaxy:
     #     # self.stars = np.array([])
 
     def TomCode(self):
-        n = 1000
-        area_side = 5*10**15
+        # Define parameters
+        n = 10000
+        area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
+
+        # Generate Galaxy
         masses, velocities, points = self._DefInitial(n, area_side)
+
         self.star_mass = masses
         stars = np.zeros((n, 3, 3))
         stars[:, 0, :] = points
@@ -185,16 +210,22 @@ cdef class Galaxy:
         self.area = area
         self.stars = stars
 
+        # print(np.asarray(self.stars))
+        # print(np.asarray(self.star_mass))
+
 
     def _DefInitial(self, n, size):
         '''
         Generates a spiral galaxy
         '''
-        masses = abs(np.random.normal(0.5, 0.05, n))
+        # Generate holders
+        masses = abs(np.random.normal(1, 0.5, n))
         velocities = np.zeros((n, 3))
         points = np.zeros((n, 3))
 
+        # Generate Positions
         points = self._DefPoints(size, points)
+
         internal_COMs = np.zeros((n, 3))
         internal_masses = np.zeros(n)
         distances = np.linalg.norm(points[:, 0:2], axis = 1)
@@ -210,6 +241,8 @@ cdef class Galaxy:
                 internal_COMs[i] = [0.0, 0.0, 0.0]
 
         relative_points = points - internal_COMs
+
+        # Generate Velocities
         velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)
         return masses, velocities, points
 
@@ -236,8 +269,12 @@ cdef class Galaxy:
         '''
         Initialises point velocities
         '''
+
+        relative_distances = np.linalg.norm(relative_points, axis = 1)
+        speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+
         radial_vectors = relative_points[:, 0:2]
-        vertical_vectors = np.random.normal(0, size / 100, len(velocities))
+        vertical_vectors = np.random.normal(0, speeds / 10, len(velocities))
 
         vectors = np.zeros((len(velocities), 3))
         vectors[:, 0] = - radial_vectors[:, 1]
@@ -245,8 +282,6 @@ cdef class Galaxy:
         vectors[:, 2] = vertical_vectors
 
         normalisation = np.linalg.norm(vectors, axis = 1)
-        relative_distances = np.linalg.norm(relative_points, axis = 1)
-        speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
         velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
         velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
         velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)

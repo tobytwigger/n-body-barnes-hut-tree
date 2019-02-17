@@ -1,5 +1,9 @@
-# cython: profile=True
-# cython: linetrace=True
+# cython: profile=False
+# cython: linetrace=False
+# cython: cdivision=True
+# cython: boundscheck=False
+# cython: wraparound=False
+# cython: initializedcheck=False
 
 import numpy as np
 cimport numpy as np
@@ -10,6 +14,6 @@ cdef class Galaxy:
     cdef double[:] star_mass
     cdef double[:, :] area
 
-    cdef void spiral(self) except *
+    cdef void spiral(self)
 
-    cdef void four_bodies(self) except *
+    cdef void four_bodies(self)
