@@ -32,7 +32,7 @@ def get_iteration_numbers(file):
 
 plt.ion()
 autorun_number = sys.argv[1]
-file = './images/auto_run_' + autorun_number + '.csv'
+file = './images/run_' + autorun_number + '.csv'
 
 # Read filepause
 iter_numbers = get_iteration_numbers(file)

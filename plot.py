@@ -9,8 +9,8 @@ num_p = comm.Get_size()
 
 autorun_number = sys.argv[1]
 
-file = './images/auto_run_'+autorun_number+'.csv'
-directory = 'images/{}_{}'.format('auto_run', autorun_number)
+file = './images/run_'+autorun_number+'.csv'
+directory = 'images/{}_{}'.format('run', autorun_number)
 
 
 

@@ -14,13 +14,13 @@ dt = 60.
 # dt = 10.**3.3 # Use with four_bodies
 # Create a csv file to save data into
 i = 0
-csvfile = 'images/{}_{}'.format('auto_run', i)
+csvfile = 'images/{}_{}'.format('run', i)
 
 if rank == 0:
     # Find the next possible number to save data into
     while os.path.exists(csvfile+'.csv'):
         i += 1
-        csvfile = 'images/{}_{}'.format('auto_run', i)
+        csvfile = 'images/{}_{}'.format('run', i)
 
     # Let the user know which file contains their data
     print('Your galaxy ref. number with {} threads: {}'.format(num_p, i))

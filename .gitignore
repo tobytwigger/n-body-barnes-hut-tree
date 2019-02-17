@@ -2,8 +2,14 @@ venv/
 
 __pycache__
 
-.idea/
-
-images/
+images/*.csv
 
 build/
+
+profiling/*
+
+src/*.c
+src/*.so
+src/*.html
+
+.idea/
