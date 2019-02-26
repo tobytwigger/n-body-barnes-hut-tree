@@ -37,6 +37,14 @@ def saveCSV(x, y, z, file, iter_number):
 
 # Entrance to main program.
 cpdef main(int iterations, str folder, float dt):
+    """
+    Main function to call
+    
+    :param iterations:  Number of iterations
+    :param folder: Folder to save the file in
+    :param dt: Timestep
+    :return: 
+    """
     cdef:
         int i
         int rank, num_bodies

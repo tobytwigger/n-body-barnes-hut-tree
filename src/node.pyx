@@ -22,7 +22,7 @@ cdef class Node:
 
     cdef void add_body(self, double[:, :, :] stars, double[:] star_mass, int body_id):
         """
-        Add a body in a node or chile node
+        Add a body in a node or child node
         
         :param stars: Positions, velocities and accelerations of the bodies
         :param star_mass: Masses of the stars

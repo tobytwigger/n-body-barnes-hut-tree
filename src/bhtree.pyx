@@ -188,6 +188,13 @@ cdef class BHTree:
         return acceleration
 
     cdef double[:] get_acceleration_due_to_body(self, Py_ssize_t body_id, Py_ssize_t gen_body_id):
+        """
+        Get the acceleration on a body due to another body
+        
+        :param body_id: Body to calculate the acceleration of
+        :param gen_body_id: Body to calculate the acceleration due to
+        :return: 
+        """
         cdef:
             double[:] distance = np.zeros(3)
 
@@ -198,9 +205,10 @@ cdef class BHTree:
 
     cdef double[:] get_acceleration_due_to_node(self, Py_ssize_t body_id, Node node):
         """
+        Get the acceleration of a body due to a node (i.e. multiple bodies)
         
-        :param body_id: 
-        :param node: 
+        :param body_id: Body to calculate the acceleration of
+        :param node: Node which contains the bodies providing a force
         
         :return: 
         """
