@@ -5,13 +5,12 @@
 # cython: wraparound=False
 # cython: initializedcheck=False
 import numpy as np
-cimport numpy as np
 import random
 import math
 # import illustrisAPI.iApi as ill
 import sys
 
-cdef class Galaxy:
+class Galaxy:
 
     def TomCode(self):
         # Define parameters

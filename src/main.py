@@ -9,16 +9,12 @@ import csv
 import random
 import time
 
-cimport numpy as np
 import numpy as np
 from mpi4py import MPI
 
 from src.bhtree import BHTree
-from src.bhtree cimport BHTree
 from src.galaxy import Galaxy
-from src.galaxy cimport Galaxy
 from src.node import Node
-from src.node cimport Node
 
 # Save a set of data to the CSV file
 def saveCSV(x, y, z, file, iter_number):
@@ -28,7 +24,7 @@ def saveCSV(x, y, z, file, iter_number):
             csvwriter.writerow([iter_number, x[i], y[i], z[i]])
 
 # Entrance to main program.
-cpdef main(int iterations, str folder, float dt):
+def main(iterations, folder, dt):
     """
     Main function to call
     
@@ -37,15 +33,6 @@ cpdef main(int iterations, str folder, float dt):
     :param dt: Timestep
     :return: 
     """
-    cdef:
-        int i
-        int rank, num_bodies
-        BHTree bhtree
-        double[:, :] area
-        double[:] star_mass
-        double[:, :, :] stars
-        Node node
-
     # Initialise MPI
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()

@@ -1,26 +1,18 @@
-# cython: profile=False
-# cython: linetrace=False
-# cython: cdivision=True
-# cython: boundscheck=False
-# cython: wraparound=False
-# cython: initializedcheck=False
-
 import numpy as np
-cimport numpy as np
 
-cdef class Node:
+class Node:
 
-    def __init__(self, double[:, :] area, int depth=0):
+    def __init__(self, area, depth=0):
         self.parent = 0
         self.area = area
-        self.children = np.array([None,None,None,None,None,None,None,None], dtype=Node)
+        self.children = np.array([None,None,None,None,None,None,None,None])
         self.depth = depth
         self.mass = 0
         self.com = np.array([0,0,0], dtype=np.float64)
         self.max_depth = 25
         self.bodies = np.zeros(0, dtype=np.intc)
 
-    cdef void add_body(self, double[:, :, :] stars, double[:] star_mass, int body_id):
+    def add_body(self, stars, star_mass, body_id):
         """
         Add a body in a node or child node
         
@@ -30,12 +22,6 @@ cdef class Node:
         
         :return: 
         """
-        cdef:
-            Py_ssize_t body, node_id
-            double old_mass
-            int[:] detached_bodies, index
-            double[:, :] new_area
-            Node child_node
 
         # Change the centre of mass and the mass of the node
         # Even if a body is saved in a child node, we still alter the CoM and mass.
@@ -61,7 +47,7 @@ cdef class Node:
                 index = index[:4] if stars[body][0][0] <= np.sum(self.area[:, 0])/2 else index[4:]
                 index = index[:2] if stars[body][0][1] <= np.sum(self.area[:, 1])/2 else index[2:]
                 index = index[:1] if stars[body][0][2] <= np.sum(self.area[:, 2])/2 else index[1:]
-                node_id = <int>index[0]
+                node_id = index[0]
 
                 # Create a new node for a child if needed
                 if self.children[node_id] is None:
@@ -87,7 +73,7 @@ cdef class Node:
                     self.children[node_id] = child_node
 
                 # Add the body to the new child node
-                (<Node>self.children[node_id]).add_body(stars, star_mass, <int>body)
+                (self.children[node_id]).add_body(stars, star_mass, body)
 
             self.parent = 1
 

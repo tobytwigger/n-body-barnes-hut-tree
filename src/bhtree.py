@@ -1,33 +1,21 @@
-# cython: profile=False
-# cython: linetrace=False
-# cython: cdivision=True
-# cython: boundscheck=False
-# cython: wraparound=False
-# cython: initializedcheck=False
-
-
 from src.node import Node
-from src.node cimport Node
 
-from libc cimport math
 
 
 
 import numpy as np
-cimport numpy as np
-
+import math
 from mpi4py import MPI
 
-cimport cython
 
-cdef class BHTree:
+class BHTree:
 
-    def __init__(self, double[:, :] area):
+    def __init__(self, area):
         self.area = area
         self.theta = 0.7
         self.root_node = Node(self.area)
 
-    cdef void populate(self):
+    def populate(self):
         """
         Populates the barnes hut tree
         
@@ -35,8 +23,6 @@ cdef class BHTree:
         
         :return: 
         """
-        cdef int i, n
-
         n = len(self.stars)
         # Reset the tree
         self.reset_children()
@@ -44,7 +30,7 @@ cdef class BHTree:
         for i in range(n):
             self.root_node.add_body(self.stars, self.star_mass, i)
 
-    cdef void reset_children(self):
+    def reset_children(self):
         """
         Reset the root node
         
@@ -60,7 +46,7 @@ cdef class BHTree:
 
         self.root_node = Node(self.area)
 
-    cdef void iterate(self, float dt):
+    def iterate(self, dt):
         """
         Iterates the system forward by a time dt.
         
@@ -71,17 +57,9 @@ cdef class BHTree:
          
         :return: 
         """
-        cdef int n = len(self.stars)
+        n = len(self.stars)
         body_totals = np.zeros((n, 3, 3), dtype=np.float64)
         stars = np.zeros((n, 3, 3), dtype=np.float64)
-
-        cdef:
-            Py_ssize_t i, j, body_id
-            int[:] bodies
-            int l, m, rank, num_p, num_of_bodies
-            double[:, :, :] body_totals_view = body_totals
-            double[:, :, :] stars_view = stars
-            double[:] acceleration = np.zeros(3)
 
         comm = MPI.COMM_WORLD
         rank = comm.Get_rank()
@@ -119,24 +97,24 @@ cdef class BHTree:
             for j in range(3):
 
                 # r(1) += v(0)*dt + 1/2 * a(0) * dt
-                stars_view[body_id][0][j] = self.stars[body_id][0][j] + self.stars[body_id][1][j] * dt + 0.5 * self.stars[body_id][2][j] * dt
+                stars[body_id][0][j] = self.stars[body_id][0][j] + self.stars[body_id][1][j] * dt + 0.5 * self.stars[body_id][2][j] * dt
 
                 # v(1) += (a(0)  + 1/2 * newacc) * dt
-                stars_view[body_id][1][j] = self.stars[body_id][1][j] + (self.stars[body_id][2][j] + 1/2 * acceleration[j]) * dt
+                stars[body_id][1][j] = self.stars[body_id][1][j] + (self.stars[body_id][2][j] + 1/2 * acceleration[j]) * dt
 
                 # a(1) += a(new)
-                stars_view[body_id][2][j] += acceleration[j]
+                stars[body_id][2][j] += acceleration[j]
 
             i = i + 1
 
         comm.Allreduce(
             stars,
-            body_totals_view,
+            body_totals,
             op = MPI.SUM
         )
         self.stars = body_totals
 
-    cdef double[:] get_acceleration_of_body(self, Py_ssize_t body_id, Node node):
+    def get_acceleration_of_body(self, body_id, node):
         """
         Gets the change in acceleration of the body given due to the node given
         
@@ -145,13 +123,6 @@ cdef class BHTree:
         
         :return: array len 3, with the three components of acceleration due to node node
         """
-        cdef:
-            double[:] acceleration = np.zeros(3)
-            double[:] additional_acceleration = np.zeros(3)
-            int k
-            float s, r
-            double[:] d
-            Node child, subnode
             
         acceleration = np.zeros(3)
         d = np.zeros(3)
@@ -187,7 +158,7 @@ cdef class BHTree:
 
         return acceleration
 
-    cdef double[:] get_acceleration_due_to_body(self, Py_ssize_t body_id, Py_ssize_t gen_body_id):
+    def get_acceleration_due_to_body(self, body_id, gen_body_id):
         """
         Get the acceleration on a body due to another body
         
@@ -195,15 +166,14 @@ cdef class BHTree:
         :param gen_body_id: Body to calculate the acceleration due to
         :return: 
         """
-        cdef:
-            double[:] distance = np.zeros(3)
+        distance = np.zeros(3)
 
         for j in range(3):
             distance[j] = self.stars[body_id][0][j] - self.stars[gen_body_id][0][j]
 
         return self.calculate_acceleration(distance, self.star_mass[gen_body_id])
 
-    cdef double[:] get_acceleration_due_to_node(self, Py_ssize_t body_id, Node node):
+    def get_acceleration_due_to_node(self, body_id, node):
         """
         Get the acceleration of a body due to a node (i.e. multiple bodies)
         
@@ -212,15 +182,14 @@ cdef class BHTree:
         
         :return: 
         """
-        cdef:
-            double[:] distance = np.zeros(3)
+        distance = np.zeros(3)
 
         for j in range(3):
             distance[j] = self.stars[body_id][0][j] - node.com[j]
 
         return self.calculate_acceleration(distance, node.mass)
 
-    cdef double[:] calculate_acceleration(self, double[:] d, float m):
+    def calculate_acceleration(self, d, m):
         """
         Calculate the acceleration on a body, given the distance and mass
         of an object relative to the body
@@ -230,10 +199,7 @@ cdef class BHTree:
         
         :return: Acceleration - array of length 3 for each acceleration
         """
-        cdef:
-            double[:] acceleration = np.zeros(3)
-            double constant
-            Py_ssize_t j
+        acceleration = np.zeros(3)
 
         # Find the gravitational constant and the distances
 
