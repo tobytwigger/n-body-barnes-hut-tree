@@ -5,28 +5,20 @@
 # cython: wraparound=False
 # cython: initializedcheck=False
 
-import sys
-from src.bhtree import BHTree
-from src.bhtree cimport BHTree
-
-from src.galaxy import Galaxy
-from src.galaxy cimport Galaxy
-
-from src.node import Node
-from src.node cimport Node
-
+import csv
+import random
 import time
-import numpy as np
-cimport numpy as np
 
+cimport numpy as np
+import numpy as np
 from mpi4py import MPI
 
-import matplotlib.pyplot as plt
-
-import math
-
-import csv
-
+from src.bhtree import BHTree
+from src.bhtree cimport BHTree
+from src.galaxy import Galaxy
+from src.galaxy cimport Galaxy
+from src.node import Node
+from src.node cimport Node
 
 # Save a set of data to the CSV file
 def saveCSV(x, y, z, file, iter_number):
@@ -85,14 +77,15 @@ cpdef main(int iterations, str folder, float dt):
 
 
     # Save the iteration times and the start time
-    iteration_times = np.zeros((iterations, 3))
+    iteration_times = np.zeros((iterations, 2))
     # Iterate through each iteration requested
     for i in range(iterations):
 
         # Populate the Barnes Hut Tree
+        populate_time = time.time()
         if i % 2 == 0:
             bhtree.populate()
-        # iteration_times[i][0] = time.time() - populate_time
+        iteration_times[i][0] = time.time() - populate_time
 
         # Save the data in the CSV
         if rank == 0:
@@ -106,9 +99,11 @@ cpdef main(int iterations, str folder, float dt):
         # print('Total energy: {}'.format(E))
 
         # Iterate the system in time
-        # iteration_time = time.time()
+        iteration_time = time.time()
         bhtree.iterate(dt)
-        # iteration_times[i][2] = time.time() - iteration_time
+        iteration_times[i][1] = time.time() - iteration_time
         # if rank == 0:
         #     print('Iteration {} of {} complete'.format(i, iterations))
     # print('Rank {}: populating took {:.8f}s and iterating {:.8f}s'.format( rank, np.average(iteration_times[:, 0]), np.average(iteration_times[:, 2])))
+
+    np.save('timing_'+str(random.random())+'.npy', iteration_times)

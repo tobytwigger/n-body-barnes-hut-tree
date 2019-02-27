@@ -13,7 +13,3 @@ cdef class Galaxy:
     cdef double[:, :, :] stars
     cdef double[:] star_mass
     cdef double[:, :] area
-
-    cdef void spiral(self)
-
-    cdef void four_bodies(self)

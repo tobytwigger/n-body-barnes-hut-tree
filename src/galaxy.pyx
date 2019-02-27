@@ -15,7 +15,7 @@ cdef class Galaxy:
 
     def TomCode(self):
         # Define parameters
-        n = 10000
+        n = 100
         area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
 

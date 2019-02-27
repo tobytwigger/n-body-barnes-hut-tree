@@ -9,7 +9,7 @@ rank = comm.Get_rank()
 num_p = comm.Get_size()
 
 # Set runtime variables
-iterations = 20000
+iterations = 20
 dt = 60.
 # dt = 10.**3.3 # Use with four_bodies
 # Create a csv file to save data into
@@ -37,3 +37,4 @@ universe.main(iterations, csvfile, dt)
 
 if rank == 0:
     print('Total runtime: {}s'.format(time.time() - starttime))
+
