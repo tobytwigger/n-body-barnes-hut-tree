@@ -33,11 +33,6 @@ def main(iterations, folder, dt):
     :param dt: Timestep
     :return: 
     """
-    # Initialise MPI
-    comm = MPI.COMM_WORLD
-    rank = comm.Get_rank()
-    num_p = comm.Get_size()
-
 
     # Create a galaxy.
     galaxy = Galaxy()
@@ -56,8 +51,6 @@ def main(iterations, folder, dt):
     bhtree = BHTree(area)
 
     # Share the galaxy data between nodes
-    comm.Bcast(stars, root=0)
-    comm.Bcast(star_mass, root=0)
     bhtree.stars = stars
     bhtree.star_mass = star_mass
     bhtree.sf = np.max(bhtree.area[1]) * 0.58 * len(bhtree.stars) ** (-0.26)
@@ -75,9 +68,7 @@ def main(iterations, folder, dt):
         iteration_times[i][0] = time.time() - populate_time
 
         # Save the data in the CSV
-        if rank == 0:
-            saveCSV(bhtree.stars[:, 0, 0], bhtree.stars[:, 0, 1], bhtree.stars[:, 0, 2], folder, i)
-        comm.Barrier()
+        saveCSV(bhtree.stars[:, 0, 0], bhtree.stars[:, 0, 1], bhtree.stars[:, 0, 2], folder, i)
 
         # Calculate the energy
         # E = 0
