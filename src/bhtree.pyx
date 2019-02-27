@@ -83,27 +83,8 @@ cdef class BHTree:
             double[:, :, :] stars_view = stars
             double[:] acceleration = np.zeros(3)
 
-        comm = MPI.COMM_WORLD
-        rank = comm.Get_rank()
-        num_p = comm.Get_size()
-
-        # Split up the stars between the processes.
-        l = (n / num_p)
-        m = n % num_p
-        if n < num_p:
-            if rank == 0:
-                num_of_bodies = n
-                bodies = np.arange(n, dtype=np.intc)
-            else:
-                num_of_bodies = 0
-        else:
-            if m > rank:
-                num_of_bodies = l+1
-                bodies = np.arange(rank*l, ((rank+1)*l)+1, dtype=np.intc)
-                bodies[num_of_bodies-1] = n-rank-1
-            else:
-                num_of_bodies = l
-                bodies = np.arange(rank*l, (rank+1)*l, dtype=np.intc)
+        num_of_bodies = n
+        bodies = np.arange(n, dtype=np.intc)
 
         # Each rank iterates through their own bodies, saving the data to 'stars'
         i = 0
@@ -129,12 +110,8 @@ cdef class BHTree:
 
             i = i + 1
 
-        comm.Allreduce(
-            stars,
-            body_totals_view,
-            op = MPI.SUM
-        )
-        self.stars = body_totals
+
+        self.stars = stars_view
 
     cdef double[:] get_acceleration_of_body(self, Py_ssize_t body_id, Node node):
         """
