@@ -1,21 +1,12 @@
 venv/
 
-__pycache__
-images/
 images/*.csv
+images/*/
 
 build/
 
-profiling/*
-
 src/*.c
 src/*.so
-src/*.html
 
 analysis/*.c
 analysis/*.so
-analysis/*.html
-
-.idea/
-
-./*.npy

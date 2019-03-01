@@ -1,0 +1,6 @@
+Cython==0.29.2
+matplotlib==3.0.2
+mpi4py==3.0.0
+numpy==1.15.4
+setuptools==39.0.1
+imageio==2.5.0

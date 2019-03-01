@@ -88,15 +88,6 @@ cdef saveScatterPlot(fig, x, y, z, directory, iter_number, rotation=0, limits=0)
     ax.tick_params(axis='y', colors='white')
     ax.tick_params(axis='z', colors='white')
 
-    # tolerance = int(floor(len(x) * 0.04))
-    # if tolerance is not 0:
-    #     ax.set_xlim([np.partition(x, tolerance)[tolerance] - 1, np.partition(x, -tolerance)[-tolerance] + 1])
-    #     ax.set_ylim([np.partition(y, tolerance)[tolerance] - 1, np.partition(y, -tolerance)[-tolerance] + 1])
-    #     ax.set_zlim([np.partition(z, tolerance)[tolerance] - 1, np.partition(z, -tolerance)[-tolerance] + 1])
-    # else:s
-    #     ax.set_xlim([min(x) - 1, max(x) + 1])
-    #     ax.set_ylim([min(y) - 1, max(y) + 1])
-    #     ax.set_zlim([min(z) - 1, max(z) + 1])
     ax.set_xlim(limits[0])
     ax.set_ylim(limits[1])
     ax.set_zlim(limits[2])

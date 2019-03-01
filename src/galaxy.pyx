@@ -13,96 +13,133 @@ import sys
 
 cdef class Galaxy:
 
-    def TomCode(self):
-        # Define parameters
-        n = 100
+    def SpiralGalaxy(self, n):
+        '''
+
+        Generate a spiral galaxy with position, mass and velocity
+
+        :param n:
+        :return:
+        '''
+        # Define galaxy area
         area_side = 1
         area = np.array( [ [0, 0, 0], [area_side, area_side, area_side] ] , dtype=np.float64)
 
-        # Generate Galaxy
-        masses, velocities, points = self._DefInitial(n, area_side)
+        # Generate data about the galaxy
+        masses, velocities, positions = self.getInitialConfiguration(n, area_side)
 
-        self.star_mass = masses
+        # Create a stars array
         stars = np.zeros((n, 3, 3))
-        stars[:, 0, :] = points
+        stars[:, 0, :] = positions
         stars[:, 1, :] = velocities
-        # print(stars)
+
+        # Set the variables to be retrieved
+        self.star_mass = masses
         self.area = area
         self.stars = stars
 
-        # print(np.asarray(self.stars))
-        # print(np.asarray(self.star_mass))
-
-
-    def _DefInitial(self, n, size):
+    def getInitialConfiguration(self, n, area_side):
         '''
-        Generates a spiral galaxy
+
+        Generate the masses, velocities and positions of a spiral galaxy
+
+        :param n:
+        :param area_side:
+        :return:
         '''
-        # Generate holders
-        masses = abs(np.random.normal(1, 0.5, n))
-        velocities = np.zeros((n, 3))
-        points = np.zeros((n, 3))
+
+        # Generate Masses
+        masses = abs(np.random.normal(1, 0.5, n)) # Gaussian for masses
 
         # Generate Positions
-        points = self._DefPoints(size, points)
+        position = self.getInitialPosition(n, area_side)
 
-        internal_COMs = np.zeros((n, 3))
-        internal_masses = np.zeros(n)
-        distances = np.linalg.norm(points[:, 0:2], axis = 1)
+        # Build up some information about the galaxy so we can use density curves etc
 
+        # Contains the centre of mass enclosed in a circle with a radius from the star to the centre of the galaxy
+        enclosed_COMs = np.zeros((n, 3))
+
+        # Contains the sum of masses enclosed in a circle with a radius from the star to the centre of the galaxy
+        enclosed_masses = np.zeros(n)
+
+        # Radius length for each star
+        distances = np.linalg.norm(position[:, 0:2], axis = 1)
+
+        # Populate
         for i in range(n):
-            COM_points = points[distances < distances[i]]
+            # Get the total CoM and Mass within star i
+            COM_position = position[distances < distances[i]]
             COM_masses = masses[distances < distances[i]]
 
-            internal_masses[i] = np.sum(COM_masses)
-            if internal_masses[i] != 0:
-                internal_COMs[i] = np.tensordot(COM_points, COM_masses, axes = (0, 0)) / internal_masses[i]
+            # Save the masses and COMs
+            enclosed_masses[i] = np.sum(COM_masses)
+            if enclosed_masses[i] != 0:
+                enclosed_COMs[i] = np.tensordot(COM_position, COM_masses, axes = (0, 0)) / enclosed_masses[i]
             else:
-                internal_COMs[i] = [0.0, 0.0, 0.0]
+                enclosed_COMs[i] = [0.0, 0.0, 0.0]
 
-        relative_points = points - internal_COMs
+        # Position relative to each stars CoM, used for velocity calculation
+        position_from_com = position - enclosed_COMs
 
         # Generate Velocities
-        velocities = self._DefVelocities(size, relative_points, internal_masses, velocities)
-        return masses, velocities, points
+        velocities = self.getInitialVelocity(area_side, position_from_com, enclosed_masses, n)
+        return masses, velocities, position
 
-    def _DefPoints(self, size, points):
+    def getInitialPosition(self, n, area_side):
         '''
-        Initialises galaxy points
+        Create a random distribution of positional vectors
+
+        :param n:
+        :param area_side:
+        :return:
         '''
-        n = len(points)
-        galaxy_spread = size / 5
+        galaxy_sd = area_side / 5 # How large is the central bit of the galaxy
 
-        points_r = np.random.exponential(size, n)
-        points_p = np.random.rand(n) * 2 * np.pi
+        # Generate in polar coordinates
+        position_radial = np.random.exponential(area_side, n)
+        position_angular = np.random.rand(n) * 2 * np.pi
 
-        points_x = points_r * np.cos(points_p)
-        points_y = points_r * np.sin(points_p)
+        # Convert to cartesian
+        position_x = position_radial * np.cos(position_angular)
+        position_y = position_radial * np.sin(position_angular)
 
-        points[:, 0] = np.random.normal(0, galaxy_spread, n) + points_x
-        points[:, 1] = np.random.normal(0, galaxy_spread, n) + points_y
-        points[:, 2] = np.random.normal(0, galaxy_spread, n)
+        position = np.zeros((n, 3))
+        position[:, 0] = np.random.normal(0, galaxy_sd, n) + position_x
+        position[:, 1] = np.random.normal(0, galaxy_sd, n) + position_y
+        position[:, 2] = np.random.normal(0, galaxy_sd, n)
 
-        return points
+        return position
 
-    def _DefVelocities(self, size, relative_points, internal_masses, velocities):
+    def getInitialVelocity(self, area_side, position_from_com, enclosed_masses, n):
         '''
-        Initialises point velocities
+        Create a random distribution of velocities
+
+        :param area_side:
+        :param position_from_com:
+        :param enclosed_masses:
+        :param n:
+        :return:
         '''
 
-        relative_distances = np.linalg.norm(relative_points, axis = 1)
-        speeds = np.sqrt((internal_masses * 10.0**-11) / (relative_distances))
+        # Relative distances of each body
+        relative_distances = np.linalg.norm(position_from_com, axis = 1)
 
-        radial_vectors = relative_points[:, 0:2]
-        vertical_vectors = np.random.normal(0, speeds / 10, len(velocities))
+        # Magnitude of the velocity at which the body should be travelling
+        magnitude = np.sqrt((enclosed_masses * 10.0**-11) / relative_distances)
 
-        vectors = np.zeros((len(velocities), 3))
+        # Calculate the angle of velocity
+        radial_vectors = position_from_com[:, 0:2]
+        vertical_vectors = np.random.normal(0, magnitude / 10, n)
+
+        vectors = np.zeros((n, 3))
         vectors[:, 0] = - radial_vectors[:, 1]
         vectors[:, 1] = radial_vectors[:, 0]
         vectors[:, 2] = vertical_vectors
 
         normalisation = np.linalg.norm(vectors, axis = 1)
-        velocities[:, 0] = speeds * (vectors[:, 0] / normalisation)
-        velocities[:, 1] = speeds * (vectors[:, 1] / normalisation)
-        velocities[:, 2] = speeds * (vectors[:, 2] / normalisation)
+        velocities = np.zeros((n, 3))
+        velocities[:, 0] = magnitude * (vectors[:, 0] / normalisation)
+        velocities[:, 1] = magnitude * (vectors[:, 1] / normalisation)
+        velocities[:, 2] = magnitude * (vectors[:, 2] / normalisation)
+
         return velocities

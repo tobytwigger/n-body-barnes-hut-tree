@@ -23,12 +23,3 @@ if sys.argv[2] == 'all':
 
 elif sys.argv[2] == 'single':
     plot.gen_single_axes(file, int(sys.argv[3]))
-
-elif sys.argv[2] == 'gif':
-    if rank == 0:
-        if not os.path.exists(directory):
-            os.mkdir(directory+'./gif')
-    plot.create_gif(file, directory, 0)
-
-elif sys.argv[2] == 'animate':
-    plot.animate(file)

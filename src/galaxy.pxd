@@ -5,8 +5,8 @@
 # cython: wraparound=False
 # cython: initializedcheck=False
 
-import numpy as np
 cimport numpy as np
+import numpy as np
 
 cdef class Galaxy:
 
