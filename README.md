@@ -2,6 +2,8 @@
 
 Toby Twigger ([tt15951@bristol.ac.uk](mailto:tt15951@bristol.ac.uk)) 
 
+An n body galaxy simulation written with Cython
+
 ## Installation
 
 Compatible with Python 3
